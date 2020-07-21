@@ -1,0 +1,32 @@
+################################################################
+## 自动发现configServer, 该配置项须放在 application.yml
+#spring.cloud.config.discovery.enabled: true
+## 服务名称与端口
+#spring.application.name: aps
+#server.port: 0
+################################################################
+##                 自定义配置项
+################################################################
+#zookeeper.connectString: ${${spring.profiles.active:default}-zookeeperServer}:2181
+#dubbo.port: 28015
+#custom.value: default
+#
+#spring.redis:
+#    host: ${${spring.profiles.active:default}-redisServer}
+#    port: 6379
+#    password: vortex2016
+#
+#spring.jpa:
+#    show-sql: true
+#    database: MYSQL
+#    properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+#    hibernate:
+#      ddl-auto: update
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+#
+#spring.datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://${${spring.profiles.active:default}-mysqlServer}/${spring.application.name}?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
+#    username: vortex
+#    password: vortex2016
+#

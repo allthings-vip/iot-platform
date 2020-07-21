@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: dustbin-das
+
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS

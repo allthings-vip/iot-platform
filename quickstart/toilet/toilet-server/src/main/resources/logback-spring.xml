@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <jmxConfigurator/>
+
+    <property name="appName" value="toilet-server"/>
+
+    <!--log4jdbc -->
+    <logger name="jdbc.sqlonly" level="WARN"/>
+    <logger name="jdbc.sqltiming" level="INFO"/>
+    <logger name="jdbc.audit" level="WARN"/>
+    <logger name="jdbc.resultset" level="WARN"/>
+    <logger name="jdbc.resultsettable" level="WARN"/>
+    <logger name="jdbc.connection" level="WARN"/>
+    <logger name="org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter" level="DEBUG"/>
+
+    <!-- 开发环境. 多个使用逗号隔开. -->
+    <springProfile name="local">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="org.springframework.web" level="INFO"/>
+        <logger name="me.cloud.iot" level="INFO"/>
+        <logger name="me.iot" level="INFO"/>
+    </springProfile>
+
+    <!--测试环境-->
+    <springProfile name="test,advance">
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+        </root>
+        <logger name="org.springframework.web" level="INFO"/>
+        <logger name="me.cloud.iot" level="INFO"/>
+        <logger name="me.iot" level="INFO"/>
+    </springProfile>
+
+    <!-- 生产环境. -->
+    <springProfile name="product">
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+        </root>
+        <logger name="org.springframework.web" level="ERROR"/>
+        <logger name="me.cloud.iot" level="ERROR"/>
+        <logger name="me.iot" level="ERROR"/>
+    </springProfile>
+
+</configuration>

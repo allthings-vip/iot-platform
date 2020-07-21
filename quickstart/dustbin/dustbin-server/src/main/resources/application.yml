@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: local
+
+zookeeper.connectString: mt-zookeeper-vip:2181
+iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
+
+das:
+  port: 20001
+
+
+###############################################################
+#                    LOGGING
+###############################################################
+logging:
+  file: /httx/logs/out.log

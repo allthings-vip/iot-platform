@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: local
+
+zookeeper.connectString: mt-zookeeper-vip:2181
+iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
+
+das:
+  port: 1883
+  idleTime: 30
+  params:
+    mqttUser: tf56
+    mqttPassword: tf56@2017

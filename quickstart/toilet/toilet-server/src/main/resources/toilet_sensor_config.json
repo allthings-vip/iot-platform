@@ -1,0 +1,100 @@
+{
+  "sensorInfos": [
+    {
+      "id": "VS001",
+      "factors": [
+        {
+          "id": "CQ",
+          "name": "臭气",
+          "len": "2",
+          "type": "short",
+          "desc": "ADC值"
+        }
+      ]
+    },
+    {
+      "id": "VS002",
+      "factors": [
+        {
+          "id": "CQ",
+          "name": "臭气",
+          "len": "2",
+          "type": "short",
+          "desc": "ADC值"
+        },
+        {
+          "id": "WD",
+          "name": "温度",
+          "len": "2",
+          "type": "short",
+          "k": 0.1,
+          "desc": "0.1摄氏度"
+        },
+        {
+          "id": "SD",
+          "name": "湿度",
+          "len": "2",
+          "type": "short",
+          "k": 0.1,
+          "desc": "0.1%"
+        }
+      ]
+    },
+    {
+      "id": "VS003",
+      "factors": [
+        {
+          "id": "DL",
+          "name": "用电量",
+          "len": "4",
+          "type": "int",
+          "k": 0.01
+        },
+        {
+          "id": "GDL",
+          "name": "谷电量",
+          "len": "4",
+          "type": "int",
+          "k": 0.01
+        }
+      ]
+    },
+    {
+      "id": "VS004",
+      "factors": [
+        {
+          "id": "SL",
+          "name": "用水量",
+          "len": "4",
+          "type": "int",
+          "k": 0.1,
+          "desc": "0.1吨"
+        }
+      ]
+    },
+    {
+      "id": "VS005",
+      "factors": [
+        {
+          "id": "FJ",
+          "name": "风机状态",
+          "len": "1",
+          "type": "bool",
+          "desc": "0~关 1~开"
+        }
+      ]
+    },
+    {
+      "id": "VS006",
+      "factors": [
+        {
+          "id": "CC",
+          "name": "除臭状态",
+          "len": "1",
+          "type": "bool",
+          "desc": "0~关 1~开"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+spring.profiles.active: local
+
+das:
+  port: 25210
+  idleTime: 500
+
+zookeeper.connectString: mt-zookeeper-vip:2181
+iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
+
+authentication.enable: false
+
+logging:
+  file: /httx/logs/out.log

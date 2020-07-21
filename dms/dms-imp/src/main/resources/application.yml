@@ -1,0 +1,33 @@
+spring.profiles.active: local
+###############################################################
+#                    公共配置
+###############################################################
+# 服务名称与端口
+spring.application.name: dms
+dubbo.port: 28012
+
+server:
+  port: 8089
+  compression:
+    enabled: true
+    mime-types: application/json
+  context-path: /deviceManagerService
+
+spring.jpa:
+    show-sql: true
+    database: MYSQL
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+
+zookeeper.connectString: mt-zookeeper-vip:2181
+iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
+
+###############################################################
+#                    LOGGING
+###############################################################
+logging:
+  file: /httx/logs/out.log

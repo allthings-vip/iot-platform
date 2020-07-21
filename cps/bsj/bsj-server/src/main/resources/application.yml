@@ -1,0 +1,12 @@
+spring.profiles.active: local
+spring.application.name: bsj-das
+
+das:
+  port: 25208
+  idleTime: 500
+
+zookeeper.connectString: mt-zookeeper-vip:2181
+iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
+
+logging:
+  file: /httx/logs/out.log

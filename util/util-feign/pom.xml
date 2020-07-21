@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>allthings.iot</groupId>
+    <artifactId>util-feign</artifactId>
+
+    <parent>
+        <groupId>allthings.iot</groupId>
+        <artifactId>util</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+
+    <!--dependencies {-->
+    <!--//    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")-->
+    <!--//    compile("org.springframework.cloud:spring-cloud-starter-feign:+")-->
+
+    <!--//替换原生feign ribbon 中的 原生 httpclient-->
+    <!--compile("io.jmnarloch:feign-okhttp-spring-cloud-starter:1.0.0")-->
+    <!--compile("com.netflix.feign:feign-core:8.18.0")-->
+    <!--compile("com.netflix.feign:feign-okhttp:8.18.0")-->
+
+    <!--//feign.builder 的 encoder decoder替换-->
+    <!--compile("com.netflix.feign:feign-gson:8.18.0")-->
+    <!--compile("com.netflix.feign:feign-jackson:8.18.0")-->
+    <!--}-->
+
+    <!--configurations {-->
+    <!--all*.exclude group: "org.springframework"-->
+    <!--all*.exclude group: "org.springframework.boot"-->
+    <!--all*.exclude group: "org.springframework.cloud"-->
+    <!--}-->
+    <!--<dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+            <version>2.0.0.M2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jmnarloch</groupId>
+            <artifactId>feign-okhttp-spring-cloud-starter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-core</artifactId>
+            <version>8.18.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+            <version>8.18.0</version>
+        </dependency>
+    </dependencies>-->
+</project>

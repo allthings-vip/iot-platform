@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>bsj</artifactId>
+        <groupId>allthings.iot</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>bsj-protocol</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>allthings.iot</groupId>
+            <artifactId>das-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>allthings.iot</groupId>
+            <artifactId>das-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>allthings.iot</groupId>
+            <artifactId>util-gps</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>allthings.iot</groupId>
+            <artifactId>bsj-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>allthings.iot</groupId>
+            <artifactId>gps-const</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>allthings.iot</groupId>
+            <artifactId>util-misc</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

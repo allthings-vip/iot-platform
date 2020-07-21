@@ -1,0 +1,12 @@
+spring.profiles.active: local
+
+zookeeper.connectString: mt-zookeeper-vip:2181
+iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
+
+logging:
+  file: /httx/logs/out.log
+
+dubbo.port: 28013
+
+server:
+  port: 8081

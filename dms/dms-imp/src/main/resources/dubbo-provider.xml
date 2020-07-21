@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 公共信息 也可以用dubbo.properties配置 -->
+
+    <!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
+    <dubbo:annotation/>
+    <!--服务提供者名称-->
+    <dubbo:application name="dms-service-provider"/>
+    <!--注册中心配置,常用zookeeper充当注册中心服务器-->
+    <dubbo:registry protocol="zookeeper" address="${zookeeper.connectString}"/>
+    <!--<dubbo:monitor protocol="registry"/>-->
+
+    <!--协议定义============================================================================================-->
+
+    <!--原生dubbo协议-->
+    <!--IPC协议,默认dubbo,可省略.可指定 port payload serialization-->
+    <dubbo:protocol name="dubbo" port="${dubbo.port}" payload="16777216"/>
+
+    <!--分割线~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+    <!--若已经在代码中定义bean ,可在此处声明要暴露的服务,并指向约定的bean名称-->
+    <!--<dubbo:aps2 interface="IDeviceMessageService" ref="dms"/>-->
+
+    <!--若不在此处声明要暴露的服务,可使用代码注解的方式@Service(versionCode="1.0.0")-->
+    <!--含有回调的服务类无效,必须使用配置的方式暴露服务-->
+    <dubbo:service interface="allthings.iot.dms.IDeviceManageService" ref="dms" protocol="dubbo" timeout="10000">
+        <!--<dubbo:method name="subscribeMsgByDeviceTypes">-->
+        <!--<dubbo:argument type="Callback" callback="true"/>-->
+        <!--</dubbo:method>-->
+        <!--<dubbo:method name="subscribeMsgByDeviceIds">-->
+        <!--<dubbo:argument type="Callback" callback="true"/>-->
+        <!--</dubbo:method>-->
+        <!--<dubbo:method name="unsubscribeMsg">-->
+        <!--<dubbo:argument type="Callback" callback="true"/>-->
+        <!--</dubbo:method>-->
+    </dubbo:service>
+    <!--<bean id="helloService" class="demo.cloud.provider.HelloService"/>-->
+</beans>

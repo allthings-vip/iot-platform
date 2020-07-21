@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: local
+
+server:
+  port: 8080
+  context-path: /palletData
+
+spring.jpa:
+    show-sql: true
+    database: MYSQL
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+zookeeper.connectString: mt-zookeeper-vip:2181
+iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
+
+###############################################################
+#                    LOGGING
+###############################################################
+logging:
+  file: /httx/logs/out.log
