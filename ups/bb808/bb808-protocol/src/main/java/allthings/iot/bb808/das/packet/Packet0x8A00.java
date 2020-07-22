@@ -17,7 +17,7 @@ import java.math.BigInteger;
  * @ModifiedBy :
  * @ModifiedDate :
  * @Comments :
- * @CopyRight : COPYRIGHT(c) iot.tf56.com All Rights Reserved
+ * @CopyRight : COPYRIGHT(c) allthings-vip All Rights Reserved
  * *******************************************************************************************
  */
 public class Packet0x8A00 extends AbstractPacket {

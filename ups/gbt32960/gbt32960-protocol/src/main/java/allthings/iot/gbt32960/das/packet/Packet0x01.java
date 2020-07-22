@@ -20,7 +20,7 @@ import allthings.iot.util.misc.ByteUtils;
  * @ModifiedBy :
  * @ModifiedDate :
  * @Comments :
- * @CopyRight : COPYRIGHT(c) iot.tf56.com All Rights Reserved
+ * @CopyRight : COPYRIGHT(c) allthings-vip All Rights Reserved
  * *******************************************************************************************
  */
 public class Packet0x01 extends AbstractPacket {

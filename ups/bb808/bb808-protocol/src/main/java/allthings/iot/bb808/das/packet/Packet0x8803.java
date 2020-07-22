@@ -16,7 +16,7 @@ import allthings.iot.das.util.DateUtil;
  * @ModifiedBy :
  * @ModifiedDate :
  * @Comments :
- * @CopyRight : COPYRIGHT(c) iot.tf56.com All Rights Reserved
+ * @CopyRight : COPYRIGHT(c) allthings-vip All Rights Reserved
  * *******************************************************************************************
  */
 public class Packet0x8803 extends AbstractPacket {

@@ -19,7 +19,7 @@ import java.util.List;
  * @ModifiedBy :
  * @ModifiedDate :
  * @Comments :
- * @CopyRight : COPYRIGHT(c) iot.tf56.com All Rights Reserved
+ * @CopyRight : COPYRIGHT(c) allthings-vip All Rights Reserved
  * *******************************************************************************************
  */
 public class KafkaConsumer extends AbstractConsumer {

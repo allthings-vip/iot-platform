@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author :  sylar
- * @FileName :  MqttConst
+ * @FileName :  QueryResult
  * @CreateDate :  2017/11/08
  * @Description :
  * @ReviewedBy :
@@ -16,7 +16,7 @@ import java.util.List;
  * @ModifiedBy :
  * @ModifiedDate :
  * @Comments :
- * @CopyRight : COPYRIGHT(c) iot.tf56.com All Rights Reserved
+ * @CopyRight : COPYRIGHT(c) allthings-vip All Rights Reserved
  * *******************************************************************************************
  */
 public class QueryResult<T> implements Serializable {

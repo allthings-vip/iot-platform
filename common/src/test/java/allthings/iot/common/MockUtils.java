@@ -1,4 +1,4 @@
-//package iot.tf56.common;
+//package allthings-vipmon;
 //
 //import org.springframework.http.MediaType;
 //import org.springframework.test.web.servlet.MockMvc;

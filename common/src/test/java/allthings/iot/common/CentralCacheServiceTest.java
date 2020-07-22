@@ -1,9 +1,9 @@
 /*
-package iot.tf56.common;
+package allthings-vipmon;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
-import iot.tf56.common.service.impl.CentralCacheService;
+import allthings-vipmon.service.impl.CentralCacheService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
