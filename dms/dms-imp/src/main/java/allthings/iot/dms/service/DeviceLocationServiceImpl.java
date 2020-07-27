@@ -1,13 +1,13 @@
 package allthings.iot.dms.service;
 
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
 import allthings.iot.dms.IDeviceLocationService;
 import allthings.iot.dms.dao.DeviceLocationDao;
 import allthings.iot.dms.dto.DeviceLocationDto;
 import allthings.iot.dms.entity.IotDeviceLocation;
 import allthings.iot.util.gps.enums.CoorType;
 import allthings.iot.util.gps.util.GpsUtil;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

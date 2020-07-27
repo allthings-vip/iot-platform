@@ -1,12 +1,12 @@
 package allthings.iot.dms.service;
 
-import com.google.common.collect.Lists;
 import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.pojo.DeviceGuid;
 import allthings.iot.dms.IDeviceTokenService;
 import allthings.iot.dms.dao.DeviceTokenDao;
 import allthings.iot.dms.dto.DeviceTokenDto;
 import allthings.iot.dms.entity.IotDeviceToken;
+import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

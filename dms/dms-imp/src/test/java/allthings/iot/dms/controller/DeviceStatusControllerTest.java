@@ -49,7 +49,7 @@ public class DeviceStatusControllerTest {
 
     @Test
     public void getDeviceStatusBatch() throws Exception {
-        String url = "/dms/getDeviceStatusBatch";
+        String url = "/allthings/iot/dms/getDeviceStatusBatch";
         mockMvc.perform(get(url).param("deviceIds", "123").param("deviceIds", "5555")
                 .characterEncoding("UTF-8")
                 .accept(MediaType.APPLICATION_JSON))

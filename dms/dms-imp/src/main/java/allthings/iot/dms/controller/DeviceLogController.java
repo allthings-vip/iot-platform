@@ -1,6 +1,8 @@
 package allthings.iot.dms.controller;
 
+import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.dto.Result;
+import allthings.iot.dms.dto.DeviceLogDto;
 import allthings.iot.dms.service.DeviceLogServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,15 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
  * *******************************************************************************************
  */
 @RestController
-@RequestMapping("/dms")
+@RequestMapping("/deviceManagerService/dms")
 public class DeviceLogController {
     @Autowired
     DeviceLogServiceImpl deviceLogServiceImpl;
 
     @RequestMapping(value = "/getDeviceLogsByTime", method = RequestMethod.GET)
-    public Result<?> getDeviceLogsByTime(@RequestParam(required = false) String deviceId, @RequestParam(required =
+    public Result<QueryResult<DeviceLogDto>> getDeviceLogsByTime(@RequestParam(required = false) String deviceId, @RequestParam(required =
             false) String deviceType, @RequestParam(required = false) String logType, long beginTime, long endTime,
-                                         int pageIndex, int pageSize) {
+                                                                 int pageIndex, int pageSize) {
         return Result.newSuccess(deviceLogServiceImpl.getDeviceLogsByTime(deviceId, deviceType, logType, beginTime,
                 endTime, pageIndex, pageSize));
     }

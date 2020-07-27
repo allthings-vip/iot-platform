@@ -1,7 +1,5 @@
 package allthings.iot.dms.service;
 
-import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.msg.DeviceInfoMsg;
 import allthings.iot.dms.IDeviceInfoService;
@@ -11,6 +9,8 @@ import allthings.iot.dms.entity.IotDeviceInfo;
 import allthings.iot.dms.entity.IotDeviceOwner;
 import allthings.iot.dms.entity.IotDeviceStatus;
 import allthings.iot.util.misc.StringUtils;
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -106,7 +106,11 @@ public class DeviceInfoServiceImpl implements IDmsMsgProcessor<DeviceInfoMsg>, I
     @Override
     public DeviceInfoDto getDeviceInfoById(long id) {
         DeviceInfoDto deviceInfoDto = new DeviceInfoDto();
-        BeanUtils.copyProperties(dao.findById(id).get(), deviceInfoDto);
+        IotDeviceInfo deviceInfo = dao.findById(id).orElse(null);
+        if (deviceInfo == null) {
+            return null;
+        }
+        BeanUtils.copyProperties(deviceInfo, deviceInfoDto);
         return deviceInfoDto;
     }
 

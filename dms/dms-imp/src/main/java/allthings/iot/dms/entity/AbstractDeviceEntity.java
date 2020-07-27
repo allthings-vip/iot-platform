@@ -6,7 +6,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;

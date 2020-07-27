@@ -1,12 +1,12 @@
 package allthings.iot.dms.service;
 
-import com.google.common.collect.Lists;
 import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.msg.DeviceConnectionMsg;
 import allthings.iot.dms.IDeviceConnectionLogService;
 import allthings.iot.dms.dao.DeviceConnectionLogDao;
 import allthings.iot.dms.dto.DeviceConnectionLogDto;
 import allthings.iot.dms.entity.IotDeviceConnectionLog;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,8 +51,8 @@ public class DeviceConnectionLogServiceImpl implements IDmsMsgProcessor<DeviceCo
         log.setTerminalIp(msg.getTerminalIp());
         log.setConnected(msg.isConnected());
 
-        dao.saveAndFlush(log);
         deviceStatusServiceImpl.processMsg(msg);
+        dao.saveAndFlush(log);
     }
 
     @Override

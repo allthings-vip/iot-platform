@@ -1,11 +1,11 @@
 package allthings.iot.dms.controller;
 
-import com.google.common.collect.Lists;
 import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.dto.Result;
 import allthings.iot.dms.dto.DeviceInfoDto;
 import allthings.iot.dms.service.DeviceInfoServiceImpl;
 import allthings.iot.dms.service.DeviceOwnerServiceImpl;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.Map;
  * *******************************************************************************************
  */
 @RestController
-@RequestMapping("/dms")
+@RequestMapping("/deviceManagerService/dms")
 public class DeviceOwnerController {
     private Logger logger = LoggerFactory.getLogger(DeviceOwnerController.class);
 
@@ -87,7 +87,7 @@ public class DeviceOwnerController {
     }
 
     @RequestMapping(value = "/getDeviceInfoByOwnerId", method = RequestMethod.GET)
-    public Result<?> getDeviceInfoByOwnerId(@RequestParam("ownerId") String ownerId, @RequestParam("pageIndex") int
+    public Result<QueryResult<DeviceInfoDto>> getDeviceInfoByOwnerId(@RequestParam("ownerId") String ownerId, @RequestParam("pageIndex") int
             pageIndex, @RequestParam("pageSize") int pageSize) {
 
         QueryResult<DeviceInfoDto> deviceInfoQueryResult = null;
@@ -103,7 +103,7 @@ public class DeviceOwnerController {
     }
 
     @RequestMapping(value = "/findDeviceByParams", method = RequestMethod.GET)
-    public Result<?> findDeviceByParams(
+    public Result<QueryResult<DeviceInfoDto>> findDeviceByParams(
             @RequestParam(value = "ownerIds", required = false) String[] ownerIds,
             @RequestParam(value = "deviceType", required = false) String deviceType,
             @RequestParam(value = "connected", required = false) boolean connected,
@@ -122,10 +122,10 @@ public class DeviceOwnerController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Result<?> deviceUpdate(List list) {
+    public Result<String> deviceUpdate(String[] list) {
 
         try {
-            return Result.newSuccess(deviceOwnerService.deviceUpdate(list));
+            return Result.newSuccess(deviceOwnerService.deviceUpdate(Lists.newArrayList(list)));
         } catch (Exception e) {
             String errMsg = e.toString();
             logger.error(errMsg);

@@ -42,7 +42,7 @@ public class DasConnectionLogControllerTest {
 
     @Test
     public void getDasConnectionLogsByNodeId() throws Exception {
-        String url = "/dms/getDasConnectionLogsByNodeId";
+        String url = "/allthings/iot/dms/getDasConnectionLogsByNodeId";
         mockMvc.perform(get(url).param("nodeId", "TRCAN_1")
                 .param("beginTime", "1486784660176")
                 .param("endTime", "1486800338208")

@@ -1,9 +1,10 @@
 package allthings.iot.dms.controller;
 
-import com.google.common.base.Strings;
 import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.dto.Result;
+import allthings.iot.dms.dto.DeviceOtaFileDto;
 import allthings.iot.dms.service.DeviceOtaServiceImpl;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ import java.util.Map;
  * *******************************************************************************************
  */
 @RestController
-@RequestMapping("/dms")
+@RequestMapping("/deviceManagerService/dms")
 public class DeviceOtaController {
 
     @Autowired
@@ -32,7 +33,7 @@ public class DeviceOtaController {
 
 
     @RequestMapping(value = "/getDeviceOtaFilesByDeviceType", method = RequestMethod.GET)
-    public Result<?> getDeviceOtaFilesByDeviceType(String deviceType, int pageIndex, int pageSize) {
+    public Result<QueryResult<DeviceOtaFileDto>> getDeviceOtaFilesByDeviceType(String deviceType, int pageIndex, int pageSize) {
         return Result.newSuccess(deviceOtaServiceImpl.getDeviceOtaFilesByDeviceType(deviceType, pageIndex, pageSize));
     }
 
@@ -59,12 +60,12 @@ public class DeviceOtaController {
     }
 
     @RequestMapping(value = "/findUpDocument", method = RequestMethod.GET)
-    public Result<QueryResult<?>> findUpDocument(@RequestParam("deviceType") String deviceType, @RequestParam
+    public Result<QueryResult<DeviceOtaFileDto>> findUpDocument(@RequestParam("deviceType") String deviceType, @RequestParam
             ("connected") boolean connected,
-                                                 @RequestParam("deviceCode") String deviceCode, @RequestParam
+                                                                @RequestParam("deviceCode") String deviceCode, @RequestParam
                                                              ("beginVersion") int beginVersion, @RequestParam
                                                              ("endVersion") int endVersion,
-                                                 @RequestParam("pageIndex") int pageIdnex, @RequestParam("pageSize")
+                                                                @RequestParam("pageIndex") int pageIdnex, @RequestParam("pageSize")
                                                              int pageSize) {
         return Result.newSuccess(deviceOtaServiceImpl.findUpDocument(deviceType, connected, deviceCode, beginVersion,
                 endVersion, pageIdnex, pageSize));

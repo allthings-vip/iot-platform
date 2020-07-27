@@ -1,7 +1,5 @@
 package allthings.iot.dms.bean;
 
-import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 import allthings.iot.common.msg.IMsg;
 import allthings.iot.common.pojo.CacheMsgWrap;
 import allthings.iot.common.usual.GroupConsts;
@@ -12,6 +10,8 @@ import allthings.iot.dms.service.DeviceStatusServiceImpl;
 import allthings.iot.util.rocketmq.IProducer;
 import allthings.iot.util.rocketmq.IProducerConfig;
 import allthings.iot.util.rocketmq.msg.RocketMsg;
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +62,10 @@ public class MsgSender {
             return;
         }
 
-        DeviceStatusDto deviceStatus = deviceStatusServiceImpl.getDeviceStatus(msg.getTargetDeviceType() + msg
-                .getTargetDeviceId());
+        // 根据平台码获取状态
+        String deviceStatusParam = msg.getPlatformCode() == null ? (msg.getTargetDeviceType() + msg.getTargetDeviceId()) : msg.getPlatformCode();
+
+        DeviceStatusDto deviceStatus = deviceStatusServiceImpl.getDeviceStatus(deviceStatusParam);
         if (deviceStatus == null) {
             LOG.warn("can not send msg: deviceStatus not found, nodeId is unknown");
             return;

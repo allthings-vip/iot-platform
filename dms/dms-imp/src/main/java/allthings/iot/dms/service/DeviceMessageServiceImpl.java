@@ -1,10 +1,6 @@
 package allthings.iot.dms.service;
 
-import com.alibaba.fastjson.JSON;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-import allthings.iot.common.msg.DasConnectionMsg;
-import allthings.iot.common.msg.IMsg;
+import allthings.iot.common.msg.*;
 import allthings.iot.common.pojo.CacheMsgWrap;
 import allthings.iot.common.usual.GroupConsts;
 import allthings.iot.common.usual.TopicConsts;
@@ -14,6 +10,9 @@ import allthings.iot.dms.bean.MsgSender;
 import allthings.iot.util.rocketmq.IProducer;
 import allthings.iot.util.rocketmq.IProducerConfig;
 import allthings.iot.util.rocketmq.msg.RocketMsg;
+import com.alibaba.fastjson.JSON;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,16 +65,21 @@ public class DeviceMessageServiceImpl implements IDmsMsgProcessor<IMsg>, IDevice
             //das node connection msg
             return;
         }
-        if (Strings.isNullOrEmpty(msg.getSourceDeviceId())
-                || Strings.isNullOrEmpty(msg.getMsgCode())) {
+
+        if (Strings.isNullOrEmpty(msg.getSourceDeviceId()) || Strings.isNullOrEmpty(msg.getMsgCode())) {
             LOG.warn("sourceDeviceId is null or msgCode is null:{}", msg);
+            return;
+        }
+
+        if (!(msg instanceof DeviceConnectionMsg) && !(msg instanceof DeviceInfoMsg) &&
+                !(msg instanceof DeviceEventMsg) && !(msg instanceof DeviceLogMsg) && !(msg instanceof DeviceDataMsg)) {
             return;
         }
 
 
         String topic = TopicConsts.DMS_TO_APS;
         CacheMsgWrap wrap = new CacheMsgWrap(msg);
-        LOG.info("DMS publish DeviceMessage\n{}", msg);
+        //LOG.info("DMS publish DeviceMessage\n{}", msg);
 
         RocketMsg rocketMsg = new RocketMsg(topic);
         rocketMsg.setContent(JSON.toJSONString(wrap));
@@ -103,6 +107,7 @@ public class DeviceMessageServiceImpl implements IDmsMsgProcessor<IMsg>, IDevice
     @Override
     public void sendMsg(IMsg msg) throws Exception {
         LOG.info("send msg to device {}", msg.getSourceDeviceId());
+        LOG.info("send msg content {}", JSON.toJSONString(msg));
         msgSender.sendToQueue(msg);
     }
 }

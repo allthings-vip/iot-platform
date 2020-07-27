@@ -45,7 +45,7 @@ public class DeviceOwnerControllerTest {
 
     @Test
     public void bindDevice() throws Exception {
-        String url = "/dms/bindDevice";
+        String url = "/allthings/iot/dms/bindDevice";
         String json = "{\"ownerId\":\"123\",\"deviceId\":\"vehic31FFDF054D59383124582151FFC0F0FF\"}";
         mockMvc.perform(post(url).param("ownerId", "123").param("deviceId", "vehic31FFDF054D59383124582151FFC0F0FF")
                 .characterEncoding("UTF-8")
@@ -56,7 +56,7 @@ public class DeviceOwnerControllerTest {
 
     @Test
     public void bindDeviceList() throws Exception {
-        String url = "/dms/bindDeviceList";
+        String url = "/allthings/iot/dms/bindDeviceList";
         String json = "{\n" +
                 "    \"ownerId\": \"11111\", \n" +
                 "    \"deviceIdList\": [\"vehic31FFDF054D59383124582151FFC0F0FF\"] \n" +
@@ -72,7 +72,7 @@ public class DeviceOwnerControllerTest {
 
     @Test
     public void unbindDevice() throws Exception {
-        String url = "/dms/unBindDevice";
+        String url = "/allthings/iot/dms/unBindDevice";
         String json = "{\"ownerId\":\"123\",\"deviceId\":\"vehic31FFDF054D59383124582151FFC0F0FF\"}";
         mockMvc.perform(post(url).param("ownerId", "123").param("deviceArray", "vehic31FFDF054D59383124582151FFC0F0FF")
                 .characterEncoding("UTF-8")
@@ -83,7 +83,7 @@ public class DeviceOwnerControllerTest {
 
     @Test
     public void getDeviceInfoByOwnerId() throws Exception {
-        String url = "/dms/getDeviceInfoByOwnerId";
+        String url = "/allthings/iot/dms/getDeviceInfoByOwnerId";
         String json = "{\"ownerId\":\"123\",\"deviceId\":\"vehic31FFDF054D59383124582151FFC0F0FF\"}";
         mockMvc.perform(get(url).param("ownerId", "123").param("pageIndex", "1").param("pageSize", "20")
                 .characterEncoding("UTF-8")

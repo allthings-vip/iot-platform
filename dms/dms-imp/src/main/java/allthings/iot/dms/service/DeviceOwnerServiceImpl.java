@@ -92,11 +92,11 @@ public class DeviceOwnerServiceImpl implements IDeviceOwnerService {
     /**
      * 设备批量升级
      *
-     * @param list 升级设备列表
+     * @param deviceCodes 升级设备列表
      * @return 升级是否成功
      */
     @Override
-    public String deviceUpdate(List list) {
+    public String deviceUpdate(List<String> deviceCodes) {
         return null;
     }
 

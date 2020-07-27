@@ -1,16 +1,17 @@
 package allthings.iot.dms.service;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import allthings.iot.common.dto.QueryResult;
+import allthings.iot.common.msg.*;
 import allthings.iot.dms.IDeviceLocationService;
 import allthings.iot.dms.IDeviceManageService;
 import allthings.iot.dms.IDeviceOwnerService;
+import allthings.iot.dms.dto.*;
+import com.alibaba.fastjson.JSON;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import allthings.iot.common.msg.*;
-import allthings.iot.dms.dto.*;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -33,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  * *******************************************************************************************
  */
 
-@Component("dms")
+@Component("allthings/iot/dms")
 public class DeviceManageServiceImpl implements IDmsMsgProcessor<IMsg>, IDeviceManageService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeviceManageServiceImpl.class);
@@ -83,20 +84,22 @@ public class DeviceManageServiceImpl implements IDmsMsgProcessor<IMsg>, IDeviceM
     @Autowired
     private IDeviceLocationService deviceLocationService;
 
-    private Executor executor = new ThreadPoolExecutor(1, Runtime.getRuntime().availableProcessors() * 2,
-            0L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<>(), new ThreadFactoryBuilder()
-            .setNameFormat("dms-save-msg-log-%d").build());
+    private Executor executor = new ThreadPoolExecutor(200, 200, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(200), new ThreadFactoryBuilder()
+            .setNameFormat("dms-save-msg-log-%d").build(), new ThreadPoolExecutor.DiscardPolicy());
 
     @Override
     public void processMsg(IMsg msg) throws Exception {
-        LOG.info("DMS process msg\n{}", msg);
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                msgLogServiceImpl.processMsg(msg);
-            }
-        });
+        try {
+            executor.execute(() -> msgLogServiceImpl.processMsg(msg));
+        } catch (Exception ee) {
+            LOG.error("保存日志失败：\n {}", ee.toString());
+        }
+
+        if (!MsgType.DeviceConnection.equals(msg.getMsgType())) {
+            deviceMessageServiceImpl.processMsg(msg);
+        } else {
+            LOG.info("device connect msg : {}", JSON.toJSONString(msg));
+        }
 
         switch (msg.getMsgType()) {
             case Undefine:
@@ -129,7 +132,6 @@ public class DeviceManageServiceImpl implements IDmsMsgProcessor<IMsg>, IDeviceM
                 break;
         }
 
-        deviceMessageServiceImpl.processMsg(msg);
     }
 
     @Override
@@ -276,8 +278,8 @@ public class DeviceManageServiceImpl implements IDmsMsgProcessor<IMsg>, IDeviceM
      * @param pageSize     @return 设备升级文档信息
      */
     @Override
-    public QueryResult<?> findUpDocument(String deviceType, boolean connected, String deviceCode, int beginVersion,
-                                         int endVersion, int pageIndex, int pageSize) {
+    public QueryResult<DeviceOtaFileDto> findUpDocument(String deviceType, boolean connected, String deviceCode, int beginVersion,
+                                                        int endVersion, int pageIndex, int pageSize) {
         return deviceOtaServiceImpl.findUpDocument(deviceType, connected, deviceCode, beginVersion, endVersion,
                 pageIndex, pageSize);
     }

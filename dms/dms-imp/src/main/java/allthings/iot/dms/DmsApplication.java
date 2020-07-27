@@ -2,7 +2,11 @@ package allthings.iot.dms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author :  sylar
@@ -18,8 +22,11 @@ import org.springframework.context.annotation.ComponentScan;
  * @CopyRight : COPYRIGHT(c) allthings-vip All Rights Reserved
  * *******************************************************************************************
  */
-@SpringBootApplication
-@ComponentScan("allthings.iot")
+@SpringBootApplication(exclude = RedisAutoConfiguration.class)
+@EnableDiscoveryClient
+@EnableCircuitBreaker
+@ComponentScan({"allthings.iot"})
+@EnableScheduling
 public class DmsApplication {
     public static void main(String[] args) {
         SpringApplication.run(DmsApplication.class, args);

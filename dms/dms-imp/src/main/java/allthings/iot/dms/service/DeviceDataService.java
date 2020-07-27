@@ -1,8 +1,8 @@
 package allthings.iot.dms.service;
 
-import com.google.common.base.Strings;
 import allthings.iot.common.msg.DeviceDataMsg;
 import allthings.iot.dms.DmsConfig;
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,11 @@
 package allthings.iot.dms.controller;
 
-import com.google.common.base.Strings;
 import allthings.iot.common.dto.Result;
 import allthings.iot.dms.dto.BindLocationParamsDto;
+import allthings.iot.dms.dto.DeviceLocationDto;
 import allthings.iot.dms.service.DeviceLocationServiceImpl;
 import allthings.iot.util.gps.enums.CoorType;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,14 +27,14 @@ import org.springframework.web.bind.annotation.RestController;
  * *******************************************************************************************
  */
 @RestController
-@RequestMapping("/dms")
+@RequestMapping("/deviceManagerService/dms")
 public class DeviceLocationController {
     @Autowired
     DeviceLocationServiceImpl deviceLocationServiceImpl;
 
 
     @RequestMapping(value = "/getLocation", method = RequestMethod.GET)
-    public Result<?> getLocation(String deviceId, int coorType) {
+    public Result<DeviceLocationDto> getLocation(String deviceId, int coorType) {
         return Result.newSuccess(deviceLocationServiceImpl.getLocation(deviceId, coorType));
     }
 

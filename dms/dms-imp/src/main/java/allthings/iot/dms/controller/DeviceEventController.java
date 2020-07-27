@@ -1,6 +1,8 @@
 package allthings.iot.dms.controller;
 
+import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.dto.Result;
+import allthings.iot.dms.dto.DeviceEventDto;
 import allthings.iot.dms.service.DeviceEventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,30 +26,30 @@ import java.util.Arrays;
  * *******************************************************************************************
  */
 @RestController
-@RequestMapping("/dms")
+@RequestMapping("/deviceManagerService/dms")
 public class DeviceEventController {
 
     @Autowired
     DeviceEventServiceImpl deviceEventServiceImpl;
 
     @RequestMapping(value = "/countOfDeviceEvent", method = RequestMethod.GET)
-    public Result<?> countOfDeviceEvent(long beginTime, long endTime) {
+    public Result<Long> countOfDeviceEvent(long beginTime, long endTime) {
         return Result.newSuccess(deviceEventServiceImpl.countOfDeviceEvent(beginTime, endTime));
     }
 
     @RequestMapping(value = "/countOfDeviceEventByDeviceType", method = RequestMethod.GET)
-    public Result<?> countOfDeviceEventByDeviceType(String deviceType, long beginTime, long endTime) {
+    public Result<Long> countOfDeviceEventByDeviceType(String deviceType, long beginTime, long endTime) {
         return Result.newSuccess(deviceEventServiceImpl.countOfDeviceEventByDeviceType(deviceType, beginTime, endTime));
     }
 
     @RequestMapping(value = "/countOfDeviceEventByDeviceId", method = RequestMethod.GET)
-    public Result<?> countOfDeviceEventByDeviceId(String deviceId, long beginTime, long endTime) {
+    public Result<Long> countOfDeviceEventByDeviceId(String deviceId, long beginTime, long endTime) {
         return Result.newSuccess(deviceEventServiceImpl.countOfDeviceEventByDeviceId(deviceId, beginTime, endTime));
     }
 
     @RequestMapping(value = "/getDeviceEventsByDeviceId", method = RequestMethod.GET)
-    public Result<?> getDeviceEventsByDeviceId(String deviceId, String[] eventCodes, long beginTime, long endTime,
-                                               int pageIndex, int pageSize) {
+    public Result<QueryResult<DeviceEventDto>> getDeviceEventsByDeviceId(String deviceId, String[] eventCodes, long beginTime, long endTime,
+                                                                         int pageIndex, int pageSize) {
         return Result.newSuccess(deviceEventServiceImpl.getDeviceEventsByDeviceId(deviceId, Arrays.asList(eventCodes)
                 , beginTime, endTime, pageIndex, pageSize));
     }

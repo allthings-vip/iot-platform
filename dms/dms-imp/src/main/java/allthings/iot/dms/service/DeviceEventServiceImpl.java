@@ -1,15 +1,16 @@
 package allthings.iot.dms.service;
 
-import com.google.common.collect.Lists;
 import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.msg.DeviceEventMsg;
 import allthings.iot.dms.IDeviceEventService;
 import allthings.iot.dms.dao.DeviceEventDao;
 import allthings.iot.dms.dto.DeviceEventDto;
 import allthings.iot.dms.entity.IotDeviceEvent;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -103,7 +104,7 @@ public class DeviceEventServiceImpl implements IDmsMsgProcessor<DeviceEventMsg>,
 
                 return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
             }
-        }, new PageRequest(pageIndex - 1, pageSize));
+        }, new PageRequest(pageIndex - 1, pageSize, Sort.Direction.DESC, "inputDate"));
 
         List<DeviceEventDto> deviceEventDtoList = Lists.newArrayList();
         PredicateUtil.entity2Dto(page.getContent(), deviceEventDtoList, DeviceEventDto.class);

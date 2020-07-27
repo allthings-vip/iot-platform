@@ -1,7 +1,5 @@
 package allthings.iot.dms.service;
 
-import com.google.common.collect.Lists;
-import com.google.common.io.BaseEncoding;
 import allthings.iot.common.dto.QueryResult;
 import allthings.iot.dms.DmsConfig;
 import allthings.iot.dms.IDeviceOtaService;
@@ -10,6 +8,8 @@ import allthings.iot.dms.dto.DeviceOtaFileDto;
 import allthings.iot.dms.entity.IotDeviceConnectionLog;
 import allthings.iot.dms.entity.IotDeviceInfo;
 import allthings.iot.dms.entity.IotDeviceOtaFile;
+import com.google.common.collect.Lists;
+import com.google.common.io.BaseEncoding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -95,7 +95,7 @@ public class DeviceOtaServiceImpl implements IDeviceOtaService {
      */
     @Override
     public QueryResult<DeviceOtaFileDto> findUpDocument(String deviceType, boolean connected, String deviceCode, int beginVersion,
-                                         int endVersion, int pageIndex, int pageSize) {
+                                                        int endVersion, int pageIndex, int pageSize) {
         Page<IotDeviceOtaFile> page = dao.findAll((root, query, cb) -> {
             List<Predicate> predicateList = Lists.newArrayList();
             Root<IotDeviceInfo> diRoot = query.from(IotDeviceInfo.class);

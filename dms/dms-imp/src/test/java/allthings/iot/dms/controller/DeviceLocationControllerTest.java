@@ -46,7 +46,7 @@ public class DeviceLocationControllerTest {
 
     @Test
     public void getDeviceLocation() throws Exception {
-        String url = "/dms/getLocation";
+        String url = "/allthings/iot/dms/getLocation";
         mockMvc.perform(get(url).param("deviceId", DeviceId).param("coorType", CoorType)
                 .characterEncoding("UTF-8")
                 .accept(MediaType.APPLICATION_JSON))
@@ -56,7 +56,7 @@ public class DeviceLocationControllerTest {
 
     @Test
     public void bindLocation() throws Exception {
-        String url = "/dms/bindLocation";
+        String url = "/allthings/iot/dms/bindLocation";
         String json = "{\n" +
                 "    \"userId\": \"AAAAAA\",\n" +
                 "    \"deviceType\": \"TRCAN\",\n" +
