@@ -7,8 +7,8 @@ import allthings.iot.dms.DmsCacheKeys;
 import allthings.iot.dms.IDeviceStatusService;
 import allthings.iot.dms.dto.DeviceStatusDto;
 import allthings.iot.dms.listener.RedisMsgPubSubListener;
-import allthings.iot.util.jedis.CacheCloudRedisFactory;
 import allthings.iot.util.redis.ICentralCacheService;
+import allthings.iot.util.redis.ISubscribePublishService;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -49,7 +49,10 @@ public class DeviceStatusServiceImpl implements IDmsMsgProcessor<DeviceConnectio
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeviceStatusServiceImpl.class);
 
+    @Autowired
     private ICentralCacheService cache;
+    @Autowired
+    private ISubscribePublishService sps;
 
     @Autowired
     private DeviceMessageServiceImpl deviceMessageServiceImpl;
@@ -65,10 +68,7 @@ public class DeviceStatusServiceImpl implements IDmsMsgProcessor<DeviceConnectio
 
     @PostConstruct
     private void init() throws Exception {
-        cache = new CacheCloudRedisFactory();
-        executor.execute(() -> {
-            cache.getJedisSentinelPool().getResource().psubscribe(listener, EXPIRED_KEY);
-        });
+        sps.subscribeMessage(listener, Lists.newArrayList(EXPIRED_KEY));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class DeviceStatusServiceImpl implements IDmsMsgProcessor<DeviceConnectio
             String deviceId = msg.getPlatformCode() == null ? (msg.getSourceDeviceType() + msg.getSourceDeviceId()) : msg.getPlatformCode();
             String ccsKey = DmsCacheKeys.getCcsKeyForDeviceStatus(deviceId);
             //缓存中的设备状态对象，用于比对当前设备连接状态
-            DeviceStatusDto pojo = JSON.parseObject(cache.get(ccsKey), DeviceStatusDto.class);
+            DeviceStatusDto pojo = cache.getObject(ccsKey, DeviceStatusDto.class);
 
             //重新初始化的设备状态对象
             DeviceStatusDto getPojo = new DeviceStatusDto();
@@ -106,16 +106,16 @@ public class DeviceStatusServiceImpl implements IDmsMsgProcessor<DeviceConnectio
             String tempKey = DmsCacheKeys.getCcsKeyForDeviceStatus(tempDeviceId);
             //状态不一样，则往上抛连接消息
             if (pojo == null || pojo.isConnected() != msg.isConnected()) {
-                cache.set(ccsKey, JSON.toJSONString(getPojo), -1);
+                cache.putObject(ccsKey, JSON.toJSONString(getPojo));
                 deviceMessageServiceImpl.processMsg(msg);
             }
 
             //如果上传的状态为连接，则延长超时时间
             if (msg.isConnected() && timeout != null) {
-                cache.set(tempKey, tempDeviceId, timeout);
+                cache.putObjectWithExpireTime(tempKey, tempDeviceId, timeout);
             } else {
                 //如果上传的状态为下线，则直接删除
-                cache.del(tempKey);
+                cache.removeObject(tempKey);
             }
         } catch (Exception ee) {
             LOGGER.error("device status error", ee);
@@ -125,11 +125,11 @@ public class DeviceStatusServiceImpl implements IDmsMsgProcessor<DeviceConnectio
     @Override
     public DeviceStatusDto getDeviceStatus(String deviceId) {
         String ccsKey = DmsCacheKeys.getCcsKeyForDeviceStatus(deviceId);
-        if (!cache.exists(ccsKey)) {
+        if (!cache.containsKey(ccsKey)) {
             return null;
         }
 
-        return JSON.parseObject(cache.get(ccsKey), DeviceStatusDto.class);
+        return cache.getObject(ccsKey, DeviceStatusDto.class);
     }
 
     @Override

@@ -2,12 +2,15 @@ package allthings.iot.util.jedis;
 
 import com.google.common.base.Preconditions;
 import com.sohu.tv.builder.ClientBuilder;
-import com.sohu.tv.cachecloud.client.basic.enums.RedisTypeEnum;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import redis.clients.jedis.*;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisSentinelPool;
+import redis.clients.jedis.ScanParams;
+import redis.clients.jedis.ScanResult;
+import redis.clients.jedis.Tuple;
 
 import java.util.List;
 import java.util.Map;
@@ -58,32 +61,22 @@ public class CacheCloudRedisFactory {
     /**
      * 指定资源文件路径的构造函数。具体参数的key沿用默认的。
      *
-     * @param propFilepath 资源文件路径
+     * @param cacheConfig 资源配置
      * @throws Exception 异常时，无法构造实例
      */
-    public CacheCloudRedisFactory(String propFilepath) throws Exception {
-        this.initWithProp(propFilepath, null);
-    }
-
-    /**
-     * 使用默认的资源文件路径
-     *
-     * @param configProp 资源文件配置
-     * @throws Exception 异常时，无法构造实例
-     */
-    public CacheCloudRedisFactory(CommonConfigProp configProp) throws Exception {
-        this.initWithProp(null, configProp);
+    public CacheCloudRedisFactory(CacheConfig cacheConfig) throws Exception {
+        this.initWithProp(cacheConfig, null);
     }
 
     /**
      * 指定资源文件路径、资源文件配置信息
      *
-     * @param propFilepath 资源文件路径
-     * @param configProp   资源文件配置
+     * @param cacheConfig 资源文件路径
+     * @param poolConfig  资源文件配置
      * @throws Exception 异常时，无法构造实例
      */
-    public CacheCloudRedisFactory(String propFilepath, CommonConfigProp configProp) throws Exception {
-        this.initWithProp(propFilepath, configProp);
+    public CacheCloudRedisFactory(CacheConfig cacheConfig, GenericObjectPoolConfig poolConfig) throws Exception {
+        this.initWithProp(cacheConfig, poolConfig);
     }
 
     /**
@@ -97,7 +90,7 @@ public class CacheCloudRedisFactory {
     }
 
 
-    private void initWithProp(String propFilepath, CommonConfigProp configProp) throws Exception {
+    private void initWithProp(CacheConfig cacheConfig, GenericObjectPoolConfig poolConfig) throws Exception {
         if (propFilepath == null || propFilepath.trim().length() == 0) {
             propFilepath = DEFAULT_PROP_FILEPATH;
         }
@@ -184,11 +177,10 @@ public class CacheCloudRedisFactory {
     /**
      * 初始化
      *
-     * @param redisTypeEnum   Redis类型，非null
-     * @param cacheCloudAppId CacheCloud应用中的appId，非null，大于0的long型数据
+     * @param cacheConfig
+     * @param poolConfig
      */
-    private void init(RedisTypeEnum redisTypeEnum, Long cacheCloudAppId, String appKey, GenericObjectPoolConfig
-            poolConfig) throws Exception {
+    private void init(CacheConfig cacheConfig, GenericObjectPoolConfig poolConfig) throws Exception {
         if (redisTypeEnum == null || (cacheCloudAppId == null || cacheCloudAppId <= 0)) {
             String msg = "Invalid input params:{redisTypeEnum:" + redisTypeEnum + ", cacheCloudAppId:" +
                     cacheCloudAppId;
@@ -204,7 +196,7 @@ public class CacheCloudRedisFactory {
             poolConfig.setMaxTotal(10000);
         }
 
-        switch (redisTypeEnum) {
+        switch (cacheConfig.getSentinel()) {
             case SENTINEL:
             default:
                 jedisSentinelPool = this.buildJedisSentinelPool(cacheCloudAppId, appKey, poolConfig);
@@ -215,16 +207,11 @@ public class CacheCloudRedisFactory {
     /**
      * 构建 jedis 的 sentinel 连接池
      *
-     * @param cacheCloudAppId CacheCloud 平台中的应用ID
-     * @param poolConfig      jedis连接池设置
+     * @param cacheConfig 配置
+     * @param poolConfig  jedis连接池设置
      * @return 连接池
      */
-    private JedisSentinelPool buildJedisSentinelPool(Long cacheCloudAppId, String appkey, GenericObjectPoolConfig
-            poolConfig) {
-        if (cacheCloudAppId == null || cacheCloudAppId <= 0) {
-            return null;
-        }
-
+    private JedisSentinelPool buildJedisSentinelPool(CacheConfig cacheConfig, GenericObjectPoolConfig poolConfig) {
         if (poolConfig == null) {
             poolConfig = new GenericObjectPoolConfig();
         }

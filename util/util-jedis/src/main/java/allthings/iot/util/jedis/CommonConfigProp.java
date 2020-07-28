@@ -18,7 +18,7 @@ package allthings.iot.util.jedis;
 public class CommonConfigProp {
 
     /** 前缀 */
-    private String prefix = "CacheCloud.";
+    private String prefix = "application.";
 
     /** 后缀 */
     private String suffix = null;

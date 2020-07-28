@@ -7,6 +7,7 @@ import allthings.iot.dms.dto.DeviceStatusDto;
 import allthings.iot.dms.service.DasStatusServiceImpl;
 import allthings.iot.dms.service.DeviceMessageServiceImpl;
 import allthings.iot.util.redis.AbstractMessageListener;
+import allthings.iot.util.redis.ICentralCacheService;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -38,27 +39,18 @@ public class RedisMsgPubSubListener extends AbstractMessageListener {
     @Autowired
     private DasStatusServiceImpl dasStatusServiceImpl;
 
-    private CacheCloudRedisFactory cache;
+    @Autowired
+    private ICentralCacheService cache;
 
     @Autowired
     private DeviceMessageServiceImpl deviceMessageServiceImpl;
-
-    @PostConstruct
-    private void init() throws Exception {
-        cache = new CacheCloudRedisFactory();
-    }
 
     public RedisMsgPubSubListener() {
 
     }
 
     @Override
-    protected void handleMessage(String topic, String jsonMsg) throws Exception {
-
-    }
-
-    @Override
-    public void onPMessage(String pattern, String channel, String message) {
+    public void handleMessage(String topic, String message) {
         if (StringUtils.isBlank(message)) {
             return;
         }
@@ -72,7 +64,7 @@ public class RedisMsgPubSubListener extends AbstractMessageListener {
         long lastTime = System.currentTimeMillis();
         String deviceId = deviceIdArray[3] + deviceIdArray[4];
         String ccsKey = DmsCacheKeys.getCcsKeyForDeviceStatus(deviceId);
-        DeviceStatusDto pojo = JSON.parseObject(cache.get(ccsKey), DeviceStatusDto.class);
+        DeviceStatusDto pojo = cache.getObject(ccsKey, DeviceStatusDto.class);
         pojo.setOfflineTime(lastTime);
         pojo.setConnected(false);
 
@@ -89,7 +81,7 @@ public class RedisMsgPubSubListener extends AbstractMessageListener {
         try {
             deviceMessageServiceImpl.processMsg(msg);
             LOGGER.info("订阅连接消息：{}", JSON.toJSONString(msg));
-            cache.set(ccsKey, JSON.toJSONString(pojo), -1);
+            cache.putObject(ccsKey, JSON.toJSONString(pojo));
             dasStatusServiceImpl.updateDeviceConnection(pojo.getNodeId(), deviceId, false);
         } catch (Exception e) {
             LOGGER.error("deal status error", e);
