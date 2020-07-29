@@ -26,6 +26,7 @@
         <module>ups</module>
         <module>cps</module>
         <module>const</module>
+        <module>dss</module>
     </modules>
 
     <properties>
