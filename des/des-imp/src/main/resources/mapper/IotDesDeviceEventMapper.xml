@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="allthings.iot.des.mapper.IotDesDeviceEventMapper">
+    <insert id="saveIotDesDeviceEvent" parameterType="allthings.iot.des.model.IotDesDeviceEvent"
+            keyColumn="iot_des_device_event_id" keyProperty="iotDesDeviceEventId" useGeneratedKeys="true">
+        INSERT INTO iot_des_device_event (
+        create_operator_id,
+        modify_operator_id,
+        event_time,
+        event_source,
+        iot_dos_device_id,
+        iot_des_event_type_id,
+        event_description) VALUES (
+        #{createOperatorId},
+        #{modifyOperatorId},
+        #{eventTime},
+        #{eventSource},
+        #{iotDeviceId},
+        #{iotDesEventTypeId},
+        #{eventDescription}
+        )
+    </insert>
+
+    <select id="queryEventDetailByDeviceEventId" parameterType="long" resultMap="selectEventDetailByDeviceEventId">
+        SELECT idde.iot_des_device_event_id,
+        idde.iot_dos_device_id,
+        idde.event_time,
+        idde.event_source,
+        idet.event_type_name,
+        idet.iot_des_event_type_id,
+        idde.event_description,
+        idec.event_data,
+        idec.image,
+        idec.video
+        FROM iot_des_device_event idde , iot_des_event_content idec , iot_des_event_type idet
+        WHERE idde.iot_des_device_event_id = #{iotDesDeviceEventId}
+        AND idde.is_deleted = FALSE
+        AND idec.is_deleted = FALSE
+        AND idet.is_deleted = FALSE
+        AND idde.iot_des_event_type_id = idet.iot_des_event_type_id
+        AND idde.iot_des_device_event_id = idec.iot_des_device_event_id
+    </select>
+
+    <resultMap id="selectEventDetailByDeviceEventId" type="allthings.iot.des.dto.query.IotDesEventDetailDto">
+        <id property="iotDesDeviceEventId" column="iot_des_device_event_id" javaType="Long"/>
+        <result column="iot_dos_device_id" property="iotDosDeviceId" javaType="Long"/>
+        <result column="event_time" property="eventTimeAlias" javaType="Date"/>
+        <result column="event_source" property="eventSource" javaType="String"/>
+        <result column="event_type_name" property="eventTypeName" javaType="String"/>
+        <result column="iot_des_event_type_id" property="iotDesEventTypeId" javaType="Long"/>
+        <result column="event_description" property="eventDescription" javaType="String"/>
+        <result column="event_data" property="eventDataAlias" javaType="String"/>
+    </resultMap>
+
+    <select id="getEventListByIotDeviceId" resultMap="selectEventListByIotDeviceId">
+        SELECT idde.iot_des_device_event_id,
+        idde.event_time,
+        idde.event_source,
+        idet.iot_des_event_type_id,
+        idet.event_type_name,
+        idde.event_description
+        FROM iot_des_device_event idde, iot_des_event_type idet
+        WHERE idde.is_deleted = FALSE
+        AND idde.event_time >= #{startTime}
+        AND #{endTime} >= idde.event_time
+        AND idde.iot_dos_device_id = #{iotDeviceId}
+        AND idde.iot_des_event_type_id = idet.iot_des_event_type_id
+        ORDER BY idde.event_time DESC
+    </select>
+
+    <resultMap id="selectEventListByIotDeviceId" type="allthings.iot.des.dto.query.IotDesDeviceEventListQueryDto">
+        <id column="iot_des_device_event_id" property="iotDesDeviceEventId" javaType="Long"/>
+        <result column="event_time" property="eventTimeAlias" javaType="Date"/>
+        <result column="event_source" property="eventSource" javaType="String"/>
+        <result column="iot_des_event_type_id" property="iotDesEventTypeId" javaType="Long"/>
+        <result column="event_type_name" property="eventTypeName" javaType="String"/>
+        <result column="event_description" property="eventDescription" javaType="String"/>
+    </resultMap>
+</mapper>

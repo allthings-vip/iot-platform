@@ -27,6 +27,7 @@
         <module>cps</module>
         <module>const</module>
         <module>dss</module>
+        <module>des</module>
     </modules>
 
     <properties>
@@ -340,6 +341,16 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>1.1.10</version>
+            </dependency>
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>2.1.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.2.5</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

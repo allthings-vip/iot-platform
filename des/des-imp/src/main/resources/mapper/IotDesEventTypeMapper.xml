@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="allthings.iot.des.mapper.IotDesEventTypeMapper">
+
+    <select id="getEventTypeByEventTypeCode" resultType="long">
+        SELECT iot_des_event_type_id FROM iot_des_event_type WHERE event_type_code = #{eventTypeCode} AND is_deleted = FALSE
+    </select>
+
+    <select id="getIotEventTypeByEventTypeCode" parameterType="string"
+            resultType="allthings.iot.des.dto.IotDesEventTypeDto">
+        SELECT iot_des_event_type_id iotDesEventTypeId,
+        event_type_code eventTypeCode,
+        event_type_name eventTypeName
+        FROM iot_des_event_type
+        WHERE event_type_code = #{eventTypeCode}
+        AND is_deleted = FALSE
+    </select>
+
+</mapper>

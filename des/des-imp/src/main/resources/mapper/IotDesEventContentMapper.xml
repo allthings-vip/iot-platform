@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="allthings.iot.des.mapper.IotDesEventContentMapper">
+    <insert id="saveIotDesEventContent" parameterType="allthings.iot.des.model.IotDesEventContent"
+            keyColumn="iot_des_event_content" keyProperty="iotDesEventContentId" useGeneratedKeys="true">
+        INSERT INTO iot_des_event_content (
+        create_operator_id,
+        modify_operator_id,
+        iot_des_device_event_id,
+        event_data,
+        image,
+        video)
+        VALUES (
+        #{createOperatorId},
+        #{modifyOperatorId},
+        #{iotDesDeviceEventId},
+        #{eventData},
+        #{image},
+        #{video})
+    </insert>
+</mapper>
