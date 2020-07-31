@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>iot-platform</artifactId>
+        <groupId>allthings.iot</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>vehicle</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>vehicle-api</module>
+        <module>vehicle-common</module>
+        <module>vehicle-imp</module>
+        <module>vehicle-ui</module>
+    </modules>
+
+
+</project>

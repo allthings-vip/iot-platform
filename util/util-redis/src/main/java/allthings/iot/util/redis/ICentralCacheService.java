@@ -132,6 +132,16 @@ public interface ICentralCacheService {
     <T> void updateMapFields(String key, Map<String, T> fields);
 
     /**
+     * 增加指定key的field的数值
+     *
+     * @param key 键
+     * @param fieldName
+     * @param delta
+     * @return
+     */
+    Long updateMapIncrement(String key, String fieldName, long delta);
+
+    /**
      * 移除指定key的相应field
      *
      * @param key

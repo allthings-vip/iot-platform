@@ -1,15 +1,22 @@
 package allthings.iot.util.redis.impl;
 
+import allthings.iot.util.json.JsonValidator;
+import allthings.iot.util.redis.ICentralCacheService;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Primitives;
-import allthings.iot.util.json.JsonValidator;
-import allthings.iot.util.redis.ICentralCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.BoundHashOperations;
+import org.springframework.data.redis.core.BoundListOperations;
+import org.springframework.data.redis.core.BoundSetOperations;
+import org.springframework.data.redis.core.BoundValueOperations;
+import org.springframework.data.redis.core.BoundZSetOperations;
+import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -113,6 +120,11 @@ public class CentralCacheServiceImpl implements ICentralCacheService {
             map.put(field.getKey(), encode(field.getValue()));
         }
         mapOps(key).putAll(map);
+    }
+
+    @Override
+    public Long updateMapIncrement(String key, String fieldName, long delta) {
+        return mapOps(key).increment(fieldName, delta);
     }
 
     @Override

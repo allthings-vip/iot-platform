@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.tf56.iot.spring.boot.starter.hbase.boot.HbaseAutoConfiguration
+allthings.iot.util.hbase.boot.HbaseAutoConfiguration

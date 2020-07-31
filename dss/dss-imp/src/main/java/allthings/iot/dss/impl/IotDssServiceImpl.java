@@ -1,17 +1,17 @@
 package allthings.iot.dss.impl;
 
+import allthings.iot.dos.client.api.IotDeviceApi;
+import allthings.iot.dos.client.api.IotEventPushUrlApi;
 import allthings.iot.dss.api.IotDssService;
-import com.tf56.iot.dos.client.api.IotDeviceApi;
-import com.tf56.iot.dos.client.api.IotEventPushUrlApi;
-import com.tf56.iot.dos.constant.RoleCode;
-import com.tf56.iot.dos.dto.IotDeviceDTO;
-import com.tf56.iot.dos.dto.IotDeviceDetailDTO;
-import com.tf56.iot.dos.dto.IotDeviceStatusBatchQueryDTO;
-import com.tf56.iot.dos.dto.IotEventPushUrlDto;
-import com.tf56.iot.dos.dto.query.IotIovProtocolCodeQueryDto;
+import allthings.iot.dos.constant.RoleCode;
+import allthings.iot.dos.dto.IotDeviceDTO;
+import allthings.iot.dos.dto.IotDeviceDetailDTO;
+import allthings.iot.dos.dto.IotDeviceStatusBatchQueryDTO;
+import allthings.iot.dos.dto.IotEventPushUrlDto;
+import allthings.iot.dos.dto.query.IotIovProtocolCodeQueryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tf56.iot.common.dto.ResultDTO;
+import allthings.iot.common.dto.ResultDTO;
 
 import java.util.List;
 

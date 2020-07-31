@@ -27,11 +27,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>allthings.iot</groupId>-->
-<!--            <artifactId>dos-client</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>allthings.iot</groupId>
+            <artifactId>dos-ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 

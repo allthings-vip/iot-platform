@@ -31,6 +31,7 @@
         <module>util-redis</module>
         <module>util-rocketmq</module>
         <module>util-tsdb</module>
+        <module>util-hbase</module>
     </modules>
 
     <dependencyManagement>
