@@ -7,7 +7,6 @@ import allthings.iot.dos.constant.Constants;
 import allthings.iot.dos.dto.IotDosServiceInfoDto;
 import allthings.iot.dos.dto.IotExternalDevicePlatformDTO;
 import allthings.iot.dos.dto.IotServiceDTO;
-import allthings.iot.dos.model.IotExternalDevicePlatform;
 import allthings.iot.util.redis.ICentralCacheService;
 import allthings.iot.util.rocketmq.IConsumer;
 import allthings.iot.util.rocketmq.msg.IRocketMsgListener;

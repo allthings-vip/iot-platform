@@ -4,7 +4,7 @@ package allthings.iot.dos.dto.open;
  * @author tyf
  * @date 2019/08/12 09:43:53
  */
-public class IotTrackPageQueryDto extends allthings.iot.dos.open.dto.IotTrackQueryListDTO {
+public class IotTrackPageQueryDto extends IotTrackQueryListDTO {
 
     private Long dateTime;
 

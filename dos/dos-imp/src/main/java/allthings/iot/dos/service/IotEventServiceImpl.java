@@ -1,17 +1,18 @@
 package allthings.iot.dos.service;
 
+import allthings.iot.common.dto.PageResult;
+import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.dto.ResultDTO;
-import allthings.iot.dos.dto.query.IotDeviceEventDTO;
+import allthings.iot.dms.dto.DeviceEventDto;
+import allthings.iot.dms.ui.service.IDmsFeignClient;
 import allthings.iot.dos.api.IotEventService;
+import allthings.iot.dos.dto.query.IotDeviceEventDTO;
+import allthings.iot.dos.dto.query.IotEventQueryListDTO;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import allthings.iot.common.dto.PageResult;
-import allthings.iot.common.dto.QueryResult;
-import allthings.iot.dms.dto.DeviceEventDto;
-import allthings.iot.dms.ui.service.IDmsFeignClient;
 
 import java.util.List;
 
@@ -37,22 +38,18 @@ public class IotEventServiceImpl implements IotEventService {
     /**
      * 查询事件信息
      *
-     * @param deviceCode
-     * @param eventCodes
-     * @param beginTime
-     * @param endTime
-     * @param pageIndex
-     * @param pageSize
+     * @param queryListDTO
      * @return
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Override
-    public ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(String deviceCode,
-                                                                              List<String> eventCodes,
-                                                                              long beginTime,
-                                                                              long endTime,
-                                                                              int pageIndex,
-                                                                              int pageSize) {
+    public ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(IotEventQueryListDTO queryListDTO) {
+        String deviceCode = queryListDTO.getDeviceCode();
+        List<String> eventCodes = queryListDTO.getEventCodes();
+        long beginTime = queryListDTO.getStartDatetime();
+        long endTime = queryListDTO.getEndDatetime();
+        int pageIndex = queryListDTO.getPageIndex();
+        int pageSize = queryListDTO.getPageSize();
         QueryResult<DeviceEventDto> queryResult = dms.getDeviceEventsByDeviceId(deviceCode,
                 eventCodes.toArray(new String[eventCodes.size()]), beginTime, endTime, pageIndex, pageSize).getRet();
 

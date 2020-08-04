@@ -1,5 +1,7 @@
 package allthings.iot.dos.dto.oauth2;
 
+import allthings.iot.dos.dto.AbstractIotDosDTO;
+
 /**
  * @author :  luhao
  * @FileName :  com.allthings.iot.dos.oauth2.dto.AccessTokenDTO
@@ -14,7 +16,7 @@ package allthings.iot.dos.dto.oauth2;
  * @CopyRight : COPYRIGHT(c) iot.tf56.com All Rights Reserved
  * *******************************************************************************************
  */
-public class AccessTokenDTO extends AbstractDosOauth2DTO {
+public class AccessTokenDTO extends AbstractIotDosDTO {
     private String tokenId;
 
     private String token;

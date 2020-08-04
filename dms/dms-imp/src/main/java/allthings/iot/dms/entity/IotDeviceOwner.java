@@ -26,7 +26,7 @@ import java.util.Date;
 public class IotDeviceOwner implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int(20) comment 'iotDeviceOwnerId' ")
     private Long iotDeviceOwnerId;
 

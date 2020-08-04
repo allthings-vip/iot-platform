@@ -10,6 +10,7 @@ import allthings.iot.dos.dao.IotServiceDao;
 import allthings.iot.dos.dao.IotServiceQueryDao;
 import allthings.iot.dos.dto.IotExternalDevicePlatformDTO;
 import allthings.iot.dos.dto.IotServiceDTO;
+import allthings.iot.dos.dto.query.IotMonitorQueryDTO;
 import allthings.iot.dos.model.IotExternalDevicePlatform;
 import allthings.iot.dos.model.IotService;
 import com.google.common.collect.Lists;
@@ -69,8 +70,11 @@ public class IotMonitorServiceImpl implements IotMonitorService {
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Override
-    public ResultDTO<PageResult<IotServiceDTO>> getIotServiceLists(Boolean status, String keywords, Integer pageIndex
-            , Integer pageSize) {
+    public ResultDTO<PageResult<IotServiceDTO>> getIotServiceLists(IotMonitorQueryDTO queryDTO) {
+        Boolean status = queryDTO.getStatus();
+        String keywords = queryDTO.getKeywords();
+        Integer pageIndex = queryDTO.getPageIndex();
+        Integer pageSize = queryDTO.getPageSize();
         QueryResult<IotService> iotServiceLists = iotServiceQueryDao.getIotServiceLists(status, keywords, pageIndex,
                 pageSize);
         if (iotServiceLists.getItems() == null) {

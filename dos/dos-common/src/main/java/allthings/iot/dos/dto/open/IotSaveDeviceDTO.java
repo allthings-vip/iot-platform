@@ -27,12 +27,12 @@ public class IotSaveDeviceDTO implements Serializable {
     /**
      * gps数据列表
      */
-    private List<allthings.iot.dos.open.dto.IotGpsListDTO> gpsList;
+    private List<IotGpsListDTO> gpsList;
 
     /**
      * 因子数据
      */
-    private List<allthings.iot.dos.open.dto.IotKtvFactorDTO> kvsList;
+    private List<IotKtvFactorDTO> kvsList;
 
     private String clientId;
 
@@ -47,19 +47,19 @@ public class IotSaveDeviceDTO implements Serializable {
         this.deviceCode = deviceCode;
     }
 
-    public List<allthings.iot.dos.open.dto.IotGpsListDTO> getGpsList() {
+    public List<IotGpsListDTO> getGpsList() {
         return gpsList;
     }
 
-    public void setGpsList(List<allthings.iot.dos.open.dto.IotGpsListDTO> gpsList) {
+    public void setGpsList(List<IotGpsListDTO> gpsList) {
         this.gpsList = gpsList;
     }
 
-    public List<allthings.iot.dos.open.dto.IotKtvFactorDTO> getKvsList() {
+    public List<IotKtvFactorDTO> getKvsList() {
         return kvsList;
     }
 
-    public void setKvsList(List<allthings.iot.dos.open.dto.IotKtvFactorDTO> kvsList) {
+    public void setKvsList(List<IotKtvFactorDTO> kvsList) {
         this.kvsList = kvsList;
     }
 

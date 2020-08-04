@@ -1,5 +1,6 @@
 package allthings.iot.dos.dao.impl;
 
+import allthings.iot.common.dto.QueryResult;
 import allthings.iot.dos.dao.IotDeviceQueryDao;
 import allthings.iot.dos.dto.IotDeviceDTO;
 import allthings.iot.dos.dto.IotOpenApiResponseDeviceDTO;
@@ -11,7 +12,6 @@ import allthings.iot.dos.dto.query.IotDeviceStatusQueryDTO;
 import allthings.iot.dos.dto.query.IotIovProtocolCodeQueryDto;
 import allthings.iot.dos.model.offline.IotDeviceCount;
 import allthings.iot.dos.model.offline.IotDeviceCountTag;
-import com.allthings.iot.dos.dto.query.*;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
-import allthings.iot.common.dto.QueryResult;
 
 import javax.persistence.EntityManager;
 import java.math.BigInteger;

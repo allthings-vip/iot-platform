@@ -1,13 +1,13 @@
 package allthings.iot.dos.controller;
 
-import allthings.iot.dos.api.IotKvDataBiz;
+import allthings.iot.common.dto.ResultDTO;
+import allthings.iot.dos.api.IotKvDataService;
 import allthings.iot.dos.client.api.IotKvDataApi;
 import allthings.iot.dos.dto.query.IotFactorRangeValueQueryDTO;
 import allthings.iot.dos.dto.query.IotFactorValueQueryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tf56.iot.common.dto.ResultDTO;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import java.util.List;
  * @date 2019/07/04 15:03:06
  */
 @RestController
-public class IotKvDataController extends IotDosBaseController implements IotKvDataApi {
+public class IotKvDataController implements IotKvDataApi {
 
     @Autowired
-    private IotKvDataBiz kvDataBiz;
+    private IotKvDataService kvDataBiz;
 
     @Override
     public ResultDTO<List<IotFactorValueQueryDTO>> getKVLatest(@RequestParam("deviceCode") String deviceCode,
@@ -27,7 +27,7 @@ public class IotKvDataController extends IotDosBaseController implements IotKvDa
                                                                @RequestParam("iotProjectId") Long iotProjectId,
                                                                @RequestParam("userId") Long userId,
                                                                @RequestParam("roleCode") String roleCode) {
-        return getResult(kvDataBiz.getKVLatest(deviceCode, partyId, iotProjectId, userId, roleCode));
+        return kvDataBiz.getKVLatest(deviceCode, partyId, iotProjectId, userId, roleCode);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class IotKvDataController extends IotDosBaseController implements IotKvDa
                                                                    @RequestParam("iotProjectId") Long iotProjectId,
                                                                    @RequestParam("userId") Long userId,
                                                                    @RequestParam("roleCode") String roleCode) {
-        return getResult(kvDataBiz.getKVRange(deviceCode, partyId, factorCodes, startDatetime, endDatetime,
-                iotProjectId, userId, roleCode));
+        return kvDataBiz.getKVRange(deviceCode, partyId, factorCodes, startDatetime, endDatetime,
+                iotProjectId, userId, roleCode);
     }
 
 }

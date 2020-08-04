@@ -1,13 +1,13 @@
 package allthings.iot.dss.ui;
 
+import allthings.iot.common.dto.ResultDTO;
+import allthings.iot.dos.dto.IotDeviceDetailDTO;
+import allthings.iot.dos.dto.IotDeviceStatusBatchQueryDTO;
+import allthings.iot.dos.dto.IotEventPushUrlDto;
+import allthings.iot.dos.dto.query.IotIovProtocolCodeQueryDto;
 import allthings.iot.dss.constant.Constant;
-import com.tf56.iot.dos.dto.IotDeviceDetailDTO;
-import com.tf56.iot.dos.dto.IotDeviceStatusBatchQueryDTO;
-import com.tf56.iot.dos.dto.IotEventPushUrlDto;
-import com.tf56.iot.dos.dto.query.IotIovProtocolCodeQueryDto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
-import tf56.iot.common.dto.ResultDTO;
 
 import java.util.List;
 

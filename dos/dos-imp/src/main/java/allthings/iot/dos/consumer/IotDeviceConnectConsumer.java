@@ -1,14 +1,26 @@
 package allthings.iot.dos.consumer;
 
 import allthings.iot.common.dto.ResultDTO;
+import allthings.iot.common.msg.DeviceConnectionMsg;
+import allthings.iot.common.msg.DeviceDataMsg;
+import allthings.iot.common.msg.DeviceEventMsg;
+import allthings.iot.common.msg.DeviceInfoMsg;
+import allthings.iot.common.msg.DeviceMsg;
+import allthings.iot.common.msg.IMsg;
+import allthings.iot.common.pojo.CacheMsgWrap;
+import allthings.iot.common.usual.TopicConsts;
+import allthings.iot.constant.gps.GpsMsgParam;
 import allthings.iot.dos.IotDosBizConfig;
-import allthings.iot.dos.constant.Constants;
-import allthings.iot.dos.dto.IotVisResultDTO;
-import allthings.iot.dos.dto.query.IotLogDTO;
 import allthings.iot.dos.api.IotConsumerService;
 import allthings.iot.dos.api.IotDeviceService;
 import allthings.iot.dos.api.IotLoggerService;
+import allthings.iot.dos.constant.Constants;
+import allthings.iot.dos.dto.IotVisResultDTO;
+import allthings.iot.dos.dto.query.IotLogDTO;
 import allthings.iot.util.redis.ICentralCacheService;
+import allthings.iot.util.rocketmq.IConsumer;
+import allthings.iot.util.rocketmq.msg.IRocketMsgListener;
+import allthings.iot.util.rocketmq.msg.RocketMsg;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -16,14 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import allthings.iot.common.msg.*;
-import allthings.iot.common.pojo.CacheMsgWrap;
-import allthings.iot.common.usual.TopicConsts;
-import allthings.iot.constant.gps.GpsMsgParam;
-import allthings.iot.util.jedis.CacheCloudRedisFactory;
-import allthings.iot.util.rocketmq.IConsumer;
-import allthings.iot.util.rocketmq.msg.IRocketMsgListener;
-import allthings.iot.util.rocketmq.msg.RocketMsg;
 
 import javax.annotation.PostConstruct;
 import java.util.Calendar;
@@ -234,7 +238,7 @@ public class IotDeviceConnectConsumer {
                         continue;
                     }
                     String msgId = iotVisResultDTO.getSequence();
-                    cache.set(msgId, content, Constants.VIS_RESULT_LIVE);
+                    cache.putObjectWithExpireTime(msgId, content, Constants.VIS_RESULT_LIVE);
                 }
             }
 

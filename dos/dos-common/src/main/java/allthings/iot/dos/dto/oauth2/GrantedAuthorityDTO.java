@@ -1,5 +1,7 @@
 package allthings.iot.dos.dto.oauth2;
 
+import allthings.iot.dos.dto.AbstractIotDosDTO;
+
 /**
  * @author :  luhao
  * @FileName :  com.allthings.iot.dos.oauth2.dto.GrantedAuthorityDTO
@@ -14,5 +16,5 @@ package allthings.iot.dos.dto.oauth2;
  * @CopyRight : COPYRIGHT(c) iot.tf56.com All Rights Reserved
  * *******************************************************************************************
  */
-public class GrantedAuthorityDTO extends AbstractDosOauth2DTO {
+public class GrantedAuthorityDTO extends AbstractIotDosDTO {
 }

@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  * *******************************************************************************************
  */
 
-@Component("allthings/iot/dms")
+@Component("dms")
 public class DeviceManageServiceImpl implements IDmsMsgProcessor<IMsg>, IDeviceManageService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeviceManageServiceImpl.class);
@@ -89,16 +89,14 @@ public class DeviceManageServiceImpl implements IDmsMsgProcessor<IMsg>, IDeviceM
 
     @Override
     public void processMsg(IMsg msg) throws Exception {
-        try {
-            executor.execute(() -> msgLogServiceImpl.processMsg(msg));
-        } catch (Exception ee) {
-            LOG.error("保存日志失败：\n {}", ee.toString());
-        }
+//        try {
+//            executor.execute(() -> msgLogServiceImpl.processMsg(msg));
+//        } catch (Exception ee) {
+//            LOG.error("保存日志失败：\n {}", ee.toString());
+//        }
 
         if (!MsgType.DeviceConnection.equals(msg.getMsgType())) {
             deviceMessageServiceImpl.processMsg(msg);
-        } else {
-            LOG.info("device connect msg : {}", JSON.toJSONString(msg));
         }
 
         switch (msg.getMsgType()) {

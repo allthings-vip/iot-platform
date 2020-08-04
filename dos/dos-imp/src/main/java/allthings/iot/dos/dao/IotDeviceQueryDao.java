@@ -1,5 +1,6 @@
 package allthings.iot.dos.dao;
 
+import allthings.iot.common.dto.QueryResult;
 import allthings.iot.dos.dto.IotDeviceDTO;
 import allthings.iot.dos.dto.IotOpenApiResponseDeviceDTO;
 import allthings.iot.dos.dto.query.IotDeviceDetailQueryDTO;
@@ -10,8 +11,6 @@ import allthings.iot.dos.dto.query.IotDeviceStatusQueryDTO;
 import allthings.iot.dos.dto.query.IotIovProtocolCodeQueryDto;
 import allthings.iot.dos.model.offline.IotDeviceCount;
 import allthings.iot.dos.model.offline.IotDeviceCountTag;
-import com.allthings.iot.dos.dto.query.*;
-import allthings.iot.common.dto.QueryResult;
 
 import java.util.List;
 

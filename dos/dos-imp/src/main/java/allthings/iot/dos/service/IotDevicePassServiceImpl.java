@@ -16,11 +16,6 @@ import allthings.iot.dos.dto.query.IotDevicePassQueryDTO;
 import allthings.iot.dos.model.IotDevicePass;
 import allthings.iot.util.redis.ICentralCacheService;
 import com.alibaba.fastjson.JSON;
-import com.allthings.iot.vis.backend.commons.dto.mq.aps.request.APSGetLiveStreamRequest;
-import com.allthings.iot.vis.backend.commons.dto.mq.aps.request.APSGetPlayBackRequest;
-import com.allthings.iot.vis.backend.commons.dto.mq.aps.request.APSStartPTZRequest;
-import com.allthings.iot.vis.backend.commons.dto.mq.aps.request.APSStopPTZRequest;
-import com.allthings.iot.vis.backend.commons.enums.mq.MQMessageType;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -269,14 +264,14 @@ public class IotDevicePassServiceImpl implements IotDevicePassService {
             return ResultDTO.newFail(judgeResult.getCode(), judgeResult.getMsg());
         }
         IotDevicePassDto iotDevicePassDto = judgeResult.getData();
-        APSStartPTZRequest startPTZRequest = new APSStartPTZRequest();
-        startPTZRequest.setCommand(iotDevicePassQueryDTO.getCommand());
-        startPTZRequest.setSpeed(iotDevicePassQueryDTO.getSpeed());
-        startPTZRequest.setCameraCode(iotDevicePassDto.getPassCode());
-        startPTZRequest.setMqMessageType(MQMessageType.MQ_START_PTZ_REQUEST);
-        String msgId = UUID.randomUUID().toString();
-        startPTZRequest.setSequence(msgId);
-        iotVisProducer.sendToQueue(JSON.toJSONString(startPTZRequest));
+//        APSStartPTZRequest startPTZRequest = new APSStartPTZRequest();
+//        startPTZRequest.setCommand(iotDevicePassQueryDTO.getCommand());
+//        startPTZRequest.setSpeed(iotDevicePassQueryDTO.getSpeed());
+//        startPTZRequest.setCameraCode(iotDevicePassDto.getPassCode());
+//        startPTZRequest.setMqMessageType(MQMessageType.MQ_START_PTZ_REQUEST);
+//        String msgId = UUID.randomUUID().toString();
+//        startPTZRequest.setSequence(msgId);
+//        iotVisProducer.sendToQueue(JSON.toJSONString(startPTZRequest));
         return ResultDTO.newSuccess();
     }
 
@@ -288,10 +283,10 @@ public class IotDevicePassServiceImpl implements IotDevicePassService {
         }
         IotDevicePassDto iotDevicePassDto = judgeResult.getData();
         //停止转动
-        APSStopPTZRequest stopPTZRequest = new APSStopPTZRequest();
-        stopPTZRequest.setCameraCode(iotDevicePassDto.getPassCode());
-        stopPTZRequest.setMqMessageType(MQMessageType.MQ_STOP_PTZ_REQUEST);
-        iotVisProducer.sendToQueue(JSON.toJSONString(stopPTZRequest));
+//        APSStopPTZRequest stopPTZRequest = new APSStopPTZRequest();
+//        stopPTZRequest.setCameraCode(iotDevicePassDto.getPassCode());
+//        stopPTZRequest.setMqMessageType(MQMessageType.MQ_STOP_PTZ_REQUEST);
+//        iotVisProducer.sendToQueue(JSON.toJSONString(stopPTZRequest));
         return ResultDTO.newSuccess();
     }
 
@@ -305,22 +300,22 @@ public class IotDevicePassServiceImpl implements IotDevicePassService {
         String msgId = UUID.randomUUID().toString();
         String toVisContent = "";
         if (IotVisParam.GET_LIVE_STREAM.equals(methodCode)) {
-            APSGetLiveStreamRequest liveStreamRequest = new APSGetLiveStreamRequest();
-            liveStreamRequest.setSequence(msgId);
-            liveStreamRequest.setExpireTime(Constants.HOUR);
-            liveStreamRequest.setCameraCode(iotDevicePassQueryDTO.getPassCode());
-            liveStreamRequest.setMqMessageType(MQMessageType.MQ_GET_LIVE_STREAM_REQUEST);
-            toVisContent = JSON.toJSONString(liveStreamRequest);
+//            APSGetLiveStreamRequest liveStreamRequest = new APSGetLiveStreamRequest();
+//            liveStreamRequest.setSequence(msgId);
+//            liveStreamRequest.setExpireTime(Constants.HOUR);
+//            liveStreamRequest.setCameraCode(iotDevicePassQueryDTO.getPassCode());
+//            liveStreamRequest.setMqMessageType(MQMessageType.MQ_GET_LIVE_STREAM_REQUEST);
+//            toVisContent = JSON.toJSONString(liveStreamRequest);
         } else if (IotVisParam.GET_PLAY_BACK.equals(methodCode)) {
-            APSGetPlayBackRequest playBackRequest = new APSGetPlayBackRequest();
-            playBackRequest.setCameraCode(iotDevicePassQueryDTO.getPassCode());
-            Long startTime = iotDevicePassQueryDTO.getStartTime() / 1000;
-            playBackRequest.setStartTime(startTime.intValue());
-            Long endTime = iotDevicePassQueryDTO.getEndTime() / 1000;
-            playBackRequest.setEndTime(endTime.intValue());
-            playBackRequest.setSequence(msgId);
-            playBackRequest.setMqMessageType(MQMessageType.MQ_GET_PLAY_BACK_REQUEST);
-            toVisContent = JSON.toJSONString(playBackRequest);
+//            APSGetPlayBackRequest playBackRequest = new APSGetPlayBackRequest();
+//            playBackRequest.setCameraCode(iotDevicePassQueryDTO.getPassCode());
+//            Long startTime = iotDevicePassQueryDTO.getStartTime() / 1000;
+//            playBackRequest.setStartTime(startTime.intValue());
+//            Long endTime = iotDevicePassQueryDTO.getEndTime() / 1000;
+//            playBackRequest.setEndTime(endTime.intValue());
+//            playBackRequest.setSequence(msgId);
+//            playBackRequest.setMqMessageType(MQMessageType.MQ_GET_PLAY_BACK_REQUEST);
+//            toVisContent = JSON.toJSONString(playBackRequest);
         }
 
         iotVisProducer.sendToQueue(toVisContent);

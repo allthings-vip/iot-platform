@@ -26,7 +26,7 @@ import java.util.Date;
 @Table(appliesTo = "IotDasConnectionLog", comment = "设备接入服务连接日志表")
 public class IotDasConnectionLog implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = " int(20) comment 'iotDasConnectionLogId' ")
     private Long iotDasConnectionLogId;
 

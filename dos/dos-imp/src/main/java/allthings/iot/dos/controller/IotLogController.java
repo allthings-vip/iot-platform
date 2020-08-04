@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/07/04 16:33:04
  */
 @RestController
-public class IotLogController extends IotDosBaseController implements IotLogApi {
+public class IotLogController implements IotLogApi {
 
     @Autowired
     private IotLogService logBiz;
@@ -26,9 +26,11 @@ public class IotLogController extends IotDosBaseController implements IotLogApi 
                                                        @RequestParam("endDatetime") long endDatetime,
                                                        @RequestParam("pageIndex") int pageIndex,
                                                        @RequestParam("pageSize") int pageSize,
-                                                       @RequestParam("iotProjectId") Long iotProjectId) {
+                                                       @RequestParam("iotProjectId") Long iotProjectId,
+                                                       @RequestParam("userId") Long userId,
+                                                       @RequestParam("roleCode") String roleCode) {
         return logBiz.getMsgLogs(deviceCode, msgType, beginDatetime, endDatetime, pageIndex, pageSize,
-                iotProjectId, 1L, "admin");
+                iotProjectId, userId, roleCode);
 
     }
 

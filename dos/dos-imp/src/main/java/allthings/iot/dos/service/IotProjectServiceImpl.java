@@ -1,7 +1,12 @@
 package allthings.iot.dos.service;
 
+import allthings.iot.common.dto.PageResult;
+import allthings.iot.common.dto.QueryResult;
 import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dos.IotMessageCenterIdConfig;
+import allthings.iot.dos.api.IotDeviceTypeService;
+import allthings.iot.dos.api.IotLoggerService;
+import allthings.iot.dos.api.IotProjectService;
 import allthings.iot.dos.constant.Constants;
 import allthings.iot.dos.constant.ErrorCode;
 import allthings.iot.dos.constant.ProjectStatus;
@@ -25,13 +30,9 @@ import allthings.iot.dos.dto.query.IotProjectDeleteQueryDTO;
 import allthings.iot.dos.dto.query.IotProjectQueryDTO;
 import allthings.iot.dos.dto.query.IotProjectSimpleDTO;
 import allthings.iot.dos.dto.query.IotUserQueryDTO;
-import allthings.iot.dos.manager.message.IotDosMessageManager;
 import allthings.iot.dos.model.IotProject;
 import allthings.iot.dos.model.IotUserProject;
 import allthings.iot.dos.model.oauth2.IotOauthClientDetails;
-import allthings.iot.dos.api.IotDeviceTypeService;
-import allthings.iot.dos.api.IotLoggerService;
-import allthings.iot.dos.api.IotProjectService;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.ArrayUtils;
@@ -49,8 +50,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
-import allthings.iot.common.dto.PageResult;
-import allthings.iot.common.dto.QueryResult;
 
 import javax.persistence.criteria.Predicate;
 import java.util.List;
@@ -92,8 +91,8 @@ public class IotProjectServiceImpl implements IotProjectService {
     private IotDeviceTypeService iotDeviceTypeService;
     @Autowired
     private IotProjectQueryDao iotProjectQueryDao;
-    @Autowired
-    private IotDosMessageManager iotDosMessageManager;
+    //    @Autowired
+//    private IotDosMessageManager iotDosMessageManager;
     @Autowired
     private IotMessageCenterIdConfig config;
     @Autowired
@@ -541,10 +540,11 @@ public class IotProjectServiceImpl implements IotProjectService {
         iotMessageManagerDTO.setCode(iotAppSecretQueryDTO.getCode());
         iotMessageManagerDTO.setMobileNumber(iotAppSecretQueryDTO.getMobile());
         iotMessageManagerDTO.setMessageCenterId(config.getAppSecretMessageId());
-        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
-        if (!result.isSuccess()) {
-            return ResultDTO.newFail(result.getCode(), result.getMsg());
-        }
+        // todo 短信验证码
+//        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
+//        if (!result.isSuccess()) {
+//            return ResultDTO.newFail(result.getCode(), result.getMsg());
+//        }
 
         IotProjectDTO iotProjectDTO = iotProjectDao.getByIotProjectIdAndDeleted(iotProjectId, false);
         if (iotProjectDTO == null) {

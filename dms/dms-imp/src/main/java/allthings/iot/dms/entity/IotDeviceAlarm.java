@@ -23,7 +23,7 @@ import javax.persistence.*;
 @Table(appliesTo = "IotDeviceAlarm", comment = "设备报警表")
 public class IotDeviceAlarm extends AbstractDeviceEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int(20) comment 'iotDeviceAlarmId' ")
     private Long iotDeviceAlarmId;
 

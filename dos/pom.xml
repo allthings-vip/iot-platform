@@ -18,6 +18,8 @@
         <module>dos-ui</module>
         <module>dos-common</module>
         <module>dos-monitor</module>
+        <module>dos-web</module>
+        <module>dos-open</module>
     </modules>
 
 

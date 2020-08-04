@@ -1,19 +1,21 @@
 package allthings.iot.dos.service;
 
 import allthings.iot.common.dto.ResultDTO;
+import allthings.iot.common.usual.DeviceTypes;
+import allthings.iot.dos.api.IotDeviceTypeService;
+import allthings.iot.dos.api.IotFactorService;
 import allthings.iot.dos.constant.ErrorCode;
 import allthings.iot.dos.dao.IotFactorDao;
 import allthings.iot.dos.dao.IotProtocolDao;
 import allthings.iot.dos.dao.IotProtocolFactorDao;
 import allthings.iot.dos.dto.IotFactorDTO;
+import allthings.iot.dos.dto.query.IotFactorQuerListDTO;
 import allthings.iot.dos.dto.query.IotFactorQueryDTO;
 import allthings.iot.dos.dto.query.IotProtocolFactorDTO;
 import allthings.iot.dos.exception.IllegalArgumentException;
 import allthings.iot.dos.model.IotFactor;
-import allthings.iot.dos.api.IotFactorService;
 import allthings.iot.dos.validate.IotFactorValidate;
 import com.google.common.collect.Lists;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import allthings.iot.common.usual.DeviceTypes;
 
 import java.util.List;
 
@@ -50,6 +51,8 @@ public class IotFactorServiceImpl implements IotFactorService {
     private IotProtocolFactorDao iotProtocolFactorDao;
     @Autowired
     private IotProtocolDao iotProtocolDao;
+    @Autowired
+    private IotDeviceTypeService iotDeviceTypeService;
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
@@ -138,7 +141,7 @@ public class IotFactorServiceImpl implements IotFactorService {
 
             return ResultDTO.newFail(ErrorCode.ERROR_4017.getCode(),
                     String.format(ErrorCode.ERROR_4017.getMessage(), sb
-                    .toString()));
+                            .toString()));
         }
 
         try {
@@ -156,9 +159,16 @@ public class IotFactorServiceImpl implements IotFactorService {
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Override
-    public ResultDTO<List<IotFactorQueryDTO>> getIotFactorList(Long iotDeviceId) {
+    public ResultDTO<List<IotFactorQueryDTO>> getIotFactorList(IotFactorQuerListDTO iotFactorQuerListDTO) {
 
-        Long protocolId = iotProtocolDao.getIdByIotDeviceId(iotDeviceId);
+        ResultDTO<Integer> judge = iotDeviceTypeService.judgeProject(iotFactorQuerListDTO.getIotProjectId(),
+                iotFactorQuerListDTO.getModifyOperatorId(), iotFactorQuerListDTO.getRoleCode());
+        if (!judge.isSuccess()) {
+            return ResultDTO.newFail(ErrorCode.ERROR_8014.getCode(),
+                    ErrorCode.ERROR_8014.getMessage());
+        }
+
+        Long protocolId = iotProtocolDao.getIdByIotDeviceId(iotFactorQuerListDTO.getIotDeviceId());
         if (protocolId == null) {
             protocolId = iotProtocolDao.getIdByCode(DeviceTypes.DEVICE_TYPE_PASS);
         }

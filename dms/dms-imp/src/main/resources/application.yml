@@ -7,14 +7,15 @@ spring.application.name: dms
 dubbo.port: 28012
 
 server:
-  port: 8089
+  port: 8080
   compression:
     enabled: true
     mime-types: application/json
-  context-path: /deviceManagerService
+  servlet:
+    context-path: /deviceManagerService
 
 spring.jpa:
-    show-sql: true
+    show-sql: false
     database: MYSQL
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
     hibernate:

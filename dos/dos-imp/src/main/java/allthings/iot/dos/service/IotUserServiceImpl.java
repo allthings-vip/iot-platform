@@ -15,7 +15,6 @@ import allthings.iot.dos.dto.IotUserDTO;
 import allthings.iot.dos.dto.query.IotLogDTO;
 import allthings.iot.dos.dto.query.IotMessageManagerDTO;
 import allthings.iot.dos.dto.query.IotUserQueryDTO;
-import allthings.iot.dos.manager.message.IotDosMessageManager;
 import allthings.iot.dos.model.IotUser;
 import allthings.iot.dos.model.IotUserProject;
 import com.alibaba.fastjson.JSON;
@@ -59,8 +58,8 @@ public class IotUserServiceImpl implements IotUserService {
     @Autowired
     private IotUserProjectDao iotUserProjectDao;
 
-    @Autowired
-    private IotDosMessageManager iotDosMessageManager;
+//    @Autowired
+//    private IotDosMessageManager iotDosMessageManager;
 
     @Autowired
     private IotMessageCenterIdConfig config;
@@ -101,10 +100,10 @@ public class IotUserServiceImpl implements IotUserService {
         iotMessageManagerDTO.setCode(iotUserDTO.getCode());
         iotMessageManagerDTO.setMobileNumber(iotUserDTO.getMobile());
         iotMessageManagerDTO.setMessageCenterId(config.getMessageCenterId());
-        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
-        if (!result.isSuccess()) {
-            return ResultDTO.newFail(result.getCode(), result.getMsg());
-        }
+//        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
+//        if (!result.isSuccess()) {
+//            return ResultDTO.newFail(result.getCode(), result.getMsg());
+//        }
 
         IotUser iotUser = iotUserDao.getIotUserByMobile(iotUserDTO.getMobile());
         if (iotUser != null) {
@@ -157,16 +156,17 @@ public class IotUserServiceImpl implements IotUserService {
         Long iotUserId = iotUserDTO.getModifyOperatorId();
         if (iotUserId == null) {
             return ResultDTO.newFail(ErrorCode.ERROR_8018.getCode(),
-                    ErrorCode.ERROR_8018.getMessage()));
+                    ErrorCode.ERROR_8018.getMessage());
         }
         IotMessageManagerDTO iotMessageManagerDTO = new IotMessageManagerDTO();
         iotMessageManagerDTO.setCode(iotUserDTO.getCode());
         iotMessageManagerDTO.setMobileNumber(iotUserDTO.getMobile());
         iotMessageManagerDTO.setMessageCenterId(config.getMessageCenterId());
-        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
-        if (!result.isSuccess()) {
-            return result;
-        }
+        // todo 短信验证码
+//        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
+//        if (!result.isSuccess()) {
+//            return result;
+//        }
         IotUser iotUser = iotUserDao.getIotUserByMobile(iotUserDTO.getMobile());
         if (iotUser != null && !iotUserId.equals(iotUser.getIotUserId())) {
             return ResultDTO.newFail(ErrorCode.ERROR_8000.getCode(),

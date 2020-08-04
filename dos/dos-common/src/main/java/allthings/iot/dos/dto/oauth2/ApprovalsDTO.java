@@ -1,5 +1,7 @@
 package allthings.iot.dos.dto.oauth2;
 
+import allthings.iot.dos.dto.AbstractIotDosDTO;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import java.util.Date;
  * @create: 2018-11-14 18:49
  */
 
-public class ApprovalsDTO extends AbstractDosOauth2DTO {
+public class ApprovalsDTO extends AbstractIotDosDTO {
     private String userId;
 
     private String clientId;

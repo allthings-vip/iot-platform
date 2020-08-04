@@ -4,6 +4,7 @@ import allthings.iot.common.dto.PageResult;
 import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dos.dto.IotExternalDevicePlatformDTO;
 import allthings.iot.dos.dto.IotServiceDTO;
+import allthings.iot.dos.dto.query.IotMonitorQueryDTO;
 
 import java.util.List;
 
@@ -43,14 +44,10 @@ public interface IotMonitorService {
     /**
      * 获取服务列表
      *
-     * @param status
-     * @param keywords
-     * @param pageIndex
-     * @param pageSize
+     * @param queryDTO
      * @return
      */
-    ResultDTO<PageResult<IotServiceDTO>> getIotServiceLists(Boolean status, String keywords, Integer pageIndex,
-                                                            Integer pageSize);
+    ResultDTO<PageResult<IotServiceDTO>> getIotServiceLists(IotMonitorQueryDTO queryDTO);
 
     /**
      * 获取服务列表

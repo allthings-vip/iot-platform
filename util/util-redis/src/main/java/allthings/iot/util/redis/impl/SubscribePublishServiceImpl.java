@@ -20,6 +20,7 @@ import org.springframework.data.redis.listener.Topic;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 /**
@@ -46,9 +47,9 @@ public class SubscribePublishServiceImpl implements ISubscribePublishService {
     RedisMessageListenerContainer redisMessageListenerContainer;
 
     @Bean
-    public RedisMessageListenerContainer redisMessageListenerContainer(JedisConnectionFactory jedisConnectionFactory) {
+    public RedisMessageListenerContainer redisMessageListenerContainer() {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory(jedisConnectionFactory);
+        container.setConnectionFactory(Objects.requireNonNull(stringRedisTemplate.getConnectionFactory()));
 
         //namethreadfactory
         ThreadFactory subNameThreadFactory = new ThreadFactoryBuilder()
@@ -87,7 +88,7 @@ public class SubscribePublishServiceImpl implements ISubscribePublishService {
         Preconditions.checkState(topics.size() > 0, "invalid topics");
 
         //先取消订阅
-        unsubscribeMessage(messageListener, null);
+        unsubscribeMessage(messageListener, topics);
 
         //重新订阅
         List<Topic> channelTopics = convertPatternTopics(topics);

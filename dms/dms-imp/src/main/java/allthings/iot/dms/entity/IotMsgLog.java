@@ -23,7 +23,7 @@ import javax.persistence.*;
 public class IotMsgLog extends AbstractDeviceEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int(20) comment 'iotMsgLogId' ")
     private Long iotMsgLogId;
 

@@ -2,6 +2,7 @@ package allthings.iot.dos.api;
 
 import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dos.dto.IotFactorDTO;
+import allthings.iot.dos.dto.query.IotFactorQuerListDTO;
 import allthings.iot.dos.dto.query.IotFactorQueryDTO;
 
 import java.util.List;
@@ -51,10 +52,10 @@ public interface IotFactorService {
     /**
      * 查询因子列表
      *
-     * @param iotDeviceId
+     * @param iotFactorQuerListDTO
      * @return
      */
-    ResultDTO<List<IotFactorQueryDTO>> getIotFactorList(Long iotDeviceId);
+    ResultDTO<List<IotFactorQueryDTO>> getIotFactorList(IotFactorQuerListDTO iotFactorQuerListDTO);
 
     /**
      * 通过设备类型编码查询因子列表

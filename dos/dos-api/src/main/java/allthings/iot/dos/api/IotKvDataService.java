@@ -30,7 +30,8 @@ public interface IotKvDataService {
      * @param iotProjectId
      * @return
      */
-    ResultDTO<List<IotFactorValueQueryDTO>> getKVLatest(String deviceCode, String partyId, Long iotProjectId);
+    ResultDTO<List<IotFactorValueQueryDTO>> getKVLatest(String deviceCode, String partyId, Long iotProjectId, Long userId,
+                                                        String roleCode);
 
     /**
      * 查询时间段内的因子数据
@@ -43,6 +44,7 @@ public interface IotKvDataService {
      * @return
      */
     ResultDTO<List<IotFactorRangeValueQueryDTO>> getKVRange(String deviceCode, String partyId, String[] factorCodes,
-                                                            Long startDatetime, Long endDatetime, Long iotProjectId);
+                                                            Long startDatetime, Long endDatetime, Long iotProjectId,
+                                                            Long userId, String roleCode);
 
 }

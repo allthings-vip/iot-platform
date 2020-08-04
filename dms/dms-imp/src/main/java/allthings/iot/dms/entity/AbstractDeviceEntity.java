@@ -40,8 +40,8 @@ public abstract class AbstractDeviceEntity implements Serializable {
     @Column(columnDefinition = " datetime comment '记录修改时间' ")
     private Date updateDate = new Date();
 
-    @Column(columnDefinition = " timeStamp not null COMMENT '大数据所需要的日期字段,记录更新时间' ")
-    private Date stampDate;
+    @Column(columnDefinition = " timeStamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '大数据所需要的日期字段,记录更新时间'  ")
+    private Date stampDate = new Date();
 
     @Column(columnDefinition = " char(1) comment '是否逻辑删除'")
     @Type(type = "yes_no")

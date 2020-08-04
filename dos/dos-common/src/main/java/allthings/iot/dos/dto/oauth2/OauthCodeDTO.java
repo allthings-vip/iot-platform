@@ -1,6 +1,8 @@
 package allthings.iot.dos.dto.oauth2;
 
-public class OauthCodeDTO extends AbstractDosOauth2DTO {
+import allthings.iot.dos.dto.AbstractIotDosDTO;
+
+public class OauthCodeDTO extends AbstractIotDosDTO {
     private String authentication;
 
     private String code;

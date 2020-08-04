@@ -21,7 +21,7 @@
         <module>common</module>
         <module>das</module>
         <module>dms</module>
-       <!-- <module>quickstart</module>-->
+        <!-- <module>quickstart</module>-->
         <module>util</module>
         <module>ups</module>
         <module>cps</module>
@@ -36,7 +36,6 @@
     <properties>
         <java.version>1.8</java.version>
         <java.compile.encoding>UTF-8</java.compile.encoding>
-        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
     </properties>
 
     <repositories>
@@ -68,7 +67,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                    <groupId>org.springframework.cloud</groupId>
+                <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>Greenwich.RC2</version>
                 <scope>import</scope>
@@ -77,7 +76,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.1</version>
+                <version>3.8.1</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -96,27 +95,9 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring.boot.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-tomcat</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>log4j-over-slf4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>2.3.5.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -145,17 +126,6 @@
                 <version>5.1.47</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-actuator</artifactId>
-                <version>${spring.boot.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>4.1.6.Final</version>
@@ -168,6 +138,11 @@
             <dependency>
                 <groupId>org.apache.hbase</groupId>
                 <artifactId>hbase-client</artifactId>
+                <version>2.1.0-cdh6.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-endpoint</artifactId>
                 <version>2.1.0-cdh6.3.1</version>
             </dependency>
             <dependency>
@@ -196,16 +171,6 @@
                 <version>1.7.25</version>
             </dependency>
             <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.1.11</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>1.1.11</version>
-            </dependency>
-            <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <version>2.9.0.pr4</version>
@@ -224,11 +189,6 @@
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>2.7</version>
-            </dependency>
-            <dependency>
-                <groupId>com.thoughtworks.xstream</groupId>
-                <artifactId>xstream</artifactId>
-                <version>1.4.9</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
@@ -336,11 +296,6 @@
                 <version>3.9.1</version>
             </dependency>
             <dependency>
-                <groupId>allthings.iot</groupId>
-                <artifactId>spring-boot-starter-hbase</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>1.1.10</version>
@@ -414,7 +369,6 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring.boot.version}</version>
                     <executions>
                         <execution>
                             <goals>

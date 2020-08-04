@@ -2,6 +2,7 @@ package allthings.iot.dos.api;
 
 import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dos.dto.IotDeviceDTO;
+import allthings.iot.dos.dto.IotDeviceTagDTO;
 import allthings.iot.dos.dto.IotTagDTO;
 import allthings.iot.dos.dto.query.IotTagQueryDTO;
 
@@ -25,60 +26,51 @@ public interface IotTagService {
     /**
      * 获取标签列表
      *
-     * @param iotProjectId
+     * @param iotTagDTO
      * @return
      */
-    ResultDTO<List<IotTagQueryDTO>> getIotTagList(Long iotProjectId);
+    ResultDTO<List<IotTagQueryDTO>> getIotTagList(IotTagDTO iotTagDTO);
 
     /**
      * 获取标签下设备
      *
-     * @param iotTagId
-     * @param iotProjectId
-     * @param keywords
+     * @param iotTagQueryDTO
      * @param choose
      * @return
      */
-    ResultDTO<List<IotDeviceDTO>> getDeviceByIotTagIdAndIotProjectId(Long iotTagId, Long iotProjectId,
-                                                                     String keywords, Boolean choose);
+    ResultDTO<List<IotDeviceDTO>> getDeviceByIotTagIdAndIotProjectId(IotTagQueryDTO iotTagQueryDTO, Boolean choose);
 
     /**
      * 删除标签
      *
-     * @param iotTagId
-     * @param iotProjectId
+     * @param iotTagDTO
      * @return
      */
-    ResultDTO<Integer> deleteTagByTagId(Long iotTagId, Long iotProjectId, Long operatorId);
+    ResultDTO<Integer> deleteTagByTagId(IotTagDTO iotTagDTO);
 
     /**
      * 保存标签
      *
      * @param iotTagDto
-     * @param operatorId
      * @return
      */
-    ResultDTO<Integer> saveTag(IotTagDTO iotTagDto, Long operatorId);
+    ResultDTO<Integer> saveTag(IotTagDTO iotTagDto);
 
     /**
      * 批量新增标签下设备
      *
-     * @param iotDeviceId
-     * @param iotTagId
-     * @param operatorId
+     * @param iotDeviceTagDTO
      * @return
      */
-    ResultDTO<Integer> saveDeviceOfTag(List<Long> iotDeviceId, Long iotTagId, Long operatorId);
+    ResultDTO<Integer> saveDeviceOfTag(IotDeviceTagDTO iotDeviceTagDTO);
 
     /**
      * 批量删除标签下设备
      *
-     * @param iotDeviceId
-     * @param iotTagId
-     * @param operatorId
+     * @param iotDeviceTagDTO
      * @return
      */
-    ResultDTO<Integer> deleteDeviceOfTag(List<Long> iotDeviceId, Long iotTagId, Long operatorId);
+    ResultDTO<Integer> deleteDeviceOfTag(IotDeviceTagDTO iotDeviceTagDTO);
 
     /**
      * 通过标签名称获取标签ID

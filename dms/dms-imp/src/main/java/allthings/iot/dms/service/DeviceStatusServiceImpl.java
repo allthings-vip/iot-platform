@@ -67,7 +67,7 @@ public class DeviceStatusServiceImpl implements IDmsMsgProcessor<DeviceConnectio
             .setNameFormat("dms-status-expired-msg-log-%d").build());
 
     @PostConstruct
-    private void init() throws Exception {
+    private void init() {
         sps.subscribeMessage(listener, Lists.newArrayList(EXPIRED_KEY));
     }
 

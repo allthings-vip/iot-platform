@@ -1,6 +1,8 @@
 package allthings.iot.dos.controller;
 
-import allthings.iot.dos.api.IotLoggerBiz;
+import allthings.iot.common.dto.PageResult;
+import allthings.iot.common.dto.ResultDTO;
+import allthings.iot.dos.api.IotLoggerService;
 import allthings.iot.dos.client.api.IotLoggerApi;
 import allthings.iot.dos.dto.IotLoggerTypeDto;
 import allthings.iot.dos.dto.query.IotDeviceLoggerListDto;
@@ -11,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tf56.iot.common.dto.PageResult;
-import tf56.iot.common.dto.ResultDTO;
 
 import java.util.List;
 
@@ -21,10 +21,10 @@ import java.util.List;
  * @date 2019/07/05 10:25:15
  */
 @RestController
-public class IotLoggerController extends IotDosBaseController implements IotLoggerApi {
+public class IotLoggerController implements IotLoggerApi {
 
     @Autowired
-    private IotLoggerBiz loggerBiz;
+    private IotLoggerService loggerBiz;
 
     @Override
     public ResultDTO<Object> saveIotDeviceLogger(@RequestBody IotLogDTO logDTO) {
@@ -34,22 +34,22 @@ public class IotLoggerController extends IotDosBaseController implements IotLogg
 
     @Override
     public ResultDTO<PageResult<IotDeviceLoggerListDto>> getDeviceLoggerList(@RequestBody IotDeviceLoggerQueryListDto iotDeviceLoggerQueryListDto) {
-        return getResult(loggerBiz.getDeviceLoggerList(iotDeviceLoggerQueryListDto));
+        return loggerBiz.queryLoggerList(iotDeviceLoggerQueryListDto);
     }
 
     @Override
     public ResultDTO<PageResult<IotDeviceLoggerListDto>> getSystemLoggerList(@RequestBody IotSystemLoggerQueryListDto iotSystemLoggerQueryListDto) {
-        return getResult(loggerBiz.getSystemLoggerList(iotSystemLoggerQueryListDto));
+        return loggerBiz.querySystemLoggerList(iotSystemLoggerQueryListDto);
     }
 
     @Override
     public ResultDTO<Long> getLoggerTypeIdByLoggerTypeCode(@RequestParam("loggerTypeCode") String loggerTypeCode) {
-        return getResult(loggerBiz.getLoggerTypeIdByLoggerTypeCode(loggerTypeCode));
+        return loggerBiz.getLoggerTypeIdByLoggerTypeCode(loggerTypeCode);
     }
 
     @Override
     public ResultDTO<List<IotLoggerTypeDto>> getSystemLoggerType() {
-        return getResult(loggerBiz.getSystemLoggerType());
+        return loggerBiz.getSystemLoggerType();
     }
 
 

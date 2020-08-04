@@ -24,9 +24,6 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class DmsConfig {
 
-    @Value("${zookeeper.connectString}")
-    String zkConnectString;
-
     @Value("${iot.rocketmq.brokers}")
     private String brokers;
 
@@ -37,9 +34,6 @@ public class DmsConfig {
         factory = RocketMQUtil.createOwnFactory(brokers);
     }
 
-    public String getZkConnectString() {
-        return zkConnectString;
-    }
 
     public IFactory getFactory() {
         return factory;

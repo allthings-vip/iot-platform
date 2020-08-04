@@ -46,11 +46,6 @@
         </dependency>
         <dependency>
             <groupId>allthings.iot</groupId>
-            <artifactId>ktv-manager</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>allthings.iot</groupId>
             <artifactId>util-hbase</artifactId>
             <version>${project.version}</version>
             <exclusions>

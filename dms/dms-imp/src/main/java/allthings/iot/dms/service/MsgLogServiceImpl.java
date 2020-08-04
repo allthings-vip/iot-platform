@@ -7,12 +7,8 @@ import allthings.iot.dms.IMsgLogService;
 import allthings.iot.dms.dao.MsgLogDao;
 import allthings.iot.dms.dto.MsgLogDto;
 import allthings.iot.dms.entity.IotMsgLog;
-import allthings.iot.spring.boot.starter.hbase.api.HbaseTemplate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import org.apache.hadoop.hbase.client.Mutation;
-import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +54,8 @@ public class MsgLogServiceImpl implements IDmsMsgProcessor<IMsg>, IMsgLogService
 
     @Autowired
     MsgLogDao dao;
-    @Autowired
-    private HbaseTemplate hbaseTemplate;
+//    @Autowired
+//    private HbaseTemplate hbaseTemplate;
 
     @Override
     public void processMsg(IMsg msg) {
@@ -121,18 +117,18 @@ public class MsgLogServiceImpl implements IDmsMsgProcessor<IMsg>, IMsgLogService
             if (gpsDateTime == null) {
                 dateTime = msg.getOccurTime();
             } else {
-                dateTime = (long) gpsDateTime;
+                dateTime = Long.parseLong(String.valueOf(gpsDateTime));
             }
-            String rowKey = deviceType + deviceId + dateTime;
-            byte[] colFamilyBytes = Bytes.toBytes(DMS_COL_FAMILY);
-            Put put = new Put(Bytes.toBytes(rowKey), dateTime);
-            put.addColumn(colFamilyBytes, Bytes.toBytes("deviceType"), Bytes.toBytes(deviceType));
-            put.addColumn(colFamilyBytes, Bytes.toBytes("deviceId"), Bytes.toBytes(deviceId));
-            put.addColumn(colFamilyBytes, Bytes.toBytes("msgType"), Bytes.toBytes(msgType));
-            put.addColumn(colFamilyBytes, Bytes.toBytes("msgContent"), Bytes.toBytes(msgContent));
-            List<Mutation> mutations = Lists.newArrayList();
-            mutations.add(put);
-            hbaseTemplate.saveOrUpdates(DMS_TABLE_NAME, mutations);
+//            String rowKey = deviceType + deviceId + dateTime;
+//            byte[] colFamilyBytes = Bytes.toBytes(DMS_COL_FAMILY);
+//            Put put = new Put(Bytes.toBytes(rowKey), dateTime);
+//            put.addColumn(colFamilyBytes, Bytes.toBytes("deviceType"), Bytes.toBytes(deviceType));
+//            put.addColumn(colFamilyBytes, Bytes.toBytes("deviceId"), Bytes.toBytes(deviceId));
+//            put.addColumn(colFamilyBytes, Bytes.toBytes("msgType"), Bytes.toBytes(msgType));
+//            put.addColumn(colFamilyBytes, Bytes.toBytes("msgContent"), Bytes.toBytes(msgContent));
+//            List<Mutation> mutations = Lists.newArrayList();
+//            mutations.add(put);
+//            hbaseTemplate.saveOrUpdates(DMS_TABLE_NAME, mutations);
 
 //            long time = System.currentTimeMillis();
 //            IotMsgLog pojo = new IotMsgLog();
@@ -147,7 +143,7 @@ public class MsgLogServiceImpl implements IDmsMsgProcessor<IMsg>, IMsgLogService
 //            dao.saveAndFlush(pojo);
 //            LOG.info("保存耗时：{}", System.currentTimeMillis() - time);
         } catch (Exception e) {
-            LOG.warn("saveMsgLog error. \ndevice msg content:{}\nexception:{}", msg.toString(), e.getMessage());
+            LOG.warn(String.format("saveMsgLog error. \ndevice msg content:%s\nexception:", msg.toString()), e);
         }
     }
 

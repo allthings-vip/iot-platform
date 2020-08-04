@@ -77,6 +77,7 @@ public class RedisMsgPubSubListener extends AbstractMessageListener {
         msg.setTerminalIp(pojo.getTerminalIp());
         msg.setConnected(false);
         msg.setOccurTime(lastTime);
+        msg.setMsgCode("0000");
 
         try {
             deviceMessageServiceImpl.processMsg(msg);

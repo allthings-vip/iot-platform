@@ -22,5 +22,7 @@ public interface IotLogApi {
                                                 @RequestParam("endDatetime") long endDatetime,
                                                 @RequestParam("pageIndex") int pageIndex,
                                                 @RequestParam("pageSize") int pageSize,
-                                                @RequestParam("iotProjectId") Long iotProjectId);
+                                                @RequestParam("iotProjectId") Long iotProjectId,
+                                                @RequestParam("userId") Long userId,
+                                                @RequestParam("roleCode") String roleCode);
 }

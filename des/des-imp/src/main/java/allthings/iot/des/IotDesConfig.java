@@ -1,10 +1,10 @@
 package allthings.iot.des;
 
+import allthings.iot.util.rocketmq.IFactory;
+import allthings.iot.util.rocketmq.RocketMQUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tf56.iot.util.rocketmq.IFactory;
-import tf56.iot.util.rocketmq.RocketMQUtil;
 
 /**
  * @author tyf

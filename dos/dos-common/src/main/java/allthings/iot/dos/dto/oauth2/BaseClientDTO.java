@@ -1,5 +1,7 @@
 package allthings.iot.dos.dto.oauth2;
 
+import allthings.iot.dos.dto.AbstractIotDosDTO;
+
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.Set;
  * @CopyRight : COPYRIGHT(c) iot.tf56.com All Rights Reserved
  * *******************************************************************************************
  */
-public class BaseClientDTO extends AbstractDosOauth2DTO {
+public class BaseClientDTO extends AbstractIotDosDTO {
     private String clientId;
 
     private String clientSecret;

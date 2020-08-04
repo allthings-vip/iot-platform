@@ -10,6 +10,8 @@ import allthings.iot.util.rocketmq.IConsumer;
 import allthings.iot.util.rocketmq.IConsumerConfig;
 import allthings.iot.util.rocketmq.msg.IRocketMsgListener;
 import allthings.iot.util.rocketmq.msg.RocketMsg;
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +34,7 @@ import java.util.List;
  * *******************************************************************************************
  */
 @Component
+@Slf4j
 public class CacheMsgHandler extends AbstractDeviceMessagePipe {
 
     @Autowired
@@ -61,7 +64,9 @@ public class CacheMsgHandler extends AbstractDeviceMessagePipe {
             @Override
             public void onSuccess(List<RocketMsg> messages) {
                 for (RocketMsg rocketMsg : messages) {
-                    callback.onSuccess(convert(rocketMsg.getContent()));
+                    IMsg msg = convert(rocketMsg.getContent());
+                    log.info("设备消息：{}", JSON.toJSONString(msg));
+                    callback.onSuccess(msg);
                 }
             }
 

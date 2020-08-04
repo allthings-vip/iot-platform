@@ -34,7 +34,7 @@
     <!-- 本地局域网联调环境 -->
     <springProfile name="local">
         <root level="INFO">
-            <appender-ref ref="FILE"/>
+            <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
 

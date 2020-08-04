@@ -1,6 +1,8 @@
 package allthings.iot.dos.dto.oauth2;
 
-public class RefreshTokenDTO extends AbstractDosOauth2DTO {
+import allthings.iot.dos.dto.AbstractIotDosDTO;
+
+public class RefreshTokenDTO extends AbstractIotDosDTO {
     private String tokenId;
 
     private String token;

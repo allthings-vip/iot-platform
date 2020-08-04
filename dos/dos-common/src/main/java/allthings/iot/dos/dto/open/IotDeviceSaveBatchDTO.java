@@ -19,15 +19,15 @@ import java.util.List;
  */
 public class IotDeviceSaveBatchDTO implements Serializable {
 
-    List<allthings.iot.dos.open.dto.IotDeviceOpenDTO> devices;
+    List<IotDeviceOpenDTO> devices;
 
     private Long iotProjectId;
 
-    public List<allthings.iot.dos.open.dto.IotDeviceOpenDTO> getDevices() {
+    public List<IotDeviceOpenDTO> getDevices() {
         return devices;
     }
 
-    public void setDevices(List<allthings.iot.dos.open.dto.IotDeviceOpenDTO> devices) {
+    public void setDevices(List<IotDeviceOpenDTO> devices) {
         this.devices = devices;
     }
 

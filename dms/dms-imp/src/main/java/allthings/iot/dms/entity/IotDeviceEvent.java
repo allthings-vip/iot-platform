@@ -24,7 +24,7 @@ import javax.persistence.*;
 public class IotDeviceEvent extends AbstractDeviceEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int(20) comment 'iotDeviceEventId'")
     private Long iotDeviceEventId;
 
