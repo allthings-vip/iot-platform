@@ -61,10 +61,10 @@ public interface IotProtocolService {
      * 删除协议
      *
      * @param iotProtocolIds
-     * @param operator
+     * @param modifyOperatorId
      * @return
      */
-    ResultDTO<Integer> deleteIotProtocol(Long[] iotProtocolIds, String operator);
+    ResultDTO<Integer> deleteIotProtocol(Long[] iotProtocolIds, Long modifyOperatorId);
 
     /**
      * 查询协议详情

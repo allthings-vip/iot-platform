@@ -28,7 +28,7 @@ public class IotDeviceSaveMessageImpl implements IotDeviceSaveMessageService {
 //
 //    @PostConstruct
 //    public void init() {
-//        producer = factory.createProducer(new IProducerConfig() {
+//        allthings.iot.dos.monitor.producer = factory.createProducer(new IProducerConfig() {
 //            @Override
 //            public String getProducerId() {
 //                return String.join("-", Constants.DOS_SERVICE_TO_TASK_GROUP, this.getClass().getCanonicalName());

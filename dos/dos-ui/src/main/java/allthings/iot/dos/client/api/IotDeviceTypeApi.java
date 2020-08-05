@@ -36,7 +36,7 @@ public interface IotDeviceTypeApi {
 
     @PostMapping("/dos/service/updateIotDeviceTypeStatus")
     ResultDTO<Integer> updateIotDeviceTypeStatus(@RequestParam("iotDeviceTypeIds") Long[] iotDeviceTypeIds,
-                                                 @RequestParam("operator") String operator,
+                                                 @RequestParam("modifyOperatorId") Long modifyOperatorId,
                                                  @RequestParam("isEnabled") Integer isEnabled);
 
     @PostMapping("/dos/service/deleteIotDeviceType")

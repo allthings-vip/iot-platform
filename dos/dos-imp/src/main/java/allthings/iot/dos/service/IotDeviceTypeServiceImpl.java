@@ -211,7 +211,7 @@ public class IotDeviceTypeServiceImpl implements IotDeviceTypeService {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
-    public ResultDTO<Integer> updateIotDeviceTypeStatus(Long[] iotDeviceTypeIds, String operator, Integer status) {
+    public ResultDTO<Integer> updateIotDeviceTypeStatus(Long[] iotDeviceTypeIds, Long modifyOperatorId, Integer status) {
         if (ArrayUtils.isEmpty(iotDeviceTypeIds)) {
             LOGGER.error("device type update error", ErrorCode.ERROR_1004.getMessage());
             return ResultDTO.newFail(ErrorCode.ERROR_1004.getCode(),
@@ -233,7 +233,7 @@ public class IotDeviceTypeServiceImpl implements IotDeviceTypeService {
 
 
         for (Long iotDeviceTypeId : iotDeviceTypeIds) {
-            iotDeviceTypeDao.updateIotDeviceTypeStatus(iotDeviceTypeId, operator, isEnabled, !isEnabled);
+            iotDeviceTypeDao.updateIotDeviceTypeStatus(iotDeviceTypeId, modifyOperatorId, isEnabled, !isEnabled);
         }
 
         return ResultDTO.newSuccess();

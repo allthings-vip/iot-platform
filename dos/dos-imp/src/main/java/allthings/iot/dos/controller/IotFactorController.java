@@ -35,8 +35,8 @@ public class IotFactorController implements IotFactorApi {
 
     @Override
     public ResultDTO<Integer> deleteIotFactor(@RequestParam("iotFactorIds") Long[] iotFactorIds, @RequestParam(
-            "operator") String operator) {
-        return factorBiz.deleteIotFactor(iotFactorIds, operator);
+            "modifyOperatorId") Long modifyOperatorId) {
+        return factorBiz.deleteIotFactor(iotFactorIds, modifyOperatorId);
     }
 
     @Override

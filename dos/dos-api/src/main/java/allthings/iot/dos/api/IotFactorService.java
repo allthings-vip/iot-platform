@@ -44,10 +44,10 @@ public interface IotFactorService {
      * 删除因子
      *
      * @param iotFactorIds
-     * @param operator
+     * @param modifyOperatorId
      * @return
      */
-    ResultDTO<Integer> deleteIotFactor(Long[] iotFactorIds, String operator);
+    ResultDTO<Integer> deleteIotFactor(Long[] iotFactorIds, Long modifyOperatorId);
 
     /**
      * 查询因子列表

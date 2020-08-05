@@ -4,7 +4,7 @@ import allthings.iot.dos.dto.AbstractIotDosDTO;
 
 /**
  * @author :  luhao
- * @FileName :  com.allthings.iot.dos.oauth2.dto.AccessTokenDTO
+ * @FileName :  allthings.iot.dos.oauth2.dto.AccessTokenDTO
  * @CreateDate :  2018/11/15
  * @Description :
  * @ReviewedBy :

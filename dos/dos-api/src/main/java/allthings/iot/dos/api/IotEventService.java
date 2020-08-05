@@ -2,6 +2,7 @@ package allthings.iot.dos.api;
 
 import allthings.iot.common.dto.PageResult;
 import allthings.iot.common.dto.ResultDTO;
+import allthings.iot.dos.dto.open.IotEventQueryDTO;
 import allthings.iot.dos.dto.query.IotDeviceEventDTO;
 import allthings.iot.dos.dto.query.IotEventQueryListDTO;
 
@@ -30,5 +31,5 @@ public interface IotEventService {
      * @param
      * @return
      */
-    ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(IotEventQueryListDTO queryListDTO);
+    ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(IotEventQueryDTO iotEventQueryDTO);
 }

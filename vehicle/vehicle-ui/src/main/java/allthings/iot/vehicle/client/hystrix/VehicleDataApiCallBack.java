@@ -14,7 +14,7 @@ import allthings.iot.vehicle.common.dto.GpsFenceTaskDto;
 import allthings.iot.vehicle.common.dto.GpsLQueryDto;
 import allthings.iot.vehicle.common.dto.GpsQueryDto;
 import allthings.iot.vehicle.common.dto.SaveDeviceDto;
-import allthings.iot.vehicle.client.VehicleDataService;
+import allthings.iot.vehicle.client.VehicleDataApi;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ import java.util.Map;
  * @create: 2019-05-06 18:13
  */
 @Component
-public class VehicleDataServiceCallBack implements VehicleDataService {
+public class VehicleDataApiCallBack implements VehicleDataApi {
     @Override
     public Result<QueryResult<Map<String, String>>> queryGpsList(GpsQueryDto gpsQueryDto) {
         return CallBackError.CALLBACK_ERROR;
@@ -35,29 +35,8 @@ public class VehicleDataServiceCallBack implements VehicleDataService {
     public Result<QueryResult<Map<String, String>>> queryGpsLatest(GpsLQueryDto gpsLQueryDto) {
         return CallBackError.CALLBACK_ERROR;
     }
-
-    @Override
-    public Result<?> saveGps(List<GpsDto> gpsDtoList) {
-        return CallBackError.CALLBACK_ERROR;
-    }
-
     @Override
     public Result<QueryResult<Map<String, String>>> queryUnHandStopTimeGpsList(GpsQueryDto gpsQueryDto) {
-        return CallBackError.CALLBACK_ERROR;
-    }
-
-    @Override
-    public Result<?> saveOrUpdateFence(GpsFenceDto gpsFenceDto) {
-        return CallBackError.CALLBACK_ERROR;
-    }
-
-    @Override
-    public Result<?> saveFenceTask(GpsFenceTaskDto gpsFenceTaskDto) {
-        return CallBackError.CALLBACK_ERROR;
-    }
-
-    @Override
-    public Result<?> queryFence(String entityId) {
         return CallBackError.CALLBACK_ERROR;
     }
 
@@ -98,11 +77,6 @@ public class VehicleDataServiceCallBack implements VehicleDataService {
 
     @Override
     public Result<Map.Entry<String, List<Map<String, Object>>>> queryBathLast(QueryListCriteriaDto queryListCriteriaDto) {
-        return CallBackError.CALLBACK_ERROR;
-    }
-
-    @Override
-    public Result<?> getGpsStatus(String deviceCodes) {
         return CallBackError.CALLBACK_ERROR;
     }
 

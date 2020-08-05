@@ -40,24 +40,24 @@ public interface IotProtocolFactorDao extends BaseRepository<IotProtocolFactor, 
      * 删除协议因子
      *
      * @param iotProtocolId
-     * @param operator
+     * @param modifyOperatorId
      * @return
      */
     @Modifying
-    @Query(" update IotProtocolFactor set isDeleted=true ,operator=:operator where iotProtocolId=:iotProtocolId" +
+    @Query(" update IotProtocolFactor set isDeleted=true ,modifyOperatorId=:modifyOperatorId where iotProtocolId=:iotProtocolId" +
             " and isDeleted=false ")
     Integer deleteByIotProtocolId(@Param("iotProtocolId") Long iotProtocolId, @Param
-            ("operator") String operator);
+            ("modifyOperatorId") Long modifyOperatorId);
 
     @Query(value =
-            " select new com.allthings.iot.dos.dto.query.IotProtocolFactorDTO(itf.iotFactorId,(select iff.factorName from" +
+            " select new allthings.iot.dos.dto.query.IotProtocolFactorDTO(itf.iotFactorId,(select iff.factorName from" +
                     " IotFactor iff  where iff.iotFactorId = itf.iotFactorId)) " +
                     " from IotProtocolFactor itf where itf.iotFactorId in (:iotFactorIds) and itf.isDeleted = false" +
                     " group by itf.iotFactorId having count(itf.iotFactorId) > 0 ")
     List<IotProtocolFactorDTO> getIotProtocolFactorByIotFactorId(@Param("iotFactorIds") List<Long> iotFactorIds);
 
 
-    @Query(" select new com.allthings.iot.dos.dto.query.IotFactorQueryDTO(iff.iotFactorId,iff.factorCode,iff.factorName," +
+    @Query(" select new allthings.iot.dos.dto.query.IotFactorQueryDTO(iff.iotFactorId,iff.factorCode,iff.factorName," +
             "idat" +
             ".iotDataAggTypeId,idat.dataAggTypeName, idat.dataAggTypeCode,iff.unitName,iff.unitSymbol) from IotFactor" +
             " iff ,IotDataAggType " +
@@ -66,7 +66,7 @@ public interface IotProtocolFactorDao extends BaseRepository<IotProtocolFactor, 
     List<IotFactorQueryDTO> getIotProtocolFactorByiotProtocolId(@Param("iotProtocolId") Long iotProtocolId);
 
 
-    @Query(" select new com.allthings.iot.dos.dto.query.IotProtocolFactorDTO(iff.iotFactorId,iff.factorName) from " +
+    @Query(" select new allthings.iot.dos.dto.query.IotProtocolFactorDTO(iff.iotFactorId,iff.factorName) from " +
             "IotFactor " +
             "iff ,IotProtocolFactor idtf where iff.iotFactorId = " +
             "idtf.iotFactorId and idtf.iotProtocolId =:iotProtocolId and idtf.isDeleted = false")

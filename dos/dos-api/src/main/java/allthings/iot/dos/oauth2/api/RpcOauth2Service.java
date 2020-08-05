@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author :  luhao
- * @FileName :  com.allthings.iot.dos.oauth2.api.RpcOauth2Biz
+ * @FileName :  allthings.iot.dos.oauth2.api.RpcOauth2Biz
  * @CreateDate :  2018/4/24
  * @Description :
  * @ReviewedBy :

@@ -79,7 +79,7 @@ import allthings.iot.ktv.common.dto.QueryDto;
 import allthings.iot.ktv.common.dto.QueryListCriteriaDto;
 import allthings.iot.util.gps.enums.CoorType;
 import allthings.iot.util.gps.util.GpsUtil;
-import allthings.iot.vehicle.client.VehicleDataService;
+import allthings.iot.vehicle.client.VehicleDataApi;
 import allthings.iot.vehicle.common.dto.GpsDto;
 import allthings.iot.vehicle.common.dto.GpsQueryDto;
 import com.alibaba.rocketmq.shade.com.alibaba.fastjson.JSON;
@@ -147,7 +147,7 @@ public class IotDeviceServiceImpl implements IotDeviceService {
     @Autowired
     private IotProjectDeviceTypeDao iotProjectDeviceTypeDao;
     @Autowired
-    private VehicleDataService vehicleDataService;
+    private VehicleDataApi vehicleDataService;
     @Autowired
     private IotDeviceTagDao iotDeviceTagDao;
     @Autowired
@@ -304,10 +304,10 @@ public class IotDeviceServiceImpl implements IotDeviceService {
                     }
                 }
 
-                GpsDto gpsDto = getGpsDto(getIotDevice(iotDeviceDTO));
-                if (gpsDto != null) {
-                    vehicleDataService.saveGps(Lists.newArrayList(gpsDto));
-                }
+//                GpsDto gpsDto = getGpsDto(getIotDevice(iotDeviceDTO));
+//                if (gpsDto != null) {
+//                    vehicleDataService.saveGps(Lists.newArrayList(gpsDto));
+//                }
                 // 添加设备新增日志
                 saveDeviceInfoLogger(iotDeviceDTO, true);
                 return ResultDTO.newSuccess(iotDeviceId);
@@ -455,16 +455,16 @@ public class IotDeviceServiceImpl implements IotDeviceService {
                 dealSaveBatch(deviceList);
                 iotDeviceDao.saveAll(deviceList);
 
-                List<GpsDto> gpsDtoList = Lists.newArrayList();
-                for (IotDevice iotDevice : deviceList) {
-                    GpsDto gpsDto = getGpsDto(iotDevice);
-                    if (gpsDto != null) {
-                        gpsDtoList.add(gpsDto);
-                    }
-                }
-                if (!CollectionUtils.isEmpty(gpsDtoList)) {
-                    vehicleDataService.saveGps(gpsDtoList);
-                }
+//                List<GpsDto> gpsDtoList = Lists.newArrayList();
+//                for (IotDevice iotDevice : deviceList) {
+//                    GpsDto gpsDto = getGpsDto(iotDevice);
+//                    if (gpsDto != null) {
+//                        gpsDtoList.add(gpsDto);
+//                    }
+//                }
+//                if (!CollectionUtils.isEmpty(gpsDtoList)) {
+//                    vehicleDataService.saveGps(gpsDtoList);
+//                }
             }
 
             if (updateDeviceList.size() > 0) {
@@ -559,16 +559,16 @@ public class IotDeviceServiceImpl implements IotDeviceService {
         if (deviceList.size() > 0) {
             dealSaveBatch(deviceList);
             iotDeviceDao.saveAll(deviceList);
-            List<GpsDto> gpsDtoList = Lists.newArrayList();
-            for (IotDevice iotDevice : deviceList) {
-                GpsDto gpsDto = getGpsDto(iotDevice);
-                if (gpsDto != null) {
-                    gpsDtoList.add(gpsDto);
-                }
-            }
-            if (!CollectionUtils.isEmpty(gpsDtoList)) {
-                vehicleDataService.saveGps(gpsDtoList);
-            }
+//            List<GpsDto> gpsDtoList = Lists.newArrayList();
+//            for (IotDevice iotDevice : deviceList) {
+//                GpsDto gpsDto = getGpsDto(iotDevice);
+//                if (gpsDto != null) {
+//                    gpsDtoList.add(gpsDto);
+//                }
+//            }
+//            if (!CollectionUtils.isEmpty(gpsDtoList)) {
+//                vehicleDataService.saveGps(gpsDtoList);
+//            }
         }
 
         if (updateDeviceList.size() > 0) {
@@ -734,11 +734,11 @@ public class IotDeviceServiceImpl implements IotDeviceService {
                 }
             }
 
-            GpsDto gpsDto = getGpsDto(getIotDevice(iotDeviceDTO));
-            if (gpsDto != null) {
-                //更新
-                vehicleDataService.saveGps(Lists.newArrayList(gpsDto));
-            }
+//            GpsDto gpsDto = getGpsDto(getIotDevice(iotDeviceDTO));
+//            if (gpsDto != null) {
+//                //更新
+//                vehicleDataService.saveGps(Lists.newArrayList(gpsDto));
+//            }
 
             // 保存设备信息更新日志
             saveDeviceInfoLogger(iotDeviceDTO, false);
@@ -781,7 +781,7 @@ public class IotDeviceServiceImpl implements IotDeviceService {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
-    public ResultDTO<Integer> deleteIotDevice(Long[] iotDeviceIds, String operator) {
+    public ResultDTO<Integer> deleteIotDevice(Long[] iotDeviceIds, Long modifyOperatorId) {
         if (ArrayUtils.isEmpty(iotDeviceIds)) {
             LOGGER.warn(ErrorCode.ERROR_3004.getMessage());
             return ResultDTO.newFail(ErrorCode.ERROR_3004.getCode(),
@@ -790,7 +790,7 @@ public class IotDeviceServiceImpl implements IotDeviceService {
 
         try {
             for (Long iotDeviceId : iotDeviceIds) {
-                iotDeviceDao.deleteIotDeviceByIotDeviceId(iotDeviceId, operator);
+                iotDeviceDao.deleteIotDeviceByIotDeviceId(iotDeviceId, modifyOperatorId);
             }
 
             return ResultDTO.newSuccess();

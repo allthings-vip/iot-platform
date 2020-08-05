@@ -92,10 +92,10 @@ public interface IotDeviceService {
      * 删除设备
      *
      * @param iotDeviceIds
-     * @param operator
+     * @param modifyOperatorId
      * @return
      */
-    ResultDTO<Integer> deleteIotDevice(Long[] iotDeviceIds, String operator);
+    ResultDTO<Integer> deleteIotDevice(Long[] iotDeviceIds, Long modifyOperatorId);
 
     /**
      * 更新设备可用状态

@@ -33,14 +33,6 @@ import java.util.Map;
  * *******************************************************************************************
  */
 public interface IVehicleService {
-    /**
-     * 保存gps数据
-     *
-     * @param gpsList
-     * @return Result
-     * @throws Exception io
-     */
-    Result<?> saveGps(List<GpsDto> gpsList) throws Exception;
 
     /**
      * 查询gps数据
@@ -66,30 +58,6 @@ public interface IVehicleService {
      * @throws IOException
      */
     Result<QueryResult<Map<String, String>>> queryGpsLatest(GpsLQueryDto gpsLQueryDto) throws Exception;
-
-    /**
-     * 保存电子围栏数据
-     *
-     * @param gpsFenceDto
-     * @return
-     */
-    Result<?> saveOrUpdateFence(GpsFenceDto gpsFenceDto) throws Exception;
-
-    /**
-     * 查询电子围栏数据
-     *
-     * @param entityId
-     * @return
-     */
-    Result<?> queryFence(String entityId) throws Exception;
-
-    /**
-     * 新增自定义围栏任务接口
-     *
-     * @param gpsFenceTaskDto
-     * @return
-     */
-    Result<?> saveFenceTask(GpsFenceTaskDto gpsFenceTaskDto) throws Exception;
 
     /**
      * 查询油耗
@@ -154,14 +122,6 @@ public interface IVehicleService {
      * @return
      */
     Result<Map.Entry<String, List<Map<String, Object>>>> queryBathLast(QueryListCriteriaDto queryListCriteriaDto);
-
-    /**
-     * 车贷管家接口，GPS状态查询
-     *
-     * @param deviceCode
-     * @return
-     */
-    Result<?> getGpsStatus(String deviceCode);
 
     /**
      * 根据业务编码查询设备轨迹列表

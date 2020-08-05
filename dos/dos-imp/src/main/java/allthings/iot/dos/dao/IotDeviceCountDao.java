@@ -37,7 +37,7 @@ public interface IotDeviceCountDao extends BaseRepository<IotDeviceCount, Long> 
      * @return
      */
     @Query(value =
-            " select new com.allthings.iot.dos.dto.query.IotDeviceCountQueryDTO(sum(dayBeforeQuantity),inputDate) from " +
+            " select new allthings.iot.dos.dto.query.IotDeviceCountQueryDTO(sum(dayBeforeQuantity),inputDate) from " +
                     "IotDeviceCount where   inputDate>=:startDatetime and inputDate <:endDatetime and " +
                     "iotProjectId=:iotProjectId and isDeleted=false group by inputDate ")
     List<IotDeviceCountQueryDTO> getDayBeforeQuantityByDateRange(@Param("startDatetime") Date startDatetime,
@@ -53,7 +53,7 @@ public interface IotDeviceCountDao extends BaseRepository<IotDeviceCount, Long> 
      * @param iotProjectId
      * @return
      */
-    @Query(value = " select new com.allthings.iot.dos.dto.query.IotDeviceCountQueryDTO(sum(dayQuantity),inputDate) from " +
+    @Query(value = " select new allthings.iot.dos.dto.query.IotDeviceCountQueryDTO(sum(dayQuantity),inputDate) from " +
             "IotDeviceCount where   inputDate>=:startDatetime and inputDate <:endDatetime and " +
             "iotProjectId=:iotProjectId and isDeleted=false group by inputDate ")
     List<IotDeviceCountQueryDTO> getDayQuantityByDateRange(@Param("startDatetime") Date startDatetime,
@@ -75,7 +75,7 @@ public interface IotDeviceCountDao extends BaseRepository<IotDeviceCount, Long> 
                                      @Param("iotProjectId") Long iotProjectId);
 
     @Query(value =
-            "select new com.allthings.iot.dos.dto.query.IotDeviceCountTitleDTO(SUM(ipc.dayQuantity),ip.iotDeviceTypeId," +
+            "select new allthings.iot.dos.dto.query.IotDeviceCountTitleDTO(SUM(ipc.dayQuantity),ip.iotDeviceTypeId," +
                     "ip" +
                     ".deviceTypeName) " +
                     "from IotDeviceCount ipc,IotDeviceType ip where ipc" +
@@ -84,7 +84,7 @@ public interface IotDeviceCountDao extends BaseRepository<IotDeviceCount, Long> 
     Page<IotDeviceCountTitleDTO> getTopGroupByIotDeviceTypeId(@Param("pageable") Pageable pageable);
 
 
-    @Query("select new com.allthings.iot.dos.dto.query.IotDeviceCountTitleDTO(SUM(ipc.dayQuantity),ip.iotProjectId,ip" +
+    @Query("select new allthings.iot.dos.dto.query.IotDeviceCountTitleDTO(SUM(ipc.dayQuantity),ip.iotProjectId,ip" +
             ".projectName) from " +
             "IotDeviceCount ipc,IotProject ip where ipc.iotProjectId =" +
             " ip.iotProjectId GROUP BY ip.iotProjectId order by SUM(ipc.dayQuantity) desc ")
@@ -92,7 +92,7 @@ public interface IotDeviceCountDao extends BaseRepository<IotDeviceCount, Long> 
 
 
     @Query(value =
-            "select new com.allthings.iot.dos.dto.query.IotDeviceCountTitleDTO(SUM(ipc.dayQuantity),ip.iotDeviceTypeId," +
+            "select new allthings.iot.dos.dto.query.IotDeviceCountTitleDTO(SUM(ipc.dayQuantity),ip.iotDeviceTypeId," +
                     "ip" +
                     ".deviceTypeName) " +
                     "from IotDeviceCount ipc,IotDeviceType ip where ipc" +

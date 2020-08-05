@@ -4,7 +4,7 @@ import allthings.iot.dos.dto.AbstractIotDosDTO;
 
 /**
  * @author :  luhao
- * @FileName :  com.allthings.iot.dos.oauth2.dto.GrantedAuthorityDTO
+ * @FileName :  allthings.iot.dos.oauth2.dto.GrantedAuthorityDTO
  * @CreateDate :  2018/4/24
  * @Description :
  * @ReviewedBy :

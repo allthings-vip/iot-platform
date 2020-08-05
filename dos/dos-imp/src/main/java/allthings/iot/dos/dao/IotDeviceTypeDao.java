@@ -34,16 +34,16 @@ public interface IotDeviceTypeDao extends BaseRepository<IotDeviceType, Long> {
      * 更新设备类型状态
      *
      * @param iotDeviceTypeId
-     * @param operator
+     * @param modifyOperatorId
      * @param currentStatus
      * @param beforeStatus
      * @return
      */
     @Modifying
-    @Query("update IotDeviceType set isEnabled=:currentStatus,operator=:operator where " +
+    @Query("update IotDeviceType set isEnabled=:currentStatus,modifyOperatorId=:modifyOperatorId where " +
             "iotDeviceTypeId=:iotDeviceTypeId and isEnabled=:beforeStatus and isDeleted=false ")
-    Integer updateIotDeviceTypeStatus(@Param("iotDeviceTypeId") Long iotDeviceTypeId, @Param("operator") String
-            operator, @Param("currentStatus") boolean currentStatus, @Param("beforeStatus") boolean beforeStatus);
+    Integer updateIotDeviceTypeStatus(@Param("iotDeviceTypeId") Long iotDeviceTypeId, @Param("modifyOperatorId") Long
+            modifyOperatorId, @Param("currentStatus") boolean currentStatus, @Param("beforeStatus") boolean beforeStatus);
 
     /**
      * 删除设备类型
@@ -175,7 +175,7 @@ public interface IotDeviceTypeDao extends BaseRepository<IotDeviceType, Long> {
      * @param iotProtocolIds
      * @return
      */
-    @Query(" select new com.allthings.iot.dos.dto.query.IotProtocolQueryDTO(idt.iotProtocolId,ip.protocolName,ip" +
+    @Query(" select new allthings.iot.dos.dto.query.IotProtocolQueryDTO(idt.iotProtocolId,ip.protocolName,ip" +
             ".protocolCode)" +
             " from IotDeviceType idt,IotProtocol ip where ip .iotProtocolId = idt.iotProtocolId " +
             " and idt.iotProtocolId in (:iotProtocolIds) GROUP BY idt.iotProtocolId having count(idt.iotProtocolId) >" +
@@ -200,7 +200,7 @@ public interface IotDeviceTypeDao extends BaseRepository<IotDeviceType, Long> {
      * @param iotProjectIds
      * @return
      */
-    @Query(value = "select new com.allthings.iot.dos.dto.query.IotProjectSimpleDTO(it.iotProjectId,(select ip.projectName" +
+    @Query(value = "select new allthings.iot.dos.dto.query.IotProjectSimpleDTO(it.iotProjectId,(select ip.projectName" +
             " from IotProject ip where ip.iotProjectId = it.iotProjectId and ip.isDeleted=false )) " +
             "from IotDeviceType it where it.iotProjectId in (:iotProjectIds) and it.isDeleted = false group by it" +
             ".iotProjectId having count(it.iotProjectId) > 0 ")
@@ -212,7 +212,7 @@ public interface IotDeviceTypeDao extends BaseRepository<IotDeviceType, Long> {
      * @param iotProjectId
      * @return
      */
-    @Query(value = "select new com.allthings.iot.dos.dto.IotDeviceTypeDTO(iotDeviceTypeId, deviceTypeName) FROM " +
+    @Query(value = "select new allthings.iot.dos.dto.IotDeviceTypeDTO(iotDeviceTypeId, deviceTypeName) FROM " +
             "IotDeviceType WHERE iotProjectId=:iotProjectId AND isDeleted=false")
     List<IotDeviceTypeDTO> getIotDeviceTypeByIotProjectId(@Param("iotProjectId") Long iotProjectId);
 
@@ -224,7 +224,7 @@ public interface IotDeviceTypeDao extends BaseRepository<IotDeviceType, Long> {
      * @return
      */
     @Query(value =
-            " select new com.allthings.iot.dos.dto.query.IotDeviceTypeSimpleDTO(idt.description, idt.deviceTypeCode, idt" +
+            " select new allthings.iot.dos.dto.query.IotDeviceTypeSimpleDTO(idt.description, idt.deviceTypeCode, idt" +
                     ".deviceTypeName, " +
                     " idt.imageUrl, idt.inputDate, ipt.projectName, ip.protocolName, ip.protocolCode, idt" +
                     ".manufacturer) " +

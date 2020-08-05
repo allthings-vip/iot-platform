@@ -52,7 +52,7 @@ public class Helper {
             KafkaMsg msg = KafkaMsg.buildMsg(topic, new Num2(clientId, i));
             Future<RecordMetadata> future = producer.send(msg);
             RecordMetadata metadata = future.get();
-            System.out.println(String.format("producer:%s\tindex:%s\toffset:%s ", clientId, i, metadata.offset()));
+            System.out.println(String.format("allthings.iot.dos.monitor.producer:%s\tindex:%s\toffset:%s ", clientId, i, metadata.offset()));
             Thread.sleep(10 + new SecureRandom().nextInt(10));
         }
 

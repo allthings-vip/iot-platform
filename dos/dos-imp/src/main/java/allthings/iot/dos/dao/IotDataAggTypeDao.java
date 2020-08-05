@@ -24,7 +24,7 @@ import java.util.List;
  */
 public interface IotDataAggTypeDao extends BaseRepository<IotDataAggType, Long> {
 
-    @Query(" select new com.allthings.iot.dos.dto.query.IotDataAggTypeQueryDTO(iotDataAggTypeId,dataAggTypeName," +
+    @Query(" select new allthings.iot.dos.dto.query.IotDataAggTypeQueryDTO(iotDataAggTypeId,dataAggTypeName," +
             "dataAggTypeCode) from IotDataAggType where isDeleted=:isDeleted ")
     List<IotDataAggTypeQueryDTO> getAllByDeleted(@Param("isDeleted") boolean isDeleted);
 

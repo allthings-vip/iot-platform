@@ -99,7 +99,8 @@ public class IotUserServiceImpl implements IotUserService {
         IotMessageManagerDTO iotMessageManagerDTO = new IotMessageManagerDTO();
         iotMessageManagerDTO.setCode(iotUserDTO.getCode());
         iotMessageManagerDTO.setMobileNumber(iotUserDTO.getMobile());
-        iotMessageManagerDTO.setMessageCenterId(config.getMessageCenterId());
+        // todo 短信验证码
+//        iotMessageManagerDTO.setMessageCenterId(config.getMessageCenterId());
 //        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
 //        if (!result.isSuccess()) {
 //            return ResultDTO.newFail(result.getCode(), result.getMsg());
@@ -161,7 +162,7 @@ public class IotUserServiceImpl implements IotUserService {
         IotMessageManagerDTO iotMessageManagerDTO = new IotMessageManagerDTO();
         iotMessageManagerDTO.setCode(iotUserDTO.getCode());
         iotMessageManagerDTO.setMobileNumber(iotUserDTO.getMobile());
-        iotMessageManagerDTO.setMessageCenterId(config.getMessageCenterId());
+//        iotMessageManagerDTO.setMessageCenterId(config.getMessageCenterId());
         // todo 短信验证码
 //        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
 //        if (!result.isSuccess()) {

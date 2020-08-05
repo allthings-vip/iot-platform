@@ -1,6 +1,7 @@
 package allthings.iot.dos.web.security;
 
 import allthings.iot.dos.api.IotUserService;
+import allthings.iot.dos.client.api.IotUserApi;
 import allthings.iot.dos.web.kapthcha.KaptchaService;
 import allthings.iot.dos.web.message.IotDosLoggerProducer;
 import allthings.iot.dos.web.services.CustomerPasswordEncoder;
@@ -37,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private ICentralCacheService iotRedisFactory;
 
     @Autowired
-    private IotUserService iotUserApi;
+    private IotUserApi iotUserApi;
 
     @Autowired
     private KaptchaService kaptchaService;

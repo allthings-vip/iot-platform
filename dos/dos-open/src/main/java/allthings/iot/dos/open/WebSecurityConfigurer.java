@@ -33,7 +33,7 @@ public class WebSecurityConfigurer extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
 
         // @formatter:off
-        http.authorizeRequests().antMatchers("/oauth/token**", "/health/check**").permitAll().anyRequest().authenticated()
+        http.authorizeRequests().antMatchers("/oauth/token**").permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(getClientAuthenticationEntryPoint());
         // @formatter:on
     }

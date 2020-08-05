@@ -36,16 +36,16 @@ public interface IotDeviceTypeTagDao extends BaseRepository<IotDeviceTypeTag, Lo
      * 删除设备类型标签
      *
      * @param iotDeviceTypeId
-     * @param operator
+     * @param modifyOperatorId
      * @return
      */
     @Modifying
-    @Query(" update IotDeviceTypeTag set isDeleted=true ,operator=:operator where iotDeviceTypeId=:iotDeviceTypeId" +
+    @Query(" update IotDeviceTypeTag set isDeleted=true ,modifyOperatorId=:modifyOperatorId where iotDeviceTypeId=:iotDeviceTypeId" +
             " and  isDeleted=false ")
-    Integer deleteByIotDeviceTypeId(@Param("iotDeviceTypeId") Long iotDeviceTypeId, @Param("operator") String operator);
+    Integer deleteByIotDeviceTypeId(@Param("iotDeviceTypeId") Long iotDeviceTypeId, @Param("modifyOperatorId") Long modifyOperatorId);
 
 
-    @Query(" from IotDeviceTypeTag t where t.iotTagId =:iotTagId and isDeleted = false ")
+    @Query(" from IotDeviceTypeTag t where t.iotTagId =:iotTagId and t.isDeleted = false ")
     List<IotDeviceTypeTag> getByIotTagId(@Param("iotTagId") Long iotTagId);
 
 }

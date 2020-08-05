@@ -28,8 +28,8 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
  */
 @Configuration
 public class IotDosServiceTxConfig {
-    private static final String AOP_POINTCUT_EXPRESSION = "execution(* com.allthings.iot.dos.service.impl.*.*(..)) || " +
-            "execution(* com.allthings.iot.dos.biz.oauth2.impl.*.*(..)) || execution(* com.allthings.iot.dos.open.biz.impl.*.*(" +
+    private static final String AOP_POINTCUT_EXPRESSION = "execution(* allthings.iot.dos.service.impl.*.*(..)) || " +
+            "execution(* allthings.iot.dos.biz.oauth2.impl.*.*(..)) || execution(* allthings.iot.dos.open.biz.impl.*.*(" +
             "..))";
 
     @Autowired

@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   profiles:
     active: local
@@ -40,21 +43,16 @@ spring:
       driver-class-name: ${spring.datasource.driver-class-name}
       username: ${spring.datasource.username}
       password: ${spring.datasource.password}
-
-server:
-  port: 8080
-  servlet:
-    context-path: /dos
+  main:
+    allow-bean-definition-overriding: true
 
 zookeeper.connectString: mt-zookeeper-vip:2181
 iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
 
-login.applicationType: web
-
 iot:
   service:
     level: 1
-    code: dos-web
+    code: dos-biz
 
 eureka:
   client:

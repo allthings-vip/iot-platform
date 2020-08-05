@@ -1,0 +1,48 @@
+spring:
+  profiles:
+    active: local
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 8080
+
+zookeeper.connectString: mt-zookeeper-vip:2181
+iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
+
+login.applicationType: web
+config.apipath: /dos
+
+iot:
+  service:
+    level: 1
+    code: dos-web
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    eureka-server-connect-timeout-seconds: 30
+    eureka-server-read-timeout-seconds: 30
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+
+apollo:
+  bootstrap:
+    enabled: true
+    namespaces: application
+

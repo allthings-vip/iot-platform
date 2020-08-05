@@ -539,7 +539,7 @@ public class IotProjectServiceImpl implements IotProjectService {
         IotMessageManagerDTO iotMessageManagerDTO = new IotMessageManagerDTO();
         iotMessageManagerDTO.setCode(iotAppSecretQueryDTO.getCode());
         iotMessageManagerDTO.setMobileNumber(iotAppSecretQueryDTO.getMobile());
-        iotMessageManagerDTO.setMessageCenterId(config.getAppSecretMessageId());
+//        iotMessageManagerDTO.setMessageCenterId(config.getAppSecretMessageId());
         // todo 短信验证码
 //        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
 //        if (!result.isSuccess()) {

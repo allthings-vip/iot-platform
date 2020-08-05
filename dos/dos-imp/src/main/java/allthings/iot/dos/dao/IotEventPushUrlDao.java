@@ -18,7 +18,7 @@ public interface IotEventPushUrlDao extends BaseRepository<IotEventPushUrl, Long
      * @param iotProjectId
      * @return
      */
-    @Query("from IotEventPushUrl where is_deleted=false and iotProjectId=:iotProjectId")
+    @Query("from IotEventPushUrl where isDeleted=false and iotProjectId=:iotProjectId")
     IotEventPushUrl getPushUrlByIotProjectId(@Param("iotProjectId") Long iotProjectId);
 
     /**

@@ -33,7 +33,7 @@ public class RocketmqProcuder extends AbstractProcuder {
         producer.setProducerGroup(groupId);
         producer.setInstanceName(clientId);
 
-        //producer.setVipChannelEnabled(false);
+        //allthings.iot.dos.monitor.producer.setVipChannelEnabled(false);
         producer.start();
     }
 

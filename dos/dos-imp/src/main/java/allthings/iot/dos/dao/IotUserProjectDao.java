@@ -34,7 +34,7 @@ public interface IotUserProjectDao extends BaseRepository<IotUserProject, Long> 
      * @param iotUserId
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.query.IotProjectSimpleDTO(ip.iotProjectId,ip.projectName) " +
+    @Query("select new allthings.iot.dos.dto.query.IotProjectSimpleDTO(ip.iotProjectId,ip.projectName) " +
             "from IotProject ip,IotUserProject up where up.iotUserId=:iotUserId " +
             "and up.iotProjectId=ip.iotProjectId and up.isDeleted=false and ip.isDeleted=false ")
     List<IotProjectSimpleDTO> getProjectListByIotUserId(@Param("iotUserId") Long iotUserId);
@@ -46,7 +46,7 @@ public interface IotUserProjectDao extends BaseRepository<IotUserProject, Long> 
      * @param isOwner
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotUserProjectDTO(ip.projectName, up.iotProjectId, u.iotUserId, u" +
+    @Query("select new allthings.iot.dos.dto.IotUserProjectDTO(ip.projectName, up.iotProjectId, u.iotUserId, u" +
             ".username, ip.isReview) " +
             "from IotUserProject up, IotProject ip, IotUser u where up.iotProjectId=:iotProjectId and " +
             "up.iotProjectId=ip.iotProjectId and up.iotUserId=u.iotUserId and up.isOwner=:isOwner and " +
@@ -88,7 +88,7 @@ public interface IotUserProjectDao extends BaseRepository<IotUserProject, Long> 
      * @param iotProjectId
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.query.IotUserQueryDTO(u.iotUserId, u.username) from IotUserProject up, " +
+    @Query("select new allthings.iot.dos.dto.query.IotUserQueryDTO(u.iotUserId, u.username) from IotUserProject up, " +
             "IotUser u where " +
             "up.iotProjectId=:iotProjectId and up.iotUserId=u.iotUserId and up.isOwner=false and up.isDeleted=false " +
             "and u.isDeleted=false ")

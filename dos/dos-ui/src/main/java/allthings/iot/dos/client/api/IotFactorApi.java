@@ -27,7 +27,7 @@ public interface IotFactorApi {
 
     @PostMapping("/dos/service/deleteIotFactor")
     ResultDTO<Integer> deleteIotFactor(@RequestParam("iotFactorIds") Long[] iotFactorIds,
-                                       @RequestParam("operator") String operator);
+                                       @RequestParam("modifyOperatorId") Long modifyOperatorId);
 
     @PostMapping("/dos/service/getIotFactorList")
     ResultDTO<List<IotFactorQueryDTO>> getIotFactorList(@RequestBody IotFactorQuerListDTO iotFactorQuerListDTO);

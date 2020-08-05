@@ -67,7 +67,7 @@ public interface IotProjectDao extends BaseRepository<IotProject, Long> {
      * @param isDeleted
      * @return
      */
-    @Query(" select new com.allthings.iot.dos.dto.query.IotProjectSimpleDTO(iotProjectId,projectName) from IotProject " +
+    @Query(" select new allthings.iot.dos.dto.query.IotProjectSimpleDTO(iotProjectId,projectName) from IotProject " +
             "where " +
             "isDeleted=:isDeleted and isReview=true")
     List<IotProjectSimpleDTO> getProjectNameByDeleted(@Param("isDeleted") boolean isDeleted);
@@ -79,7 +79,7 @@ public interface IotProjectDao extends BaseRepository<IotProject, Long> {
      * @param isDeleted
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotProjectDTO(ip.iotProjectId,ip.projectName,ip.companyName,ip" +
+    @Query("select new allthings.iot.dos.dto.IotProjectDTO(ip.iotProjectId,ip.projectName,ip.companyName,ip" +
             ".description,ip.imageUrl," +
             " (select u.username from IotUser u where u.iotUserId=ip.createOperatorId and u.isDeleted=false ), ip" +
             ".inputDate, ip.clientId)" +
@@ -94,7 +94,7 @@ public interface IotProjectDao extends BaseRepository<IotProject, Long> {
      * @param iotUserId
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotProjectDTO(ip.iotProjectId,ip.projectName,ip.companyName,ip" +
+    @Query("select new allthings.iot.dos.dto.IotProjectDTO(ip.iotProjectId,ip.projectName,ip.companyName,ip" +
             ".description,ip.imageUrl, " +
             "(select u.username from IotUser u where u.iotUserId=ip.createOperatorId and u.isDeleted=false ), ip" +
             ".inputDate, ip.clientId) " +
@@ -110,7 +110,7 @@ public interface IotProjectDao extends BaseRepository<IotProject, Long> {
      * @param pageable
      * @return
      */
-    @Query(" select t.iotProjectId from IotProject t where t.isDeleted = false and isReview=true ")
+    @Query(" select t.iotProjectId from IotProject t where t.isDeleted = false and t.isReview=true ")
     Page<Long> getIotProjectIdByPage(@Param("pageable") Pageable pageable);
 
     /**

@@ -6,8 +6,8 @@ import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dms.dto.DeviceEventDto;
 import allthings.iot.dms.ui.service.IDmsFeignClient;
 import allthings.iot.dos.api.IotEventService;
+import allthings.iot.dos.dto.open.IotEventQueryDTO;
 import allthings.iot.dos.dto.query.IotDeviceEventDTO;
-import allthings.iot.dos.dto.query.IotEventQueryListDTO;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,20 +38,19 @@ public class IotEventServiceImpl implements IotEventService {
     /**
      * 查询事件信息
      *
-     * @param queryListDTO
+     * @param eventQueryDTO
      * @return
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Override
-    public ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(IotEventQueryListDTO queryListDTO) {
-        String deviceCode = queryListDTO.getDeviceCode();
-        List<String> eventCodes = queryListDTO.getEventCodes();
-        long beginTime = queryListDTO.getStartDatetime();
-        long endTime = queryListDTO.getEndDatetime();
-        int pageIndex = queryListDTO.getPageIndex();
-        int pageSize = queryListDTO.getPageSize();
+    public ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(IotEventQueryDTO eventQueryDTO) {
+        String deviceCode = eventQueryDTO.getDeviceCode();
+        long beginTime = eventQueryDTO.getStartDatetime();
+        long endTime = eventQueryDTO.getEndDatetime();
+        int pageIndex = eventQueryDTO.getPageIndex();
+        int pageSize = eventQueryDTO.getPageSize();
         QueryResult<DeviceEventDto> queryResult = dms.getDeviceEventsByDeviceId(deviceCode,
-                eventCodes.toArray(new String[eventCodes.size()]), beginTime, endTime, pageIndex, pageSize).getRet();
+                new String[]{}, beginTime, endTime, pageIndex, pageSize).getRet();
 
         List<DeviceEventDto> eventList = queryResult.getItems();
         List<IotDeviceEventDTO> iotEventList = Lists.newArrayList();

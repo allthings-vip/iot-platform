@@ -118,7 +118,7 @@ public class IotFactorServiceImpl implements IotFactorService {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
-    public ResultDTO<Integer> deleteIotFactor(Long[] iotFactorIds, String operator) {
+    public ResultDTO<Integer> deleteIotFactor(Long[] iotFactorIds, Long modifyOperatorId) {
         if (ArrayUtils.isEmpty(iotFactorIds)) {
             LOGGER.error(ErrorCode.ERROR_4004.getMessage());
             return ResultDTO.newFail(ErrorCode.ERROR_4004.getCode(),
@@ -146,7 +146,7 @@ public class IotFactorServiceImpl implements IotFactorService {
 
         try {
             for (Long iotFactorId : iotFactorIds) {
-                iotFactorDao.deleteByIotFactorId(iotFactorId, operator);
+                iotFactorDao.deleteByIotFactorId(iotFactorId, modifyOperatorId);
             }
 
             return ResultDTO.newSuccess();

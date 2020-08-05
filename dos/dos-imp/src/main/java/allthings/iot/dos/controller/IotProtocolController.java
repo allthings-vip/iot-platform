@@ -48,8 +48,8 @@ public class IotProtocolController implements IotProtocolApi {
 
     @Override
     public ResultDTO<Integer> deleteIotProtocol(@RequestParam("iotProtocolIds") Long[] iotProtocolIds,
-                                                @RequestParam("operator") String operator) {
-        return protocolBiz.deleteIotProtocol(iotProtocolIds, operator);
+                                                @RequestParam("modifyOperatorId") Long modifyOperatorId) {
+        return protocolBiz.deleteIotProtocol(iotProtocolIds, modifyOperatorId);
     }
 
     @Override

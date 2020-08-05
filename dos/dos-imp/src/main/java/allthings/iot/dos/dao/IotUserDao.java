@@ -92,7 +92,7 @@ public interface IotUserDao extends BaseRepository<IotUser, Long> {
             "isDeleted=false ")
     Integer deleteUser(@Param("iotUserId") Long iotUserId, @Param("modifyOperatorId") Long modifyOperatorId);
 
-    @Query("select new com.allthings.iot.dos.dto.IotUserDTO(iotUserId,username) from IotUser where roleCode<>:roleCode and" +
+    @Query("select new allthings.iot.dos.dto.IotUserDTO(iotUserId,username) from IotUser where roleCode<>:roleCode and" +
             " iotUserId<>:iotUserId and isDeleted=false and" +
             " (username=:keywords or mobile=:keywords)")
     IotUserDTO getCollaborators(@Param("iotUserId") Long iotUserId,

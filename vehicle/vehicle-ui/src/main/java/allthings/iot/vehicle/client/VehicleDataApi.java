@@ -7,10 +7,7 @@ import allthings.iot.ktv.common.dto.OilResultDto;
 import allthings.iot.ktv.common.dto.PageResultDto;
 import allthings.iot.ktv.common.dto.QueryDto;
 import allthings.iot.ktv.common.dto.QueryListCriteriaDto;
-import allthings.iot.vehicle.client.hystrix.VehicleDataServiceCallBack;
-import allthings.iot.vehicle.common.dto.GpsDto;
-import allthings.iot.vehicle.common.dto.GpsFenceDto;
-import allthings.iot.vehicle.common.dto.GpsFenceTaskDto;
+import allthings.iot.vehicle.client.hystrix.VehicleDataApiCallBack;
 import allthings.iot.vehicle.common.dto.GpsLQueryDto;
 import allthings.iot.vehicle.common.dto.GpsQueryDto;
 import allthings.iot.vehicle.common.dto.SaveDeviceDto;
@@ -28,18 +25,8 @@ import java.util.Map;
  * @author: fengchangxin
  * @create: 2019-05-06 18:12
  */
-@FeignClient(name = "vehicle-data", fallback = VehicleDataServiceCallBack.class)
-public interface VehicleDataService {
-    /**
-     * 保存gps数据
-     *
-     * @param gpsList
-     * @return
-     * @throws Exception
-     */
-    @PostMapping("/gps/save")
-    Result<?> saveGps(@RequestBody List<GpsDto> gpsList) throws Exception;
-
+@FeignClient(name = "vehicle-data", fallback = VehicleDataApiCallBack.class)
+public interface VehicleDataApi {
     /**
      * 查询gps数据
      *
@@ -69,36 +56,6 @@ public interface VehicleDataService {
      */
     @PostMapping("/gps/getLatestPoint")
     Result<QueryResult<Map<String, String>>> queryGpsLatest(@RequestBody GpsLQueryDto gpsLQueryDto) throws Exception;
-
-    /**
-     * 保存电子围栏数据
-     *
-     * @param gpsFenceDto
-     * @return
-     * @throws Exception
-     */
-    @PostMapping("/fence/saveOrUpdate")
-    Result<?> saveOrUpdateFence(@RequestBody GpsFenceDto gpsFenceDto) throws Exception;
-
-    /**
-     * 查询电子围栏数据
-     *
-     * @param entityId
-     * @return
-     * @throws Exception
-     */
-    @GetMapping("/fence/getById")
-    Result<?> queryFence(@RequestParam("entityId") String entityId) throws Exception;
-
-    /**
-     * 新增自定义围栏任务接口
-     *
-     * @param gpsFenceTaskDto
-     * @return
-     * @throws Exception
-     */
-    @PostMapping("/fence/task/saveOrUpdate")
-    Result<?> saveFenceTask(@RequestBody GpsFenceTaskDto gpsFenceTaskDto) throws Exception;
 
     /**
      * 查询油耗
@@ -171,16 +128,6 @@ public interface VehicleDataService {
      */
     @PostMapping("/batch/last")
     Result<Map.Entry<String, List<Map<String, Object>>>> queryBathLast(@RequestBody QueryListCriteriaDto queryListCriteriaDto);
-
-
-    /**
-     * 车贷管家接口，GPS状态查询
-     *
-     * @param deviceCodes
-     * @return
-     */
-    @GetMapping("/getGpsStatus")
-    Result<?> getGpsStatus(@RequestParam("deviceCodes") String deviceCodes);
 
     /**
      * 根据业务编码查询设备轨迹列表

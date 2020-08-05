@@ -245,7 +245,7 @@ public class JsonValidator {
     }
 
     private boolean error(String type, int col) {
-        System.out.printf("type: %s, col: %s%s", type, col, System.getProperty("line.separator"));
+//        System.out.printf("type: %s, col: %s%s", type, col, System.getProperty("line.separator"));
         return false;
     }
 }

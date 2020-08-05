@@ -30,7 +30,7 @@ public interface IotProtocolDao extends BaseRepository<IotProtocol, Long> {
      * @param isDeleted
      * @return
      */
-    @Query(" select new com.allthings.iot.dos.dto.query.IotProtocolQueryDTO(iotProtocolId, protocolName, protocolCode) " +
+    @Query(" select new allthings.iot.dos.dto.query.IotProtocolQueryDTO(iotProtocolId, protocolName, protocolCode) " +
             "from " +
             "IotProtocol where isDeleted=:isDeleted")
     List<IotProtocolQueryDTO> getAllByIsDeleted(@Param("isDeleted") boolean isDeleted);
@@ -48,7 +48,7 @@ public interface IotProtocolDao extends BaseRepository<IotProtocol, Long> {
     @Query(" update IotProtocol set protocolName=:protocolName,protocolCode=:protocolCode,description=:description," +
             "  serverDomain=:serverDomain,serverIp=:serverIp,serverPort=:serverPort," +
             "testServerDomain=:testServerDomain," +
-            "testServerIp=:testServerIp,testServerPort=:testServerPort,operator=:operator where " +
+            "testServerIp=:testServerIp,testServerPort=:testServerPort,modifyOperatorId=:modifyOperatorId where " +
             "iotProtocolId=:iotProtocolId " +
             "and " +
             "isDeleted = false ")
@@ -58,12 +58,12 @@ public interface IotProtocolDao extends BaseRepository<IotProtocol, Long> {
                               @Param("serverPort") Integer serverPort, @Param("testServerDomain") String
                                       testServerDomain,
                               @Param("testServerIp") String testServerIp, @Param("testServerPort") Integer
-                                      testServerPort, @Param("operator") String operator);
+                                      testServerPort, @Param("modifyOperatorId") Long modifyOperatorId);
 
     @Modifying
-    @Query(" update IotProtocol set isDeleted = true ,operator=:operator where iotProtocolId=:iotProtocolId and " +
+    @Query(" update IotProtocol set isDeleted = true ,modifyOperatorId=:modifyOperatorId where iotProtocolId=:iotProtocolId and " +
             "isDeleted = false")
-    Integer deleteByIotProtocolId(@Param("iotProtocolId") Long iotProtocolId, @Param("operator") String operator);
+    Integer deleteByIotProtocolId(@Param("iotProtocolId") Long iotProtocolId, @Param("modifyOperatorId") Long modifyOperatorId);
 
     /**
      * 通过设备ID获取协议ID

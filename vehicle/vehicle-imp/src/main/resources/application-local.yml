@@ -1,0 +1,4 @@
+eureka.client.service-url.defaultZone: http://mt-iotRegistry-1:8080/eureka/
+upload:
+  point:
+    max: 100

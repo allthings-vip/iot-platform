@@ -64,9 +64,9 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
     List<Long> getIotDeviceIdByIotProjectId(@Param("iotProjectId") Long iotProjectId);
 
     @Modifying
-    @Query(" update IotDevice set isDeleted=true ,operator=:operator where iotDeviceId=:iotDeviceId and " +
+    @Query(" update IotDevice set isDeleted=true ,modifyOperatorId=:modifyOperatorId where iotDeviceId=:iotDeviceId and " +
             "isDeleted=false")
-    Integer deleteIotDeviceByIotDeviceId(@Param("iotDeviceId") Long iotDeviceId, @Param("operator") String operator);
+    Integer deleteIotDeviceByIotDeviceId(@Param("iotDeviceId") Long iotDeviceId, @Param("modifyOperatorId") Long modifyOperatorId);
 
 
     /**
@@ -116,7 +116,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
 
 
     @Query(value =
-            "select new com.allthings.iot.dos.dto.query.IotProjectSimpleDTO(it.iotProjectId,(select ip.projectName from" +
+            "select new allthings.iot.dos.dto.query.IotProjectSimpleDTO(it.iotProjectId,(select ip.projectName from" +
                     " IotProject " +
                     "ip where ip.iotProjectId = it.iotProjectId and ip.isDeleted=false )) " +
                     "from IotDevice it where it.iotProjectId in (:iotProjectIds) and it.isDeleted = false group by it" +
@@ -164,7 +164,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
      * @param deviceCode
      * @return
      */
-    @Query(" from IotDevice t where t.deviceCode=:deviceCode and isDeleted=false ")
+    @Query(" from IotDevice t where t.deviceCode=:deviceCode and t.isDeleted=false ")
     List<IotDevice> getIotDeviceByDeviceCode(@Param("deviceCode") String deviceCode);
 
     /**
@@ -195,7 +195,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
      * @param deviceCode
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotDeviceSimpleDTO(it.iotDeviceId,it.deviceCode,ip.protocolCode) from " +
+    @Query("select new allthings.iot.dos.dto.IotDeviceSimpleDTO(it.iotDeviceId,it.deviceCode,ip.protocolCode) from " +
             "IotDevice it , IotDeviceType idt, IotProtocol ip " +
             "where it.iotDeviceTypeId = idt.iotDeviceTypeId and idt.iotProtocolId = ip.iotProtocolId and " +
             "it.deviceCode =:deviceCode and it.iotProjectId=:iotProjectId and it.isDeleted = false")
@@ -343,7 +343,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
      * @param deviceCode
      * @return
      */
-    @Query("select iotProjectId from IotDevice d where d.isDeleted=false and d.deviceCode=:deviceCode")
+    @Query("select d.iotProjectId from IotDevice d where d.isDeleted=false and d.deviceCode=:deviceCode")
     List<Long> getIotProjectIdByDeviceCode(@Param("deviceCode") String deviceCode);
 
     /**
@@ -352,7 +352,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
      * @param deviceId
      * @return
      */
-    @Query("select iotProjectId from IotDevice d where d.isDeleted=false and d.deviceId=:deviceId")
+    @Query("select d.iotProjectId from IotDevice d where d.isDeleted=false and d.deviceId=:deviceId")
     List<Long> getIotProjectIdByDeviceId(@Param("deviceId") String deviceId);
 
     /**
@@ -361,7 +361,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
      * @param deviceId
      * @return
      */
-    @Query(nativeQuery = true, value = "select device_code deviceCode from iot_dos_device d where d.is_deleted=false and d.device_id=:deviceId limit 1")
+    @Query(nativeQuery = true, value = "select d.device_code deviceCode from iot_dos_device d where d.is_deleted=false and d.device_id=:deviceId limit 1")
     List<String> getDeviceCodeByDeviceId(@Param("deviceId") String deviceId);
 
     /**
@@ -378,7 +378,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
      *
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotDeviceSimpleDTO(it.iotDeviceId, it.deviceCode, it.iotProjectId) " +
+    @Query("select new allthings.iot.dos.dto.IotDeviceSimpleDTO(it.iotDeviceId, it.deviceCode, it.iotProjectId) " +
             " from IotDevice it " +
             " where it.isDeleted = false")
     List<IotDeviceSimpleDTO> getAll();
@@ -408,7 +408,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
      * @param iotProjectId
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotDeviceDetailDTO(d.iotDeviceId,d.iotDeviceTypeId,t.deviceTypeName," +
+    @Query("select new allthings.iot.dos.dto.IotDeviceDetailDTO(d.iotDeviceId,d.iotDeviceTypeId,t.deviceTypeName," +
             "t.deviceTypeCode,d.iotProjectId,d.deviceCode,d.deviceName,d.isEnabled,d.registerStatus,d.agencyName) " +
             "from IotDevice d,IotDeviceType t where d.deviceCode=:deviceCode and d.iotDeviceTypeId=t.iotDeviceTypeId " +
             "and d.isDeleted=false and d.iotProjectId=:iotProjectId and t.isDeleted=false ")
@@ -421,7 +421,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
      * @param iotProjectId
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotDeviceDetailDTO(d.iotDeviceId,d.iotDeviceTypeId,t.deviceTypeName," +
+    @Query("select new allthings.iot.dos.dto.IotDeviceDetailDTO(d.iotDeviceId,d.iotDeviceTypeId,t.deviceTypeName," +
             "t.deviceTypeCode,d.iotProjectId,d.deviceCode,d.deviceName,d.isEnabled,d.registerStatus,d.agencyName) " +
             "from IotDevice d,IotDeviceType t where d.iotProjectId=:iotProjectId and d.iotDeviceTypeId=t" +
             ".iotDeviceTypeId " +
@@ -438,7 +438,7 @@ public interface IotDeviceDao extends BaseRepository<IotDevice, Long> {
      * @param iotProjectId
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotDeviceDetailDTO(d.iotDeviceId,d.iotDeviceTypeId,t.deviceTypeName," +
+    @Query("select new allthings.iot.dos.dto.IotDeviceDetailDTO(d.iotDeviceId,d.iotDeviceTypeId,t.deviceTypeName," +
             "t.deviceTypeCode,d.iotProjectId,d.deviceCode,d.deviceName,d.isEnabled,d.registerStatus,d.agencyName, p" +
             ".protocolCode) " +
             "from IotDevice d,IotDeviceType t, IotProtocol p where p.iotProtocolId = t.iotProtocolId " +

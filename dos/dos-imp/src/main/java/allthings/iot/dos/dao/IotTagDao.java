@@ -30,9 +30,9 @@ import java.util.List;
  */
 public interface IotTagDao extends BaseRepository<IotTag, Long> {
 
-    @Query("select new com.allthings.iot.dos.dto.query.IotDeviceTypeTagDTO(tag.iotTagId, tag.tagName) from IotTag tag " +
+    @Query("select new allthings.iot.dos.dto.query.IotDeviceTypeTagDTO(tag.iotTagId, tag.tagName) from IotTag tag " +
             "where " +
-            "exists (select iotTagId from " +
+            "exists (select t.iotTagId from " +
             "IotDeviceTypeTag t " +
             "where t.iotDeviceTypeId=:iotDeviceTypeId and t.isDeleted=:isDeleted and tag.iotTagId = t.iotTagId) " +
             "and tag.isDeleted=:isDeleted ")
@@ -49,7 +49,7 @@ public interface IotTagDao extends BaseRepository<IotTag, Long> {
      * @param iotProjectId
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.query.IotTagQueryDTO(tag.iotTagId, tag.tagName) from IotTag tag where " +
+    @Query("select new allthings.iot.dos.dto.query.IotTagQueryDTO(tag.iotTagId, tag.tagName) from IotTag tag where " +
             "tag.isDeleted=:isDeleted and tag.iotProjectId=:iotProjectId")
     List<IotTagQueryDTO> getAllByIsDeleted(@Param("isDeleted") boolean isDeleted,
                                            @Param("iotProjectId") Long iotProjectId);
@@ -62,11 +62,11 @@ public interface IotTagDao extends BaseRepository<IotTag, Long> {
      * @param keywords
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotDeviceDTO(dt.deviceTypeName, device.deviceCode, device.deviceName, " +
+    @Query("select new allthings.iot.dos.dto.IotDeviceDTO(dt.deviceTypeName, device.deviceCode, device.deviceName, " +
             "device.bizCode, device.iotDeviceId)" +
             " from IotDevice device, IotDeviceType dt where device.isDeleted=false and dt.isDeleted=false " +
             " and device.iotDeviceTypeId = dt.iotDeviceTypeId " +
-            " and device.iotDeviceId in(select iotDeviceId from IotDeviceTag dt " +
+            " and device.iotDeviceId in(select dt.iotDeviceId from IotDeviceTag dt " +
             " where dt.iotTagId=:iotTagId and dt.isDeleted=false)" +
             " and device.iotProjectId =:iotProjectId" +
             " and (dt.deviceTypeName like :keywords or device.deviceCode like :keywords " +
@@ -82,11 +82,11 @@ public interface IotTagDao extends BaseRepository<IotTag, Long> {
      * @param iotProjectId
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotDeviceDTO(dt.deviceTypeName, device.deviceCode, device.deviceName, " +
+    @Query("select new allthings.iot.dos.dto.IotDeviceDTO(dt.deviceTypeName, device.deviceCode, device.deviceName, " +
             "device.bizCode, device.iotDeviceId)" +
             " from IotDevice device, IotDeviceType dt where device.isDeleted=false and dt.isDeleted=false " +
             " and device.iotDeviceTypeId = dt.iotDeviceTypeId " +
-            " and device.iotDeviceId in(select iotDeviceId from IotDeviceTag dt " +
+            " and device.iotDeviceId in(select dt.iotDeviceId from IotDeviceTag dt " +
             " where dt.iotTagId=:iotTagId and dt.isDeleted=false)" +
             " and device.iotProjectId =:iotProjectId")
     List<IotDeviceDTO> getDeviceByIotTagIdAndIotProjectId(@Param("iotTagId") Long iotTagId,
@@ -100,11 +100,11 @@ public interface IotTagDao extends BaseRepository<IotTag, Long> {
      * @param keywords
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotDeviceDTO(dt.deviceTypeName, device.deviceCode, device.deviceName, " +
+    @Query("select new allthings.iot.dos.dto.IotDeviceDTO(dt.deviceTypeName, device.deviceCode, device.deviceName, " +
             "device.bizCode, device.iotDeviceId)" +
             " from IotDevice device, IotDeviceType dt where device.isDeleted=false and dt.isDeleted=false " +
             " and device.iotDeviceTypeId = dt.iotDeviceTypeId " +
-            " and device.iotDeviceId not in(select iotDeviceId from IotDeviceTag dt " +
+            " and device.iotDeviceId not in(select dt.iotDeviceId from IotDeviceTag dt " +
             " where dt.iotTagId=:iotTagId and dt.isDeleted=false)" +
             " and device.iotProjectId =:iotProjectId" +
             " and (dt.deviceTypeName like :keywords or device.deviceCode like :keywords " +
@@ -120,17 +120,17 @@ public interface IotTagDao extends BaseRepository<IotTag, Long> {
      * @param iotProjectId
      * @return
      */
-    @Query("select new com.allthings.iot.dos.dto.IotDeviceDTO(dt.deviceTypeName, device.deviceCode, device.deviceName, " +
+    @Query("select new allthings.iot.dos.dto.IotDeviceDTO(dt.deviceTypeName, device.deviceCode, device.deviceName, " +
             "device.bizCode, device.iotDeviceId)" +
             " from IotDevice device, IotDeviceType dt where device.isDeleted=false and dt.isDeleted=false " +
             " and device.iotDeviceTypeId = dt.iotDeviceTypeId " +
-            " and device.iotDeviceId not in(select iotDeviceId from IotDeviceTag dt " +
+            " and device.iotDeviceId not in(select dt.iotDeviceId from IotDeviceTag dt " +
             " where dt.iotTagId=:iotTagId and dt.isDeleted=false)" +
             " and device.iotProjectId =:iotProjectId")
     List<IotDeviceDTO> getUnchooseDeviceByIotTagIdAndIotProjectId(@Param("iotTagId") Long iotTagId,
                                                                   @Param("iotProjectId") Long iotProjectId);
 
-    @Query(value = "select new com.allthings.iot.dos.dto.query.IotProjectSimpleDTO(it.iotProjectId,(select ip.projectName " +
+    @Query(value = "select new allthings.iot.dos.dto.query.IotProjectSimpleDTO(it.iotProjectId,(select ip.projectName " +
             "from IotProject ip where ip.iotProjectId = it.iotProjectId and ip.isDeleted=false )) " +
             "from IotTag it where it.iotProjectId in (:iotProjectIds) and it.isDeleted = false group by it" +
             ".iotProjectId having count(it.iotProjectId) > 0 ")
@@ -166,8 +166,8 @@ public interface IotTagDao extends BaseRepository<IotTag, Long> {
 
     @Modifying
     @Query("update IotDeviceTag set isDeleted=true, stampDate = CURRENT_TIMESTAMP, modifyOperatorId =:operatorId " +
-            "where iotDeivceId=:iotDeivceId")
-    Integer deleteAllTagByDeviceId(@Param("iotDeivceId") Long iotDeivceId, @Param("operatorId") Long operatorId);
+            "where iotDeviceId=:iotDeviceId")
+    Integer deleteAllTagByDeviceId(@Param("iotDeviceId") Long iotDeviceId, @Param("operatorId") Long operatorId);
 
 
     /**

@@ -2,6 +2,7 @@ package allthings.iot.dos.web.security;
 
 import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dos.api.IotUserService;
+import allthings.iot.dos.client.api.IotUserApi;
 import allthings.iot.dos.constant.Constants;
 import allthings.iot.dos.constant.ErrorCode;
 import allthings.iot.dos.dto.IotUserDTO;
@@ -42,7 +43,7 @@ public class SessionAuthenticationSuccessHandler implements AuthenticationSucces
 
     private ICentralCacheService iotRedisFactory;
 
-    private IotUserService iotUserApi;
+    private IotUserApi iotUserApi;
 
     private KaptchaService kaptchaService;
 
@@ -51,7 +52,7 @@ public class SessionAuthenticationSuccessHandler implements AuthenticationSucces
     public SessionAuthenticationSuccessHandler() {
     }
 
-    public SessionAuthenticationSuccessHandler(ICentralCacheService iotRedisFactory, IotUserService iotUserApi,
+    public SessionAuthenticationSuccessHandler(ICentralCacheService iotRedisFactory, IotUserApi iotUserApi,
                                                KaptchaService kaptchaService, IotDosLoggerProducer producer) {
         this.iotRedisFactory = iotRedisFactory;
         this.iotUserApi = iotUserApi;

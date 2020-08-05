@@ -1,7 +1,7 @@
 package allthings.iot.dos.web.services;
 
 import allthings.iot.common.dto.ResultDTO;
-import allthings.iot.dos.api.IotUserService;
+import allthings.iot.dos.client.api.IotUserApi;
 import allthings.iot.dos.dto.IotUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.DisabledException;
@@ -32,7 +32,7 @@ import java.util.Set;
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    private IotUserService iotUserApi;
+    private IotUserApi iotUserApi;
 
     @Override
     public UserDetails loadUserByUsername(String un) throws UsernameNotFoundException {

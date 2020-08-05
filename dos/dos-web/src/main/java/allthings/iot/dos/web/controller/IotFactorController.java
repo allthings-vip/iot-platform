@@ -53,7 +53,7 @@ public class IotFactorController extends BaseController {
 
     @DeleteMapping(value = "/factors")
     public ResultDTO<Integer> deleteFactor(@RequestParam("iotFactorIds") Long[] iotFactorIds) {
-        return iotFactorApi.deleteIotFactor(iotFactorIds, getUser().getCreateOperator());
+        return iotFactorApi.deleteIotFactor(iotFactorIds, getUser().getModifyOperatorId());
     }
 
     @GetMapping(value = "/factors/{iotFactorId}")

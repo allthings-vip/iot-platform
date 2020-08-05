@@ -37,7 +37,7 @@ public interface IotProtocolApi {
 
     @PostMapping("/dos/service/deleteIotProtocol")
     ResultDTO<Integer> deleteIotProtocol(@RequestParam("iotProtocolIds") Long[] iotProtocolIds,
-                                         @RequestParam("operator") String operator);
+                                         @RequestParam("modifyOperatorId") Long modifyOperatorId);
 
     @GetMapping("/dos/service/getIotProtocolDetail")
     ResultDTO<IotProtocolDetailDTO> getIotProtocolDetail(@RequestParam("iotProtocolId") Long iotProtocolId);

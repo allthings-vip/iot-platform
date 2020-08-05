@@ -19,7 +19,7 @@ public interface IotLoggerTypeDao extends BaseRepository<IotLoggerType, Long> {
      * @param loggerTypeCode
      * @return
      */
-    @Query("select iotLoggerTypeId from IotLoggerType where is_deleted = false and loggerTypeCode =:loggerTypeCode")
+    @Query("select iotLoggerTypeId from IotLoggerType where isDeleted = false and loggerTypeCode =:loggerTypeCode")
     Long getIotLoggerTypeIdByLoggerTypeCode(@Param("loggerTypeCode") String loggerTypeCode);
 
     /**
@@ -27,6 +27,6 @@ public interface IotLoggerTypeDao extends BaseRepository<IotLoggerType, Long> {
      *
      * @return
      */
-    @Query("FROM IotLoggerType WHERE is_deleted = false ")
+    @Query("FROM IotLoggerType WHERE isDeleted = false ")
     List<IotLoggerType> getSystemLoggerType();
 }

@@ -25,7 +25,7 @@ import allthings.iot.util.jpa.BaseRepository;
 public interface IotDeviceCountTagDao extends BaseRepository<IotDeviceCountTag, Long> {
 
     @Query(value =
-            " select new com.allthings.iot.dos.dto.query.IotDeviceCountTitleDTO(SUM(idct.dayQuantity),it.iotTagId, it" +
+            " select new allthings.iot.dos.dto.query.IotDeviceCountTitleDTO(SUM(idct.dayQuantity),it.iotTagId, it" +
                     ".tagName)" +
                     " from " +
                     " IotDeviceCountTag idct,IotTag it where it.iotTagId = idct.iotTagId group by " +

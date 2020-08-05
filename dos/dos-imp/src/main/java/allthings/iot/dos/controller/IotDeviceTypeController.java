@@ -38,9 +38,9 @@ public class IotDeviceTypeController implements IotDeviceTypeApi {
 
     @Override
     public ResultDTO<Integer> updateIotDeviceTypeStatus(@RequestParam("iotDeviceTypeIds") Long[] iotDeviceTypeIds,
-                                                        @RequestParam("operator") String operator,
+                                                        @RequestParam("modifyOperatorId") Long modifyOperatorId,
                                                         @RequestParam("isEnabled") Integer isEnabled) {
-        return iotDeviceTypeBiz.updateIotDeviceTypeStatus(iotDeviceTypeIds, operator, isEnabled);
+        return iotDeviceTypeBiz.updateIotDeviceTypeStatus(iotDeviceTypeIds, modifyOperatorId, isEnabled);
     }
 
     @Override

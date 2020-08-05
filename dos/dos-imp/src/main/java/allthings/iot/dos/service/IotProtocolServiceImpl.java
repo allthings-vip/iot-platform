@@ -116,7 +116,7 @@ public class IotProtocolServiceImpl implements IotProtocolService {
             BeanUtils.copyProperties(iotProtocolDTO, iotProtocol);
             iotProtocol = iotProtocolDao.saveAndFlush(iotProtocol);
             iotProtocolFactorDao.saveAll(getIotProtocolFactorForSave(iotProtocol.getIotProtocolId(), iotProtocolDTO
-                    .getIotFactorIds(), iotProtocolDTO.getCreateOperator()));
+                    .getIotFactorIds(), iotProtocolDTO.getCreateOperatorId()));
 
             return ResultDTO.newSuccess();
         } catch (IllegalArgumentException ie) {
@@ -134,11 +134,11 @@ public class IotProtocolServiceImpl implements IotProtocolService {
      *
      * @param iotProtocolId
      * @param iotFactorIds
-     * @param operator
+     * @param createOperatorId
      * @return
      */
-    private List<IotProtocolFactor> getIotProtocolFactorForSave(Long iotProtocolId, Long[] iotFactorIds, String
-            operator) {
+    private List<IotProtocolFactor> getIotProtocolFactorForSave(Long iotProtocolId, Long[] iotFactorIds, Long
+            createOperatorId) {
         List<IotProtocolFactor> iotProtocolFactors = Lists.newArrayList();
         for (Long iotFactorId : iotFactorIds) {
             if (iotFactorId == null) {
@@ -148,7 +148,8 @@ public class IotProtocolServiceImpl implements IotProtocolService {
             IotProtocolFactor iotProtocolFactor = new IotProtocolFactor();
             iotProtocolFactor.setIotProtocolId(iotProtocolId);
             iotProtocolFactor.setIotFactorId(iotFactorId);
-//            iotProtocolFactor.setOperator(operator);
+            iotProtocolFactor.setCreateOperatorId(createOperatorId);
+            iotProtocolFactor.setModifyOperatorId(createOperatorId);
 
             iotProtocolFactors.add(iotProtocolFactor);
         }
@@ -165,9 +166,9 @@ public class IotProtocolServiceImpl implements IotProtocolService {
                     iotProtocolDTO.getProtocolCode(), iotProtocolDTO.getDescription(), iotProtocolDTO.getServerDomain()
                     , iotProtocolDTO.getServerIp(), iotProtocolDTO.getServerPort(), iotProtocolDTO.getTestServerDomain()
                     , iotProtocolDTO.getTestServerIp(), iotProtocolDTO.getTestServerPort(), iotProtocolDTO
-                            .getCreateOperator());
+                            .getModifyOperatorId());
             iotProtocolFactorDao.saveAll(getIotProtocolFactorForUpdate(iotProtocolDTO.getIotProtocolId(), iotProtocolDTO
-                    .getIotFactorIds(), iotProtocolDTO.getCreateOperator()));
+                    .getIotFactorIds(), iotProtocolDTO.getCreateOperatorId()));
 
             return ResultDTO.newSuccess();
         } catch (IllegalArgumentException ie) {
@@ -185,16 +186,16 @@ public class IotProtocolServiceImpl implements IotProtocolService {
      *
      * @param iotProtocolId
      * @param iotFactorIds
-     * @param operator
+     * @param createOperatorId
      * @return
      */
-    private List<IotProtocolFactor> getIotProtocolFactorForUpdate(Long iotProtocolId, Long[] iotFactorIds, String
-            operator) {
+    private List<IotProtocolFactor> getIotProtocolFactorForUpdate(Long iotProtocolId, Long[] iotFactorIds, Long
+            createOperatorId) {
         List<IotProtocolFactor> persistIotProtocolFactorList = iotProtocolFactorDao
                 .getIotProtocolFactorByIotProtocolIdAndDeleted(iotProtocolId, false);
 
         List<IotProtocolFactor> iotProtocolFactorList = getIotProtocolFactorForSave(iotProtocolId, iotFactorIds,
-                operator);
+                createOperatorId);
         //新增
         for (IotProtocolFactor iotProtocolFactor : iotProtocolFactorList) {
             if (persistIotProtocolFactorList.contains(iotProtocolFactor)) {
@@ -218,7 +219,7 @@ public class IotProtocolServiceImpl implements IotProtocolService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public ResultDTO<Integer> deleteIotProtocol(Long[] iotProtocolIds, String operator) {
+    public ResultDTO<Integer> deleteIotProtocol(Long[] iotProtocolIds, Long modifyOperatorId) {
         if (ArrayUtils.isEmpty(iotProtocolIds)) {
             LOGGER.error(ErrorCode.ERROR_7004.getMessage());
             return ResultDTO.newFail(ErrorCode.ERROR_7004.getCode(),
@@ -246,8 +247,8 @@ public class IotProtocolServiceImpl implements IotProtocolService {
 
         try {
             for (Long iotProjectId : iotProtocolIds) {
-                iotProtocolDao.deleteByIotProtocolId(iotProjectId, operator);
-                iotProtocolFactorDao.deleteByIotProtocolId(iotProjectId, operator);
+                iotProtocolDao.deleteByIotProtocolId(iotProjectId, modifyOperatorId);
+                iotProtocolFactorDao.deleteByIotProtocolId(iotProjectId, modifyOperatorId);
             }
 
             return ResultDTO.newSuccess();

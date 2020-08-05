@@ -26,22 +26,22 @@ import java.util.List;
 public interface IotProjectDeviceTypeDao extends BaseRepository<IotProjectDeviceType, Long> {
 
     @Modifying
-    @Query(" update IotProjectDeviceType set isDeleted=true,operator=:operator where iotProjectId=:iotProjectId and " +
+    @Query(" update IotProjectDeviceType set isDeleted=true,modifyOperatorId=:modifyOperatorId where iotProjectId=:iotProjectId and " +
             "isDeleted=false ")
-    Integer deleteByIotProjectId(@Param("iotProjectId") Long iotProjectId, @Param("operator") String operator);
+    Integer deleteByIotProjectId(@Param("iotProjectId") Long iotProjectId, @Param("modifyOperatorId") Long modifyOperatorId);
 
     @Query(" from IotProjectDeviceType where iotProjectId=:iotProjectId and isDeleted=:isDeleted ")
     List<IotProjectDeviceType> getByIotProjectIdAndDeleted(@Param("iotProjectId") Long iotProjectId, @Param
             ("isDeleted") boolean
             isDeleted);
 
-    @Query(" select new com.allthings.iot.dos.dto.query.IotProjectDeviceTypeDTO(tp.iotDeviceTypeId,tp.deviceTypeName, tp" +
+    @Query(" select new allthings.iot.dos.dto.query.IotProjectDeviceTypeDTO(tp.iotDeviceTypeId,tp.deviceTypeName, tp" +
             ".deviceTypeCode) from " +
             "IotDeviceType tp where tp.iotProjectId=:iotProjectId and tp.isDeleted=false ")
     List<IotProjectDeviceTypeDTO> getIotDeviceTypeByIotProjectIdAndDeleted(@Param("iotProjectId") Long iotProjectId);
 
 
-    @Query(value = "select new com.allthings.iot.dos.dto.query.IotProjectDeviceTypeDTO(ipdt.iotDeviceTypeId,(select idt" +
+    @Query(value = "select new allthings.iot.dos.dto.query.IotProjectDeviceTypeDTO(ipdt.iotDeviceTypeId,(select idt" +
             ".deviceTypeName from IotDeviceType idt where idt" +
             ".iotDeviceTypeId = ipdt.iotDeviceTypeId)) from IotProjectDeviceType ipdt where ipdt.iotDeviceTypeId in " +
             "(:iotDeviceTypeIds) and ipdt.isDeleted = false group by ipdt.iotDeviceTypeId having count(ipdt" +

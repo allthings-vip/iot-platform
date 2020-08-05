@@ -46,11 +46,11 @@ public interface IotDeviceTypeService {
      * 更新设备类型状态
      *
      * @param iotDeviceTypeIds
-     * @param operator
+     * @param modifyOperatorId
      * @param isEnabled
      * @return
      */
-    ResultDTO<Integer> updateIotDeviceTypeStatus(Long[] iotDeviceTypeIds, String operator, Integer isEnabled);
+    ResultDTO<Integer> updateIotDeviceTypeStatus(Long[] iotDeviceTypeIds, Long modifyOperatorId, Integer isEnabled);
 
     /**
      * 删除设备类型

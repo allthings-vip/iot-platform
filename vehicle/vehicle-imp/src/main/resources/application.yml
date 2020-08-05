@@ -1,0 +1,60 @@
+spring:
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+  profiles:
+    active: local
+
+zookeeper.connectString: mt-zookeeper-vip:2181
+iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
+
+logging:
+  file: /httx/logs/out.log
+
+dubbo.port: 28013
+
+server:
+  port: 8080
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 30000
+        readTimeout: 30000
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+
+iot:
+  service:
+    level: 1
+    code: vehicle-data
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000

@@ -28,7 +28,7 @@ public class ClusterTest {
 
 
         Thread.sleep(1000 * 5);
-        System.out.println("producer over");
+        System.out.println("allthings.iot.dos.monitor.producer over");
     }
 
 

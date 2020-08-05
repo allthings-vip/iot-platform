@@ -4,6 +4,7 @@ import allthings.iot.dos.web.security.CustomLogoutSuccessHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -23,11 +24,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * *******************************************************************************************
  */
 @EnableScheduling
-@SpringBootApplication(exclude = {RedisAutoConfiguration.class})
+@SpringCloudApplication
 @ComponentScan({"allthings.iot"})
 public class IotDosWebApplication {
     public static void main(String[] args) {
-        System.setProperty("rocketmq.client.log.loadconfig", "false");
         ApplicationContext context = SpringApplication.run(IotDosWebApplication.class, args);
         CustomLogoutSuccessHandler.setApplicationContext(context);
     }
