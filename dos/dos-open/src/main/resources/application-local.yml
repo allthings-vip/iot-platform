@@ -2,11 +2,18 @@ spring:
   redis:
     host: localhost
     port: 6379
-
+    timeout: 12000
+    lettuce:
+      shutdown-timeout: 12000ms
+      pool:
+        min-idle: 1
+feign:
+  httpclient:
+    enabled: true
 eureka:
   client:
     service-url:
-      defaultZone: http://mt-iotRegistry-1:8080/eureka/
+      defaultZone: http://localhost:8761/eureka/
 service.name: iotDosBiz
 service:
   count:

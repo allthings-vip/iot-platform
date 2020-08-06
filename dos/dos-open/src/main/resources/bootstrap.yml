@@ -1,6 +1,6 @@
 spring:
   application:
-    name: iotDosOpenWeb
+    name: dos-open
   output:
     ansi:
       enabled: ALWAYS
