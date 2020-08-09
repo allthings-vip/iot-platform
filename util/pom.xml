@@ -32,6 +32,7 @@
         <module>util-rocketmq</module>
         <module>util-tsdb</module>
         <module>util-hbase</module>
+        <module>util-sms</module>
     </modules>
 
     <dependencyManagement>
