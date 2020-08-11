@@ -43,6 +43,11 @@
         </dependency>
         <dependency>
             <groupId>allthings.iot</groupId>
+            <artifactId>util-sms</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>allthings.iot</groupId>
             <artifactId>dos-api</artifactId>
             <version>${project.version}</version>
         </dependency>

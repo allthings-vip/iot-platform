@@ -1,6 +1,6 @@
 package allthings.iot.dos.service;
 
-import allthings.iot.dos.IotDosBizConfig;
+import allthings.iot.dos.IotDosServiceConfig;
 import allthings.iot.dos.constant.Constants;
 import allthings.iot.dos.dto.query.IotDeviceMessageDTO;
 import allthings.iot.dos.api.IotDeviceSaveMessageService;
@@ -39,11 +39,11 @@ public class IotDeviceSaveMessageImpl implements IotDeviceSaveMessageService {
     private IProducer producer;
 
     @Autowired
-    private IotDosBizConfig iotDosBizConfig;
+    private IotDosServiceConfig iotDosServiceConfig;
 
     @PostConstruct
     public void init() {
-        producer = iotDosBizConfig.getFactory().createProducer(() -> String.join("-",
+        producer = iotDosServiceConfig.getFactory().createProducer(() -> String.join("-",
                 Constants.DOS_SERVICE_TO_TASK_GROUP, this.getClass().getSimpleName()));
     }
 

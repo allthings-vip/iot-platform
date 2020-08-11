@@ -1,6 +1,6 @@
 package allthings.iot.dos.consumer;
 
-import allthings.iot.dos.IotDosBizConfig;
+import allthings.iot.dos.IotDosServiceConfig;
 import allthings.iot.dos.constant.Constants;
 import allthings.iot.dos.dto.query.IotLogDTO;
 import com.alibaba.fastjson.JSON;
@@ -26,11 +26,11 @@ public class IotLoggerProducer {
     private IProducer producer;
 
     @Autowired
-    private IotDosBizConfig iotDosBizConfig;
+    private IotDosServiceConfig iotDosServiceConfig;
 
     @PostConstruct
     public void init() {
-        producer = iotDosBizConfig.getFactory().createProducer(() ->
+        producer = iotDosServiceConfig.getFactory().createProducer(() ->
                 String.join("-", Constants.IOT_DOS_LOGGER_GROUP, this.getClass().getSimpleName()));
     }
 

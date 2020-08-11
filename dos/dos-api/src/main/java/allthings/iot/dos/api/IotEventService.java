@@ -31,5 +31,6 @@ public interface IotEventService {
      * @param
      * @return
      */
-    ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(IotEventQueryDTO iotEventQueryDTO);
+    ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(String deviceCode, List<String> eventCodes, long
+            beginTime, long endTime, int pageIndex, int pageSize);
 }

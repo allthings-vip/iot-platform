@@ -6,6 +6,7 @@ import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dos.IotMessageCenterIdConfig;
 import allthings.iot.dos.api.IotDeviceTypeService;
 import allthings.iot.dos.api.IotLoggerService;
+import allthings.iot.dos.api.IotMessageService;
 import allthings.iot.dos.api.IotProjectService;
 import allthings.iot.dos.constant.Constants;
 import allthings.iot.dos.constant.ErrorCode;
@@ -91,8 +92,8 @@ public class IotProjectServiceImpl implements IotProjectService {
     private IotDeviceTypeService iotDeviceTypeService;
     @Autowired
     private IotProjectQueryDao iotProjectQueryDao;
-    //    @Autowired
-//    private IotDosMessageManager iotDosMessageManager;
+    @Autowired
+    private IotMessageService messageService;
     @Autowired
     private IotMessageCenterIdConfig config;
     @Autowired
@@ -539,12 +540,10 @@ public class IotProjectServiceImpl implements IotProjectService {
         IotMessageManagerDTO iotMessageManagerDTO = new IotMessageManagerDTO();
         iotMessageManagerDTO.setCode(iotAppSecretQueryDTO.getCode());
         iotMessageManagerDTO.setMobileNumber(iotAppSecretQueryDTO.getMobile());
-//        iotMessageManagerDTO.setMessageCenterId(config.getAppSecretMessageId());
-        // todo 短信验证码
-//        ResultDTO<Integer> result = iotDosMessageManager.validateIdentifyCode(iotMessageManagerDTO);
-//        if (!result.isSuccess()) {
-//            return ResultDTO.newFail(result.getCode(), result.getMsg());
-//        }
+        ResultDTO<Integer> result = messageService.validateIdentifyCode(iotMessageManagerDTO);
+        if (!result.isSuccess()) {
+            return ResultDTO.newFail(result.getCode(), result.getMsg());
+        }
 
         IotProjectDTO iotProjectDTO = iotProjectDao.getByIotProjectIdAndDeleted(iotProjectId, false);
         if (iotProjectDTO == null) {

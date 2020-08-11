@@ -1,4 +1,4 @@
-package allthings.iot.sms.dot;
+package allthings.iot.util.sms.dto;
 
 public class ShortMessageDto {
     /**
@@ -46,9 +46,25 @@ public class ShortMessageDto {
     private String outId;
 
     /**
-     *
+     * 请求方法
      */
     private String action;
+
+    /**
+     * 请求方式
+     */
+    private String methodType;
+
+    /**
+     * 验证码长度
+     */
+    private Integer codeDigits;
+
+    /**
+     * 验证码
+     * 验证验证码时传入
+     */
+    private String verificationCode;
 
     public String getPhoneNumbers() {
         return phoneNumbers;
@@ -80,5 +96,68 @@ public class ShortMessageDto {
 
     public void setTemplateParam(String templateParam) {
         this.templateParam = templateParam;
+    }
+
+    public String getSmsUpExtendCode() {
+        return smsUpExtendCode;
+    }
+
+    public void setSmsUpExtendCode(String smsUpExtendCode) {
+        this.smsUpExtendCode = smsUpExtendCode;
+    }
+
+    public String getOutId() {
+        return outId;
+    }
+
+    public void setOutId(String outId) {
+        this.outId = outId;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getMethodType() {
+        return methodType;
+    }
+
+    public void setMethodType(String methodType) {
+        this.methodType = methodType;
+    }
+
+    public Integer getCodeDigits() {
+        return codeDigits;
+    }
+
+    public void setCodeDigits(Integer codeDigits) {
+        this.codeDigits = codeDigits;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    @Override
+    public String toString() {
+        return "ShortMessageDto{" +
+                "phoneNumbers='" + phoneNumbers + '\'' +
+                ", signName='" + signName + '\'' +
+                ", templateCode='" + templateCode + '\'' +
+                ", templateParam='" + templateParam + '\'' +
+                ", smsUpExtendCode='" + smsUpExtendCode + '\'' +
+                ", outId='" + outId + '\'' +
+                ", action='" + action + '\'' +
+                ", methodType='" + methodType + '\'' +
+                ", codeDigits=" + codeDigits +
+                '}';
     }
 }

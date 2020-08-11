@@ -1,6 +1,6 @@
 package allthings.iot.dos.consumer;
 
-import allthings.iot.dos.IotDosBizConfig;
+import allthings.iot.dos.IotDosServiceConfig;
 import allthings.iot.dos.constant.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +22,13 @@ public class IotVisProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(IotVisProducer.class);
 
     @Autowired
-    private IotDosBizConfig iotDosBizConfig;
+    private IotDosServiceConfig iotDosServiceConfig;
 
     private IProducer producer;
 
     @PostConstruct
     public void init() {
-        producer = iotDosBizConfig.getFactory().createProducer(() ->
+        producer = iotDosServiceConfig.getFactory().createProducer(() ->
                 String.join("-", Constants.IOT_DOS_TO_AEP_GROUP, this.getClass().getSimpleName()));
     }
 

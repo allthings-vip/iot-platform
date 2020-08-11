@@ -5,6 +5,7 @@ import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dos.client.fallback.IotDosFallBack;
 import allthings.iot.dos.dto.open.IotEventQueryDTO;
 import allthings.iot.dos.dto.query.IotDeviceEventDTO;
+import allthings.iot.dos.dto.query.IotEventQueryListDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface IotEventApi {
 
     @PostMapping("/dos/service/getDeviceEventsByDeviceId")
-    ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(@RequestBody IotEventQueryDTO iotEventQueryDTO);
+    ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(@RequestBody IotEventQueryListDTO iotEventQueryDTO);
 
 }

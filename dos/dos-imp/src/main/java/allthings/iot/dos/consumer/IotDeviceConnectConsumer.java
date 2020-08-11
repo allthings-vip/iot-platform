@@ -10,7 +10,7 @@ import allthings.iot.common.msg.IMsg;
 import allthings.iot.common.pojo.CacheMsgWrap;
 import allthings.iot.common.usual.TopicConsts;
 import allthings.iot.constant.gps.GpsMsgParam;
-import allthings.iot.dos.IotDosBizConfig;
+import allthings.iot.dos.IotDosServiceConfig;
 import allthings.iot.dos.api.IotConsumerService;
 import allthings.iot.dos.api.IotDeviceService;
 import allthings.iot.dos.api.IotLoggerService;
@@ -55,7 +55,7 @@ public class IotDeviceConnectConsumer {
     private static final String IOT_DOS_DIRECTIVE_GROUP = "iot-dos-directive-group";
     private static final Logger LOGGER = LoggerFactory.getLogger(IotDeviceConnectConsumer.class);
     @Autowired
-    private IotDosBizConfig iotDosBizConfig;
+    private IotDosServiceConfig iotDosServiceConfig;
     private IConsumer consumer;
     /**
      * 指令消费
@@ -159,7 +159,7 @@ public class IotDeviceConnectConsumer {
 
     @PostConstruct
     public void init() {
-        consumer = iotDosBizConfig.getFactory().createConsumer(() -> IOT_DOS_GROUP);
+        consumer = iotDosServiceConfig.getFactory().createConsumer(() -> IOT_DOS_GROUP);
 
         consumer.subscribe(TopicConsts.DMS_TO_APS, null, new
                 IRocketMsgListener() {
@@ -181,7 +181,7 @@ public class IotDeviceConnectConsumer {
     }
 
     private void getDirectiveConsumer() {
-        directiveConsumer = iotDosBizConfig.getFactory().createConsumer(() -> IOT_DOS_DIRECTIVE_GROUP);
+        directiveConsumer = iotDosServiceConfig.getFactory().createConsumer(() -> IOT_DOS_DIRECTIVE_GROUP);
         directiveConsumer.subscribe(TopicConsts.DMS_TO_DAS, null, new IRocketMsgListener() {
             @Override
             public void onSuccess(List<RocketMsg> list) {
@@ -198,7 +198,7 @@ public class IotDeviceConnectConsumer {
     }
 
     private void getLoggerConsumer() {
-        loggerConsumer = iotDosBizConfig.getFactory().createConsumer(() -> Constants.IOT_DOS_LOGGER_GROUP);
+        loggerConsumer = iotDosServiceConfig.getFactory().createConsumer(() -> Constants.IOT_DOS_LOGGER_GROUP);
         loggerConsumer.subscribe(Constants.IOT_DOS_LOGGER_TOPIC, null, new IRocketMsgListener() {
             @Override
             public void onSuccess(List<RocketMsg> list) throws Exception {
@@ -223,7 +223,7 @@ public class IotDeviceConnectConsumer {
      * 处理VIS返回结果
      */
     private void getVisResult() {
-        visConsumer = iotDosBizConfig.getFactory().createConsumer(() -> Constants.IOT_AEP_TO_DOS_GROUP);
+        visConsumer = iotDosServiceConfig.getFactory().createConsumer(() -> Constants.IOT_AEP_TO_DOS_GROUP);
         visConsumer.subscribe(Constants.IOT_AEP_TO_DOS_TOPIC, null, new IRocketMsgListener() {
             @Override
             public void onSuccess(List<RocketMsg> list) throws Exception {

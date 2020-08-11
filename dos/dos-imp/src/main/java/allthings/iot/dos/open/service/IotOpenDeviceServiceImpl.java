@@ -63,9 +63,9 @@ import java.util.List;
  * *******************************************************************************************
  */
 @Service("iotOpenDeviceBiz")
-public class IotOpenDeviceBizImpl implements IotOpenDeviceService {
+public class IotOpenDeviceServiceImpl implements IotOpenDeviceService {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(IotOpenDeviceBizImpl.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(IotOpenDeviceServiceImpl.class);
 
     @Autowired
     private IotEventService iotEventService;
@@ -102,7 +102,10 @@ public class IotOpenDeviceBizImpl implements IotOpenDeviceService {
                 return ResultDTO.newFail(ErrorCode.ERROR_5052.getCode(),
                         ErrorCode.ERROR_5052.getMessage());
             }
-            return iotEventService.getDeviceEventsByDeviceId(iotEventQueryDTO);
+            return iotEventService.getDeviceEventsByDeviceId(iotEventQueryDTO.getDeviceCode(), null,
+                    iotEventQueryDTO.getStartDatetime(), iotEventQueryDTO.getEndDatetime(),
+                    iotEventQueryDTO.getPageIndex(),
+                    iotEventQueryDTO.getPageSize());
         } catch (Exception e) {
             LOGGER.error("异常：{}", e);
             return ResultDTO.newFail("查询失败");

@@ -68,10 +68,10 @@ import java.util.Map;
  * *******************************************************************************************
  */
 @Service("iotOpenVehicleBiz")
-public class IotOpenVehicleBizImpl implements IotOpenVehicleService {
+public class IotOpenVehicleServiceImpl implements IotOpenVehicleService {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-    private static Logger LOGGER = LoggerFactory.getLogger(IotOpenVehicleBizImpl.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(IotOpenVehicleServiceImpl.class);
     @Autowired
     private VehicleDataApi vehicleDataService;
     @Autowired

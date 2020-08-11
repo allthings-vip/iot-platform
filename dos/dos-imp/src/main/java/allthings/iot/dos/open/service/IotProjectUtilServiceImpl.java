@@ -36,9 +36,9 @@ import java.util.List;
  * *******************************************************************************************
  */
 @Service("iotProjectUtilBiz")
-public class IotProjectUtilBizImpl implements IotProjectUtilService {
+public class IotProjectUtilServiceImpl implements IotProjectUtilService {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(IotProjectUtilBizImpl.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(IotProjectUtilServiceImpl.class);
     @Autowired
     private IotProjectService iotProjectService;
     @Autowired

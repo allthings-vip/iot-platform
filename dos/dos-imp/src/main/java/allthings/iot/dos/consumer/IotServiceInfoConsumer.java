@@ -1,7 +1,7 @@
 package allthings.iot.dos.consumer;
 
 import allthings.iot.common.dto.ResultDTO;
-import allthings.iot.dos.IotDosBizConfig;
+import allthings.iot.dos.IotDosServiceConfig;
 import allthings.iot.dos.api.IotMonitorService;
 import allthings.iot.dos.constant.Constants;
 import allthings.iot.dos.dto.IotDosServiceInfoDto;
@@ -42,7 +42,7 @@ public class IotServiceInfoConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(IotServiceInfoConsumer.class);
 
     @Autowired
-    private IotDosBizConfig iotDosBizConfig;
+    private IotDosServiceConfig iotDosServiceConfig;
 
     private IConsumer consumer;
 
@@ -143,7 +143,7 @@ public class IotServiceInfoConsumer {
 
     @PostConstruct
     public void init() {
-        consumer = iotDosBizConfig.getFactory().createConsumer(() -> Constants.IOT_DOS_MONITOR_GROUP_CONSUMER);
+        consumer = iotDosServiceConfig.getFactory().createConsumer(() -> Constants.IOT_DOS_MONITOR_GROUP_CONSUMER);
 
         consumer.subscribe(Constants.IOT_DOS_MONITOR_TOPIC, null, new
                 IRocketMsgListener() {

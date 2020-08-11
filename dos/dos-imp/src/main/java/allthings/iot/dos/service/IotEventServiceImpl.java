@@ -8,6 +8,7 @@ import allthings.iot.dms.ui.service.IDmsFeignClient;
 import allthings.iot.dos.api.IotEventService;
 import allthings.iot.dos.dto.open.IotEventQueryDTO;
 import allthings.iot.dos.dto.query.IotDeviceEventDTO;
+import allthings.iot.dos.dto.query.IotEventQueryListDTO;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,12 +44,8 @@ public class IotEventServiceImpl implements IotEventService {
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Override
-    public ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(IotEventQueryDTO eventQueryDTO) {
-        String deviceCode = eventQueryDTO.getDeviceCode();
-        long beginTime = eventQueryDTO.getStartDatetime();
-        long endTime = eventQueryDTO.getEndDatetime();
-        int pageIndex = eventQueryDTO.getPageIndex();
-        int pageSize = eventQueryDTO.getPageSize();
+    public ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(String deviceCode, List<String> eventCodes, long
+            beginTime, long endTime, int pageIndex, int pageSize) {
         QueryResult<DeviceEventDto> queryResult = dms.getDeviceEventsByDeviceId(deviceCode,
                 new String[]{}, beginTime, endTime, pageIndex, pageSize).getRet();
 

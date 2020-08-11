@@ -4,8 +4,8 @@ import allthings.iot.common.dto.PageResult;
 import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dos.api.IotEventService;
 import allthings.iot.dos.client.api.IotEventApi;
-import allthings.iot.dos.dto.open.IotEventQueryDTO;
 import allthings.iot.dos.dto.query.IotDeviceEventDTO;
+import allthings.iot.dos.dto.query.IotEventQueryListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class IotEventController implements IotEventApi {
 
     @Autowired
-    private IotEventService eventBiz;
+    private IotEventService eventService;
 
     @Override
-    public ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(@RequestBody IotEventQueryDTO iotEventQueryDTO) {
-        return eventBiz.getDeviceEventsByDeviceId(iotEventQueryDTO);
+    public ResultDTO<PageResult<IotDeviceEventDTO>> getDeviceEventsByDeviceId(@RequestBody IotEventQueryListDTO iotEventQueryListDTO) {
+        return eventService.getDeviceEventsByDeviceId(iotEventQueryListDTO.getDeviceCode(),
+                iotEventQueryListDTO.getEventCodes(), iotEventQueryListDTO.getStartDatetime(),
+                iotEventQueryListDTO.getEndDatetime(), iotEventQueryListDTO.getPageIndex(),
+                iotEventQueryListDTO.getPageSize());
     }
 
 }
