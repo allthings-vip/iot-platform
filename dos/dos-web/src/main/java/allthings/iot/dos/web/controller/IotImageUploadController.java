@@ -2,14 +2,14 @@ package allthings.iot.dos.web.controller;
 
 import allthings.iot.common.dto.ResultDTO;
 import allthings.iot.dos.constant.ErrorCode;
+import allthings.iot.dos.web.service.IFileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.InputStream;
 
 /**
  * @author :  luhao
@@ -31,21 +31,20 @@ public class IotImageUploadController extends BaseController {
 
     private final static Long FILE_MAX_SIZE = 5L * 1024 * 1024;
 
+    @Autowired
+    private IFileStorageService fileStorageService;
+
     @PostMapping("/upload/image")
     public ResultDTO<?> uploadImage(@RequestParam("file") MultipartFile imageFile) {
         String fileName = imageFile.getOriginalFilename();
         try {
-            InputStream inputStream = imageFile.getInputStream();
             Long size = imageFile.getSize();
             if (size > FILE_MAX_SIZE) {
                 LOGGER.error("file is to big ,size {}", size);
                 return ResultDTO.newFail(ErrorCode.ERROR_5051.getCode(),
                         ErrorCode.ERROR_5051.getMessage());
             }
-            int index = fileName.lastIndexOf(".");
-            String ext = fileName.substring(index + 1);
-//            return ResultDTO.newSuccess(FastDFSConfig.uploadImage(inputStream, size, ext));
-            return ResultDTO.newSuccess();
+            return ResultDTO.newSuccess(fileStorageService.upload(imageFile));
         } catch (Exception e) {
             LOGGER.error("upload image error, image name: {}", fileName, e);
             return ResultDTO.newFail(ErrorCode.ERROR_5050.getCode(),
@@ -53,4 +52,14 @@ public class IotImageUploadController extends BaseController {
                             .getMessage());
         }
     }
+
+//    @GetMapping(value="/download")
+//    public ResponseEntity<?> downloadFile(@RequestParam(name="fileId") String fileId){
+//        if(StringUtils.isBlank(fileId)){
+//            return new ResponseEntity<>(JSON.toJSON(ResultDTO.newFail("file id is empty")), HttpStatus.BAD_REQUEST);
+//        }
+//        return (ResponseEntity<?>) fss.getFileWithDownload(fileId,false).getData();
+//    }
+
+
 }

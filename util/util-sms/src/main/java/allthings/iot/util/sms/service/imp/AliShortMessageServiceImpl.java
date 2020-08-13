@@ -34,7 +34,7 @@ import java.util.Random;
 @Service("shortMessageService")
 public class AliShortMessageServiceImpl implements ShortMessageService {
     private static Logger log = LoggerFactory.getLogger(AliShortMessageServiceImpl.class);
-    private static final String SMS_CACHE_KEY = "sms:%s:%s";
+    private static final String SMS_CACHE_KEY = "sms:%s:%s:%s";
     @Autowired
     private SmsProperties smsProperties;
     @Autowired
@@ -68,8 +68,8 @@ public class AliShortMessageServiceImpl implements ShortMessageService {
             log.info("短信发送返回结果：{}", JSON.toJSONString(response));
             SendMsgResponseDto responseDto = JSON.parseObject(response.getData(), SendMsgResponseDto.class);
             if (ErrorCodeEnum.OK.getCode().equals(responseDto.getCode())) {
-                cacheService.putMapValue(String.format(SMS_CACHE_KEY, shortMessageDto.getAction(),
-                        shortMessageDto.getTemplateCode()), shortMessageDto.getPhoneNumbers(), code,
+                cacheService.putObjectWithExpireTime(String.format(SMS_CACHE_KEY, shortMessageDto.getAction(),
+                        shortMessageDto.getTemplateCode(), shortMessageDto.getPhoneNumbers()), code,
                         smsProperties.getValidPeriod() * 60L);
             }
             return ResultDTO.newSuccess(responseDto);
@@ -84,18 +84,18 @@ public class AliShortMessageServiceImpl implements ShortMessageService {
 
     @Override
     public ResultDTO<Integer> validateIdentifyCode(ShortMessageDto shortMessageDto) {
-        String code = cacheService.getMapField(String.format(SMS_CACHE_KEY, shortMessageDto.getAction(),
-                shortMessageDto.getTemplateCode()), shortMessageDto.getPhoneNumbers(), String.class);
+        String code = cacheService.getObject(String.format(SMS_CACHE_KEY, shortMessageDto.getAction(),
+                shortMessageDto.getTemplateCode(), shortMessageDto.getPhoneNumbers()), String.class);
         if (StringUtils.isBlank(code)) {
             return ResultDTO.newFail("验证码错误");
         }
         if (!code.equals(shortMessageDto.getVerificationCode())) {
-            cacheService.removeMapField(String.format(SMS_CACHE_KEY, shortMessageDto.getAction(),
-                    shortMessageDto.getTemplateCode()), shortMessageDto.getPhoneNumbers());
+            cacheService.removeObject(String.format(SMS_CACHE_KEY, shortMessageDto.getAction(),
+                    shortMessageDto.getTemplateCode(), shortMessageDto.getPhoneNumbers()));
             return ResultDTO.newFail("验证码错误");
         }
-        cacheService.removeMapField(String.format(SMS_CACHE_KEY, shortMessageDto.getAction(),
-                shortMessageDto.getTemplateCode()), shortMessageDto.getPhoneNumbers());
+        cacheService.removeObject(String.format(SMS_CACHE_KEY, shortMessageDto.getAction(),
+                shortMessageDto.getTemplateCode(), shortMessageDto.getPhoneNumbers()));
         return ResultDTO.newSuccess();
     }
 
