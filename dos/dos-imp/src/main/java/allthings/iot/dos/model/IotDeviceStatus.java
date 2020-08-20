@@ -33,10 +33,10 @@ public class IotDeviceStatus extends AbstractIotDosModel {
     @Column(columnDefinition = "int(20) comment '设备唯一编码' ", nullable = false, name = "iot_dos_device_id")
     private Long iotDeviceId;
 
-    @Column(columnDefinition = "varchar(500) comment '服务器节点ID' ", nullable = false, name = "node_id")
+    @Column(columnDefinition = "varchar(500) not null comment '服务器节点ID' ", nullable = false, name = "node_id")
     private String nodeId;
 
-    @Column(columnDefinition = "varchar(500) comment '终端Ip' ", nullable = false, name = "terminal_ip")
+    @Column(columnDefinition = "varchar(500) not null comment '终端Ip' ", nullable = false, name = "terminal_ip")
     private String terminalIp;
 
     @Column(columnDefinition = " tinyint(1) not null default 0 COMMENT '删除标识 0=不在线 1=在线'", name = "is_connected")

@@ -76,10 +76,10 @@ public class IotDevice extends AbstractIotDosModel {
     @Column(columnDefinition = " timeStamp COMMENT '注册时间' ", name = "register_date")
     private Date registerDate;
 
-    @Column(columnDefinition = "text default '' comment '扩展属性' ", name = "extend_properties")
+    @Column(columnDefinition = "text comment '扩展属性' ", name = "extend_properties")
     private String extendProperties;
 
-    @Column(columnDefinition = " varchar(500)  comment '所属机构' ", name = "agency_name")
+    @Column(columnDefinition = " varchar(500) not null comment '所属机构' ", name = "agency_name")
     private String agencyName;
 
     public Long getIotDeviceId() {

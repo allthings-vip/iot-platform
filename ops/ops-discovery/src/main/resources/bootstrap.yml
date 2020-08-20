@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: OpsDiscovery
+  cloud:
+    config:
+      uri: http://localhost:8081
+      label: master

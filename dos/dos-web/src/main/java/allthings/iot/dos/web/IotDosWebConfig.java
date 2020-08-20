@@ -46,14 +46,10 @@ import java.util.Map;
  * @CopyRight : COPYRIGHT(c) iot.tf56.com All Rights Reserved
  * *******************************************************************************************
  */
-// @ImportResource("classpath:dubbo-consumer.xml")
 @Configuration
 @EnableRedisHttpSession
 public class IotDosWebConfig implements WebMvcConfigurer {
-    @Value("${spring.profiles.active}")
-    private String activeProfile;
-    @Value("${config.apipath}")
-    private String contextPath;
+
     @Value("${http.url.whiteUrlList}")
     private String whiteUrlList;
     @Value("${crsf.whiteList}")
@@ -98,10 +94,10 @@ public class IotDosWebConfig implements WebMvcConfigurer {
     @Bean
     public WebServerFactoryCustomizer webServerFactoryCustomizer() {
         return (WebServerFactoryCustomizer<ConfigurableWebServerFactory>) factory -> {
-            ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, contextPath + "/404");
-            ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, contextPath + "/500");
-            ErrorPage error400Page = new ErrorPage(HttpStatus.BAD_REQUEST, contextPath + "/400");
-            ErrorPage error417Page = new ErrorPage(HttpStatus.EXPECTATION_FAILED, contextPath + "/417");
+            ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/404");
+            ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500");
+            ErrorPage error400Page = new ErrorPage(HttpStatus.BAD_REQUEST, "/400");
+            ErrorPage error417Page = new ErrorPage(HttpStatus.EXPECTATION_FAILED, "/417");
             factory.setErrorPages(Sets.newHashSet(error404Page, error500Page, error400Page, error417Page));
         };
     }
@@ -118,7 +114,7 @@ public class IotDosWebConfig implements WebMvcConfigurer {
     public ServletRegistrationBean csrfServlet() throws Exception {
         ServletRegistrationBean servletRegistrationBean =
                 new ServletRegistrationBean(new CsrfTokenServlet(cacheConfig),
-                        contextPath + "/csrfTokenServlet");
+                        "/csrfTokenServlet");
         servletRegistrationBean.setLoadOnStartup(1);
         return servletRegistrationBean;
     }

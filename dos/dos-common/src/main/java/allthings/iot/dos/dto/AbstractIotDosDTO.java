@@ -46,7 +46,7 @@ public abstract class AbstractIotDosDTO implements Serializable {
     /**
      * 删除标识 0=有效，1=删除
      */
-    private Boolean isDeleted;
+    private boolean isDeleted;
 
     public AbstractIotDosDTO() {
     }
@@ -103,11 +103,11 @@ public abstract class AbstractIotDosDTO implements Serializable {
         this.roleCode = roleCode;
     }
 
-    public Boolean getDeleted() {
+    public boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

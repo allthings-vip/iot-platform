@@ -31,8 +31,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Value("${config.apipath}")
-    private String contextPath;
 
     @Autowired
     private ICentralCacheService iotRedisFactory;
@@ -53,21 +51,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http.exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint()).and().authorizeRequests()
-                .antMatchers(contextPath + "/home", "/", contextPath + "/code/get",
-                        contextPath + "/kaptcha/get", contextPath + "/logout", contextPath + "/user/save", contextPath +
-                                "/csrfTokenServlet", contextPath + "/serviceInfo/realtime**",
-                        contextPath + "/serviceInfo/list", contextPath + "/serviceInfo/get**",
-                        contextPath + "/serviceInfo/save",
-                        contextPath + "/serviceInfo/", contextPath + "/serviceInfo/").permitAll()
+                .antMatchers( "/home", "/",  "/code/get",
+                         "/kaptcha/get",  "/logout",  "/user/save", 
+                                "/csrfTokenServlet",  "/serviceInfo/realtime**",
+                         "/serviceInfo/list",  "/serviceInfo/get**",
+                         "/serviceInfo/save",
+                         "/serviceInfo/",  "/serviceInfo/").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage(contextPath + "/login").permitAll().failureForwardUrl(
-                contextPath + "/login")
+                .and().formLogin().loginPage( "/login").permitAll().failureForwardUrl(
+                 "/login")
                 .usernameParameter("username").passwordParameter("password").successHandler(
                 new SessionAuthenticationSuccessHandler(iotRedisFactory, iotUserApi, kaptchaService,
                         producer))
                 .failureHandler(new SessionAuthenticationFailureHandler(iotRedisFactory, kaptchaService)).permitAll()
                 .and().logout().logoutUrl(
-                contextPath + "/logout").logoutSuccessHandler(new CustomLogoutSuccessHandler())
+                 "/logout").logoutSuccessHandler(new CustomLogoutSuccessHandler())
                 .permitAll().and().csrf().disable();
         // @formatter:on
     }

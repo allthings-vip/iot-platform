@@ -6,8 +6,8 @@ import allthings.iot.dos.dto.query.IotDeviceLoggerQueryListDto;
 import allthings.iot.dos.dto.query.IotSystemLoggerQueryListDto;
 import allthings.iot.dos.model.IotDevice;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
+import org.hibernate.query.Query;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class IotLoggerQueryDaoImpl implements IotLoggerQueryDao {
                         ".association_id=:iotDeviceId " +
                         " and idlr.association_type=:associationType order by idl.logger_time desc ";
 
-        Query query = entityManager.createNativeQuery(sql).unwrap(SQLQuery.class)
+        Query query = entityManager.createNativeQuery(sql).unwrap(NativeQuery.class)
                 .addScalar("loggerTime", StandardBasicTypes.TIMESTAMP)
                 .addScalar("userName", StandardBasicTypes.STRING)
                 .addScalar("loggerTypeName", StandardBasicTypes.STRING)
@@ -109,7 +109,7 @@ public class IotLoggerQueryDaoImpl implements IotLoggerQueryDao {
         }
         sql = sql + " order by idl.logger_time desc ";
 
-        Query query = entityManager.createNativeQuery(sql).unwrap(SQLQuery.class)
+        Query query = entityManager.createNativeQuery(sql).unwrap(NativeQuery.class)
                 .addScalar("loggerTime", StandardBasicTypes.TIMESTAMP)
                 .addScalar("userName", StandardBasicTypes.STRING)
                 .addScalar("loggerTypeName", StandardBasicTypes.STRING)
@@ -155,7 +155,7 @@ public class IotLoggerQueryDaoImpl implements IotLoggerQueryDao {
                         "false and idlt.is_deleted = false " +
                         " and idlr.association_id=:iotDeviceId and idlr.association_type=:associationType";
 
-        Query query = entityManager.createNativeQuery(sql).unwrap(SQLQuery.class);
+        Query query = entityManager.createNativeQuery(sql).unwrap(NativeQuery.class);
 
         query.setParameter("loggerTypeCode", loggerTypeCode);
         query.setParameter("iotDeviceId", iotDeviceId);
@@ -191,7 +191,7 @@ public class IotLoggerQueryDaoImpl implements IotLoggerQueryDao {
             sql = sql + " and idlt.logger_type_code in (:loggerTypeCode) ";
         }
 
-        Query query = entityManager.createNativeQuery(sql).unwrap(SQLQuery.class);
+        Query query = entityManager.createNativeQuery(sql).unwrap(NativeQuery.class);
 
         if (iotSystemLoggerQueryListDto.getIotProjectId() != null) {
             query.setParameter("iotProjectId", iotSystemLoggerQueryListDto.getIotProjectId());

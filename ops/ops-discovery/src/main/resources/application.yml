@@ -1,0 +1,33 @@
+server:
+  port: 8761
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  client:
+    healthcheck:
+      enabled: true
+  server:
+    enable-self-preservation: false
+
+#spring:
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8084
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: local
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  file: /httx/logs/out.log

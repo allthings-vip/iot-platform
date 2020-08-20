@@ -26,13 +26,13 @@ import javax.persistence.Table;
 public class IotTag extends AbstractIotDosModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "int(20) comment 'iotDosTagId' ", name = "iot_dos_tag_id")
+    @Column(columnDefinition = "int(20) comment '标签的唯一标识' ", name = "iot_dos_tag_id")
     private Long iotTagId;
 
-    @Column(columnDefinition = "varchar(500) comment '标签名称' ", name = "tag_name", nullable = false)
+    @Column(columnDefinition = "varchar(500) not null comment '标签名称' ", name = "tag_name", nullable = false)
     private String tagName;
 
-    @Column(columnDefinition = "int(20) comment ''iotProjectId", name = "iot_dos_project_id", nullable = false)
+    @Column(columnDefinition = "int(20) not null comment '项目id' ", name = "iot_dos_project_id", nullable = false)
     private Long iotProjectId;
 
     public Long getIotTagId() {

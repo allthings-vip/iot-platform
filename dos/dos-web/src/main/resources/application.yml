@@ -6,12 +6,11 @@ spring:
 
 server:
   port: 8080
+  servlet:
+    context-path: /dos
 
 zookeeper.connectString: mt-zookeeper-vip:2181
 iot.rocketmq.brokers: mt-rocketMqDispatch-vip:9876
-
-login.applicationType: web
-config.apipath: /dos
 
 iot:
   service:

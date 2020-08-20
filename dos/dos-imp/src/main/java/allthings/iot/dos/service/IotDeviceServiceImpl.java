@@ -352,6 +352,9 @@ public class IotDeviceServiceImpl implements IotDeviceService {
         if (iotDeviceDTO.getModifyOperatorId() == null) {
             iotDeviceDTO.setModifyOperatorId(0L);
         }
+        if (iotDeviceDTO.getAgencyName() == null) {
+            iotDeviceDTO.setAgencyName(StringUtils.EMPTY);
+        }
     }
 
     /**
@@ -1114,7 +1117,7 @@ public class IotDeviceServiceImpl implements IotDeviceService {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("vehicle查询异常, 参数:{}, error:{}", JSON.toJSONString(iotDeviceQueryDTO), e.toString());
+            LOGGER.error(String.format("vehicle查询异常, 参数:%s, error:", JSON.toJSONString(iotDeviceQueryDTO)), e);
         }
     }
 

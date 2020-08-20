@@ -24,16 +24,17 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "iot_dos_data_agg_type")
+@org.hibernate.annotations.Table(appliesTo = "iot_dos_data_agg_type", comment = "")
 public class IotDataAggType extends AbstractIotDosModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(columnDefinition = "int(20) comment '聚合类型唯一编码' ", name = "iot_dos_data_agg_type_id")
     private Long iotDataAggTypeId;
 
-    @Column(columnDefinition = " varchar(500) comment '聚合类型名称' ", nullable = false, name = "data_agg_type_name")
+    @Column(columnDefinition = " varchar(500) not null comment '聚合类型名称' ", nullable = false, name = "data_agg_type_name")
     private String dataAggTypeName;
 
-    @Column(columnDefinition = " varchar(500) comment '聚合类型代码' ", nullable = false, name = "data_agg_type_code")
+    @Column(columnDefinition = " varchar(500) not null comment '聚合类型代码' ", nullable = false, name = "data_agg_type_code")
     private String dataAggTypeCode;
 
     public Long getIotDataAggTypeId() {

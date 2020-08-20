@@ -20,14 +20,11 @@ public class FileStorageServiceImpl implements IFileStorageService {
 
     private Logger log = LoggerFactory.getLogger(FileStorageServiceImpl.class);
 
-    private static final List<String> FILE_SUFFIX_NAME = Lists.newArrayList("bmp", "jpg", "png", "jpeg", "gif");
+    private static final List<String> FILE_SUFFIX_NAME = Lists.newArrayList(".bmp", ".jpg", ".png", ".jpeg", ".gif");
 
-
-//    @Value("${fss.headPoint:http://localhost:${server.port}}")
-//    private String filePath;
-
-//    @Autowired
-//    private FilePathConfigure fileStore;
+    private static final String OS = System.getProperty("os.name").toLowerCase();
+    private static final String WINDOWS_FILE_PATH = "E:/upload/image/";
+    private static final String LINUX_FILE_PATH = "/upload/image/";
 
     @Override
     public String upload(MultipartFile file) {
@@ -37,10 +34,12 @@ public class FileStorageServiceImpl implements IFileStorageService {
             // 获取文件后缀名
             String suffixName = fullName.substring(fullName.lastIndexOf("."));
             // 保存文件路径，文件名
+            String fileFormat = DateTimeFormat.forPattern("yyyy-MM-dd").print(System.currentTimeMillis()) + "/" + fullName;
+            String filePath = OS.contains("windows") ? WINDOWS_FILE_PATH : LINUX_FILE_PATH;
             if (FILE_SUFFIX_NAME.contains(suffixName.toLowerCase())) {
-                fullName = "E:\\upload\\image\\" + DateTimeFormat.forPattern("yyyy-MM-dd").print(System.currentTimeMillis()) + "\\" + fullName;
+                fullName = filePath + fileFormat;
             } else {
-                fullName = "E:\\upload\\file\\" + DateTimeFormat.forPattern("yyyy-MM-dd").print(System.currentTimeMillis()) + "\\" + fullName;
+                fullName = filePath + fileFormat;
             }
             // 文件对象
             File dest = new File(fullName);
@@ -50,47 +49,11 @@ public class FileStorageServiceImpl implements IFileStorageService {
             }
             // 保存文件到本地
             file.transferTo(dest);
-            return fullName;
+            return fileFormat;
         } catch (Exception e) {
             log.error("文件上传异常", e);
             return null;
         }
     }
-
-//    @Override
-//    public ResultDTO<?> getFileWithDownload(String fileId, boolean inline) {
-//        ResultDTO result = ResultDTO.newFail("");
-//        if(StringUtils.isBlank(fileId)){
-//            result.setMsg(new ResponseEntity<>(JSON.toJSON(ResultDTO.newFail("Arg-fileId lost")), HttpStatus.INTERNAL_SERVER_ERROR));
-//            return result;
-//        }
-//
-//        File file = new File(fileId);
-//        if(file.exists()){
-//            try{
-//                HttpHeaders headers = new HttpHeaders();
-//                String downloadFielName = new String(model.getFileName().getBytes("UTF-8"),"iso-8859-1");
-//                if(inline){
-//                    headers.set(HttpHeaders.CONTENT_DISPOSITION,"inline; filename=" + downloadFielName);
-//                    headers.set(HttpHeaders.CONTENT_TYPE, ContentType.getContentType(model.getExtendName()) + ";charset=utf-8");
-//                }else{
-//                    headers.set(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=" + downloadFielName);
-//                    headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM.toString() + ";charset=utf-8");
-//                }
-//                return ResultDTO.newSuccess(new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
-//                        headers, HttpStatus.CREATED));
-//            } catch (UnsupportedEncodingException e) {
-//                log.error("encode error not found code : UTF-8" ,e);
-//                return ResultDTO.newSuccess(new ResponseEntity<>(JSON.toJSON(ResultDTO.newFail("encode error not found code : UTF-8")),HttpStatus.INTERNAL_SERVER_ERROR));
-//            } catch (IOException e) {
-//                log.error("File read error" ,e);
-//                return ResultDTO.newSuccess(new ResponseEntity<>(JSON.toJSON(ResultDTO.newFail("File read error")),HttpStatus.INTERNAL_SERVER_ERROR));
-//            }
-//
-//        }else{
-//            return ResultDTO.newSuccess(new ResponseEntity<>(JSON.toJSON(ResultDTO.newFail("file lost")),HttpStatus.OK));
-//        }
-//    }
-
 
 }

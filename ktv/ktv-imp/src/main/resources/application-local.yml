@@ -2,13 +2,19 @@ spring:
   redis:
     host: localhost
     port: 6379
+    timeout: 12000
+    jedis:
+      pool:
+        min-idle: 5
+        max-active: 200
+        max-idle: 200
 #
 spring.data.hbase.quorum: 10.77.1.247:2181,10.77.1.248:2181,10.77.1.249:2181
 spring.data.hbase.username: IOT
 #iot.GeoServer=http://web-GeoServer-vip
 #iot.spg.url=http://web-spgService-vip/spgService
 #
-eureka.client.service-url.defaultZone: http://mt-iotRegistry-1:8080/eureka/
+eureka.client.service-url.defaultZone: http://localhost:8761/eureka/
 iot:
   ktv:
     consumer:

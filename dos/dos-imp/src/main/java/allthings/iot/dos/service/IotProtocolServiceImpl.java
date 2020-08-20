@@ -209,7 +209,7 @@ public class IotProtocolServiceImpl implements IotProtocolService {
             if (iotProtocolFactorList.contains(iotProtocolFactor)) {
                 continue;
             } else {
-                iotProtocolFactor.setDeleted(true);
+                iotProtocolFactor.setIsDeleted(true);
 //                iotProtocolFactor.setOperator(operator);
             }
         }
@@ -263,7 +263,7 @@ public class IotProtocolServiceImpl implements IotProtocolService {
     @Override
     public ResultDTO<IotProtocolDetailDTO> getIotProtocolDetail(Long iotProtocolId) {
         IotProtocol iotProtocol = iotProtocolDao.getByIotProtocolId(iotProtocolId);
-        if (iotProtocol.isDeleted()) {
+        if (iotProtocol.getIsDeleted()) {
             LOGGER.error("{},protocol id is {}", ErrorCode.ERROR_7005.getMessage(), iotProtocolId);
             return ResultDTO.newFail(ErrorCode.ERROR_7005.getCode(),
                     ErrorCode.ERROR_7005.getMessage());

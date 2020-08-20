@@ -1,7 +1,7 @@
 spring.datasource.driver-class-name: com.mysql.jdbc.Driver
-spring.datasource.url: jdbc:mysql://db-mycat-vip:8066/cm_iotdos?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
-spring.datasource.username: admin
-spring.datasource.password: 9MeRMf7b15SvsjLpQFtB
+spring.datasource.url: jdbc:mysql://localhost:3306/dos?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
+spring.datasource.username: root
+spring.datasource.password: 123456
 eureka.client.service-url.defaultZone: http://localhost:8761/eureka/
 service.name: iotDosBiz
 upload:
@@ -14,3 +14,24 @@ spring:
     timeout: 12000
     lettuce:
       shutdown-timeout: 12000ms
+    jedis:
+      pool:
+        max-active: 200
+        max-idle: 200
+        min-idle: 100
+
+iot:
+  dos:
+    sms:
+      templateCode: SMS_199217681
+      signName: 陶小店
+
+allthings:
+  iot:
+    sms:
+      RegionId: cn-hangzhou
+      accessKeyId: LTAI4GFSfopUnxHA5whcvcDG
+      accessSecret: DQvHN9fML2myVRaxEef0wTybkjtxzT
+      validPeriod: 30
+      domain: dysmsapi.aliyuncs.com
+      version: 2017-05-25

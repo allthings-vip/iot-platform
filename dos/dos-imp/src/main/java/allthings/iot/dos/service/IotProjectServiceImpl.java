@@ -517,7 +517,7 @@ public class IotProjectServiceImpl implements IotProjectService {
         clientDetails.setScope("read,write");
         clientDetails.setAutoApprove("true");
         clientDetails.setCreateOperatorId(createOperatorId);
-        clientDetails.setDeleted(false);
+        clientDetails.setIsDeleted(false);
 
         iotOauthClientDetailsDao.saveAndFlush(clientDetails);
     }

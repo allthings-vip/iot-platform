@@ -123,7 +123,7 @@ public class RpcOauth2ServiceImpl implements RpcOauth2Service {
         iotOauthAccessToken.setCreateOperatorId(RoleCode.CREATE_OPERATOR_ID);
         iotOauthAccessToken.setModifyOperatorId(RoleCode.CREATE_OPERATOR_ID);
         iotOauthAccessToken.setInputDate(new Date());
-        iotOauthAccessToken.setDeleted(false);
+        iotOauthAccessToken.setIsDeleted(false);
 
         iotOauthAccessTokenService.saveIotOauthAccessToken(iotOauthAccessToken);
 
@@ -138,7 +138,7 @@ public class RpcOauth2ServiceImpl implements RpcOauth2Service {
         iotOauthRefreshToken.setTokenId(refreshTokenDTO.getTokenId());
         iotOauthRefreshToken.setCreateOperatorId(RoleCode.CREATE_OPERATOR_ID);
         iotOauthRefreshToken.setInputDate(new Date());
-        iotOauthRefreshToken.setDeleted(false);
+        iotOauthRefreshToken.setIsDeleted(false);
 
         iotOauthRefreshTokenService.saveIotOauthRefreshToken(iotOauthRefreshToken);
 
@@ -205,7 +205,7 @@ public class RpcOauth2ServiceImpl implements RpcOauth2Service {
         BeanUtils.copyProperties(oauthCodeDTO, iotOauthCode);
         iotOauthCode.setCreateOperatorId(RoleCode.CREATE_OPERATOR_ID);
         iotOauthCode.setInputDate(new Date());
-        iotOauthCode.setDeleted(false);
+        iotOauthCode.setIsDeleted(false);
         iotAuthorizationCodeService.saveOauthCode(iotOauthCode);
 
         return ResultDTO.newSuccess(null);

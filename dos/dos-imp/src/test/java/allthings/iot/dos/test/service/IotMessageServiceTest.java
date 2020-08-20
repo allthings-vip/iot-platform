@@ -23,7 +23,8 @@ public class IotMessageServiceTest {
     @Test
     public void sendMsgCode() {
         IotMessageManagerDTO messageDto = new IotMessageManagerDTO();
-        messageDto.setMobileNumber("13857870095");
+//        messageDto.setMobileNumber("13857870095");
+        messageDto.setMobileNumber("19906792962");
         ResultDTO<Integer> resultDTO = messageService.sendMessageCode(messageDto);
         System.out.println(resultDTO.toString());
     }
