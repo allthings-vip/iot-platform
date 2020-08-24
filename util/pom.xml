@@ -35,18 +35,4 @@
         <module>util-sms</module>
     </modules>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka-clients</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.rocketmq</groupId>
-                <artifactId>rocketmq-client</artifactId>
-                <version>3.6.2.Final</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

@@ -19,7 +19,6 @@
         <dependency>
             <groupId>com.baidubce</groupId>
             <artifactId>bce-java-sdk</artifactId>
-            <version>0.10.24</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

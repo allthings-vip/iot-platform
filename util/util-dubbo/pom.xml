@@ -21,7 +21,6 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
-            <version>2.5.3</version>
             <exclusions>
                 <exclusion>
                     <artifactId>spring</artifactId>
@@ -32,7 +31,6 @@
         <dependency>
             <groupId>com.101tec</groupId>
             <artifactId>zkclient</artifactId>
-            <version>0.10</version>
         </dependency>
     </dependencies>
 </project>

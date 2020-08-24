@@ -3,6 +3,7 @@ package allthings.iot.util.sms;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+@Configuration
 @ConfigurationProperties(prefix = "allthings.iot.sms")
 public class SmsProperties {
     /**
